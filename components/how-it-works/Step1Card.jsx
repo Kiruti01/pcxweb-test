@@ -143,7 +143,7 @@ const Step1Card = () => {
             color: "var(--text-1000)",
           }}
         >
-          Sign up & create your organisation
+          Sign up & Create your Organisation
         </h3>
         <p
           style={{

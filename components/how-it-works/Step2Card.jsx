@@ -155,7 +155,7 @@ const Step2Card = () => {
             color: "var(--text-1000)",
           }}
         >
-          Verify email & explore
+          Verify Email & Explore Platform Features
         </h3>
         <p
           style={{
