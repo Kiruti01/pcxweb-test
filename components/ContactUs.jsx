@@ -25,7 +25,7 @@ const ContactUs = () => {
   const InfoBlocks = () => (
     <>
       <div>
-        <p className="font-mono text-[10px] font-bold tracking-[0.15em] uppercase text-[#A0AEC0] mb-2">
+        <p className="font-mono text-[13px] font-bold tracking-[0.15em] uppercase text-[#A0AEC0] mb-2">
           Email Address
         </p>
         <a
@@ -37,7 +37,7 @@ const ContactUs = () => {
         </a>
       </div>
       <div>
-        <p className="font-mono text-[10px] font-bold tracking-[0.15em] uppercase text-[#A0AEC0] mb-2">
+        <p className="font-mono text-[13px] font-bold tracking-[0.15em] uppercase text-[#A0AEC0] mb-2">
           Address
         </p>
         <span className="font-mono text-sm text-[#13161A] dark:text-white/90 leading-7">
@@ -49,7 +49,7 @@ const ContactUs = () => {
         </span>
       </div>
       <div>
-        <p className="font-mono text-[10px] font-bold tracking-[0.15em] uppercase text-[#A0AEC0] mb-2">
+        <p className="font-mono text-[13px] font-bold tracking-[0.15em] uppercase text-[#A0AEC0] mb-2">
           Socials
         </p>
         <a
@@ -65,7 +65,7 @@ const ContactUs = () => {
         </a>
       </div>
       <div>
-        <p className="font-mono text-[10px] font-bold tracking-[0.15em] uppercase text-[#A0AEC0] mb-2">
+        <p className="font-mono text-[13px] font-bold tracking-[0.15em] uppercase text-[#A0AEC0] mb-2">
           Regulatory Credentials
         </p>
         <span className="font-mono text-sm text-[#13161A] dark:text-white/90 leading-7">
@@ -78,7 +78,7 @@ const ContactUs = () => {
   const inputClass =
     "w-full p-4 rounded-[10px] border border-[rgba(210,218,230,0.6)] dark:border-white/10 bg-[rgba(230,232,238,0.4)] dark:bg-white/[0.08] font-mono text-sm text-[#13161A] dark:text-white/90 outline-none transition-all duration-200 placeholder:text-[#B8C4D0] dark:placeholder:text-white/30 hover:border-[rgba(29,94,255,0.28)] focus:border-[#1D5EFF] focus:bg-white/85 dark:focus:bg-white/[0.12] focus:shadow-[0_0_0_3px_rgba(29,94,255,0.1)]";
   const labelClass =
-    "block font-mono text-[10px] font-bold tracking-[0.14em] uppercase text-[#A0AEC0] dark:text-white/40 mb-1.5";
+    "block font-mono text-[13px] font-bold tracking-[0.14em] uppercase text-[#A0AEC0] dark:text-white/40 mb-1.5";
 
   const FormFields = ({ rows = 8 }) => (
     <>
