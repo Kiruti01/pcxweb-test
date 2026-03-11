@@ -1,12 +1,70 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
+const inputClass =
+  "w-full p-4 rounded-[10px] border border-[rgba(210,218,230,0.6)] dark:border-white/10 bg-[rgba(230,232,238,0.4)] dark:bg-white/[0.08] font-mono text-sm text-[#13161A] dark:text-white/90 outline-none transition-all duration-200 placeholder:text-[#B8C4D0] dark:placeholder:text-white/30 hover:border-[rgba(29,94,255,0.28)] focus:border-[#1D5EFF] focus:bg-white/85 dark:focus:bg-white/[0.12] focus:shadow-[0_0_0_3px_rgba(29,94,255,0.1)]";
+const labelClass =
+  "block font-mono text-[13px] font-bold tracking-[0.14em] uppercase text-[#A0AEC0] dark:text-white/40 mb-1.5";
+
+const InfoBlocks = () => (
+  <>
+    <div>
+      <p className="font-mono text-[13px] font-bold tracking-[0.15em] uppercase text-[#A0AEC0] mb-2">
+        Email Address
+      </p>
+      <a
+        href="mailto:info@pcxpay.com"
+        className="font-mono text-sm text-[#13161A] dark:text-white/90 leading-7 hover:text-[#1D5EFF] transition-colors duration-200"
+        style={{ textDecoration: "none" }}
+      >
+        info@pcxpay.com
+      </a>
+    </div>
+    <div>
+      <p className="font-mono text-[13px] font-bold tracking-[0.15em] uppercase text-[#A0AEC0] mb-2">
+        Address
+      </p>
+      <span className="font-mono text-sm text-[#13161A] dark:text-white/90 leading-7">
+        Office 10510C, 92 Castle Street,
+        <br />
+        Area 1/1, Belfast, Northern
+        <br />
+        Ireland, BT1 1HE
+      </span>
+    </div>
+    <div>
+      <p className="font-mono text-[13px] font-bold tracking-[0.15em] uppercase text-[#A0AEC0] mb-2">
+        Socials
+      </p>
+      <a
+        href="https://linkedin.com/company/pcxpay"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="rounded-full bg-[#13161A] flex items-center justify-center transition-all duration-200 hover:bg-[#1D5EFF] hover:-translate-y-0.5 hover:shadow-[0_6px_18px_rgba(29,94,255,0.35)]"
+        style={{ width: 40, height: 40 }}
+      >
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="white">
+          <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 6a2 2 0 100-4 2 2 0 000 4z" />
+        </svg>
+      </a>
+    </div>
+    <div>
+      <p className="font-mono text-[13px] font-bold tracking-[0.15em] uppercase text-[#A0AEC0] mb-2">
+        Regulatory Credentials
+      </p>
+      <span className="font-mono text-sm text-[#13161A] dark:text-white/90 leading-7">
+        {"FCA, FINTRAC & CBN Authorised"}
+      </span>
+    </div>
+  </>
+);
 
 const ContactUs = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
   const [isDark, setIsDark] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const mq = window.matchMedia("(prefers-color-scheme: dark)");
     setIsDark(mq.matches);
     const handler = (e) => setIsDark(e.matches);
@@ -22,65 +80,7 @@ const ContactUs = () => {
     setSubmitted(true);
   };
 
-  const InfoBlocks = () => (
-    <>
-      <div>
-        <p className="font-mono text-[13px] font-bold tracking-[0.15em] uppercase text-[#A0AEC0] mb-2">
-          Email Address
-        </p>
-        <a
-          href="mailto:info@pcxpay.com"
-          className="font-mono text-sm text-[#13161A] dark:text-white/90 leading-7 hover:text-[#1D5EFF] transition-colors duration-200"
-          style={{ textDecoration: "none" }}
-        >
-          info@pcxpay.com
-        </a>
-      </div>
-      <div>
-        <p className="font-mono text-[13px] font-bold tracking-[0.15em] uppercase text-[#A0AEC0] mb-2">
-          Address
-        </p>
-        <span className="font-mono text-sm text-[#13161A] dark:text-white/90 leading-7">
-          Office 10510C, 92 Castle Street,
-          <br />
-          Area 1/1, Belfast, Northern
-          <br />
-          Ireland, BT1 1HE
-        </span>
-      </div>
-      <div>
-        <p className="font-mono text-[13px] font-bold tracking-[0.15em] uppercase text-[#A0AEC0] mb-2">
-          Socials
-        </p>
-        <a
-          href="https://linkedin.com/company/pcxpay"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="rounded-full bg-[#13161A] flex items-center justify-center transition-all duration-200 hover:bg-[#1D5EFF] hover:-translate-y-0.5 hover:shadow-[0_6px_18px_rgba(29,94,255,0.35)]"
-          style={{ width: 40, height: 40 }}
-        >
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="white">
-            <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 6a2 2 0 100-4 2 2 0 000 4z" />
-          </svg>
-        </a>
-      </div>
-      <div>
-        <p className="font-mono text-[13px] font-bold tracking-[0.15em] uppercase text-[#A0AEC0] mb-2">
-          Regulatory Credentials
-        </p>
-        <span className="font-mono text-sm text-[#13161A] dark:text-white/90 leading-7">
-          FCA, FINTRAC & CBN Authorised
-        </span>
-      </div>
-    </>
-  );
-
-  const inputClass =
-    "w-full p-4 rounded-[10px] border border-[rgba(210,218,230,0.6)] dark:border-white/10 bg-[rgba(230,232,238,0.4)] dark:bg-white/[0.08] font-mono text-sm text-[#13161A] dark:text-white/90 outline-none transition-all duration-200 placeholder:text-[#B8C4D0] dark:placeholder:text-white/30 hover:border-[rgba(29,94,255,0.28)] focus:border-[#1D5EFF] focus:bg-white/85 dark:focus:bg-white/[0.12] focus:shadow-[0_0_0_3px_rgba(29,94,255,0.1)]";
-  const labelClass =
-    "block font-mono text-[13px] font-bold tracking-[0.14em] uppercase text-[#A0AEC0] dark:text-white/40 mb-1.5";
-
-  const FormFields = ({ rows = 8 }) => (
+  const renderFormFields = (rows = 8) => (
     <>
       <div>
         <label className={labelClass}>Name</label>
@@ -169,32 +169,25 @@ const ContactUs = () => {
             <div className="hidden md:block">
               <div className="bg-white/22 backdrop-blur-md border border-white/35 rounded-3xl p-[80px_64px_120px] max-lg:p-[60px_40px_80px]">
                 <div className="flex gap-16 items-start">
-                  {/* Left — info */}
                   <div className="w-56 shrink-0 flex flex-col gap-9">
                     <InfoBlocks />
                   </div>
-
-                  {/* Vertical divider */}
                   <div className="w-px self-stretch shrink-0 bg-gradient-to-b from-transparent via-[rgba(29,94,255,0.15)] to-transparent" />
-
-                  {/* Right — form */}
                   <form
                     onSubmit={handleSubmit}
                     className="flex-1 flex flex-col gap-5"
                   >
-                    <FormFields rows={8} />
+                    {renderFormFields(8)}
                   </form>
                 </div>
               </div>
             </div>
 
-            {/* ── MOBILE: no glass card, form first, dashed info box below ── */}
+            {/* ── MOBILE ── */}
             <div className="md:hidden flex flex-col gap-6">
               <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-                <FormFields rows={6} />
+                {renderFormFields(6)}
               </form>
-
-              {/* Dashed info box — same bg as input fields */}
               <div
                 className="rounded-2xl p-6 flex flex-col gap-7"
                 style={{
