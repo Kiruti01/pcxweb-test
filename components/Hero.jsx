@@ -115,7 +115,7 @@ const Hero = () => {
 
       {/* Partners */}
       <div className="relative z-3 bg-white py-12 text-center overflow-hidden max-md:py-10 max-md:px-6">
-        <p className="font-mono text-[13px] font-medium text-[#657688] uppercase tracking-[0.06em] mb-8 px-5">
+        <p className="font-bold font-mono text-[13px] text-[#657688] uppercase tracking-[0.06em] mb-8 px-5">
           TRUSTED BY LEADING FINANCIAL INSTITUTIONS
         </p>
 
@@ -133,7 +133,7 @@ const Hero = () => {
           </div>
         </div>
 
-        <p className="font-mono text-[13px] font-medium text-[#657688] uppercase tracking-[0.06em] mt-12 mb-8 px-5">
+        <p className="font-mono text-[13px] font-bold text-[#657688] uppercase tracking-[0.06em] mt-12 mb-8 px-5">
           BUSINESSES USING PCX TO MOVE MONEY GLOBALLY
         </p>
 
