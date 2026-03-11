@@ -1,29 +1,31 @@
+"use client";
 import React from "react";
 import Link from "next/link";
-
-const companyLinks = [
-  { label: "Home", href: "/" },
-  { label: "About Us", href: "/about" },
-  {
-    label: "API Docs",
-    href: "https://apiaws.docs.apiary.io/#",
-    external: true,
-  },
-  { label: "Blog", href: "/blog" },
-];
-
-const productLinks = [
-  { label: "Cross Border Payment", href: "/cross-border-payments" },
-  { label: "Embedded Finance", href: "/embedded-finance" },
-];
-
-const policyLinks = [
-  { label: "Privacy Policy", href: "#privacy" },
-  { label: "Terms and Conditions", href: "/terms_and_conditions" },
-  { label: "Security Policy", href: "#security" },
-];
+import { usePathname } from "next/navigation";
 
 const Footer = () => {
+  const pathname = usePathname();
+  const companyLinks = [
+    { label: "Home", href: pathname === "/" ? "#top" : "/" },
+    { label: "About Us", href: "/about" },
+    {
+      label: "API Docs",
+      href: "https://apiaws.docs.apiary.io/#",
+      external: true,
+    },
+    { label: "Blog", href: "/blog" },
+  ];
+
+  const productLinks = [
+    { label: "Cross Border Payment", href: "/cross-border-payments" },
+    { label: "Embedded Finance", href: "/embedded-finance" },
+  ];
+
+  const policyLinks = [
+    { label: "Privacy Policy", href: "#privacy" },
+    { label: "Terms and Conditions", href: "/terms_and_conditions" },
+    { label: "Security Policy", href: "#security" },
+  ];
   return (
     <footer className="w-full relative bg-white dot-grid-blue overflow-hidden">
       {/* Background overlay */}
