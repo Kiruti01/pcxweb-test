@@ -46,9 +46,14 @@ const CrossBorder = () => {
             that legacy providers cannot support.
           </p>
 
-          <button className="transition-all duration-200 hover:bg-[#1550e0] hover:-translate-y-0.5 hover:shadow-[0_6px_24px_rgba(29,94,255,0.38)] active:translate-y-0 active:shadow-[0_2px_8px_rgba(29,94,255,0.2)] bg-blue-600 text-white px-8 py-4 max-md:px-6 max-md:py-3 rounded-lg font-bold text-lg max-md:text-sm border-none max-md:w-52">
+          <a
+            href="https://platform.pcxpay.com/signup"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="transition-all duration-200 hover:bg-[#1550e0] hover:-translate-y-0.5 hover:shadow-[0_6px_24px_rgba(29,94,255,0.38)] active:translate-y-0 active:shadow-[0_2px_8px_rgba(29,94,255,0.2)] w-full max-w-66.5 max-md:max-w-56 h-15.25 max-md:h-12 bg-[#1D5EFF] text-white my-8 max-md:my-6 rounded-md font-mono font-medium text-base max-md:text-sm border-none inline-flex items-center justify-center"
+          >
             Get Started
-          </button>
+          </a>
         </div>
 
         {/* Right — live converter */}
