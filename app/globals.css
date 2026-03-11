@@ -1145,3 +1145,71 @@ html.dark .api-text-section  { background-color: #0a1020 !important; }
 html {
   scroll-behavior: smooth;
 }
+
+/* ════════════════════════════════════════════
+   DARK — FOOTER
+   ════════════════════════════════════════════ */
+
+html.dark footer {
+  background-color: #070D1A !important;
+  background-image: radial-gradient(circle, rgba(29,94,255,0.07) 1px, transparent 1px) !important;
+}
+
+/* Background overlay tint */
+html.dark footer .absolute.inset-0 {
+  background: linear-gradient(174deg, rgba(7,13,26,0) 5.25%, rgba(7,13,26,0.5) 53.62%, rgba(7,13,26,0.75) 78.27%, #070D1A 102.91%) !important;
+}
+
+/* Legal text */
+html.dark footer p.text-\[\#3E4953\] {
+  color: #718096 !important;
+}
+
+/* Section headings: COMPANY, PRODUCT, SOCIALS */
+html.dark footer h4.text-\[\#13161A\] {
+  color: #F0F4F8 !important;
+}
+
+/* Nav links */
+html.dark footer a.text-\[\#3E4953\],
+html.dark footer .text-\[\#3E4953\] {
+  color: #A0AEC0 !important;
+}
+html.dark footer a:hover.text-\[\#3E4953\] {
+  color: #5B8AFF !important;
+}
+
+/* LinkedIn icon background */
+html.dark footer circle[fill="#131927"] {
+  fill: #1e293b !important;
+}
+
+/* Divider */
+html.dark footer .bg-\[\#B9B7B7\] {
+  background-color: rgba(255,255,255,0.08) !important;
+}
+
+/* Copyright text */
+html.dark footer span.text-\[\#13161A\] {
+  color: #A0AEC0 !important;
+}
+
+/* Copyright icon strokes */
+html.dark footer svg path[stroke="#131927"],
+html.dark footer svg path[stroke="#13161A"] {
+  stroke: #A0AEC0 !important;
+}
+
+/* Policy links */
+html.dark footer .text-\[\#13161A\].font-mono {
+  color: #A0AEC0 !important;
+}
+html.dark footer .bg-\[\#D0CFCF\] {
+  background-color: rgba(255,255,255,0.1) !important;
+}
+
+/* Watermark logo */
+html.dark footer img[src="/PCXLogo.svg"] {
+  filter: brightness(0.4) saturate(0.5) !important;
+  opacity: 0.12 !important;
+}
