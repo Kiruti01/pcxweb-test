@@ -24,9 +24,9 @@ const storyCards = [
     body: "PCX was incubated at MyDevConnect with a simple goal: solve payments for one client perfectly, then scale that solution globally.",
     image: "/infra.svg",
     bullets: [
-      "Processed millions in cross-border payments",
+      "Processed millions in cross-border payments.",
       "Secured partnerships with Circle, Bridge and Yellow Card.",
-      "Built a distributed engineering team across 6 countries",
+      "Built a distributed engineering team across 6 countries.",
     ],
   },
 ];
