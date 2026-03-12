@@ -15,7 +15,8 @@ export async function GET(req, { params }) {
     if (!post)
       return NextResponse.json({ message: "Not found" }, { status: 404 });
     return NextResponse.json({ post });
-  } catch {
+  } catch (err) {
+    console.error("[posts/id/GET]", err.message, err.stack);
     return NextResponse.json({ message: "Server error" }, { status: 500 });
   }
 }
@@ -33,6 +34,7 @@ export async function PUT(req, { params }) {
     const post = await Post.findByIdAndUpdate(id, body, { new: true });
     return NextResponse.json({ post });
   } catch (err) {
+    console.error("[posts/id/PUT]", err.message, err.stack);
     return NextResponse.json({ message: err.message }, { status: 500 });
   }
 }
@@ -49,6 +51,7 @@ export async function DELETE(req, { params }) {
     await Post.findByIdAndDelete(id);
     return NextResponse.json({ message: "Deleted" });
   } catch (err) {
+    console.error("[posts/id/DELETE]", err.message, err.stack);
     return NextResponse.json({ message: err.message }, { status: 500 });
   }
 }

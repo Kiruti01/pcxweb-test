@@ -16,7 +16,8 @@ export async function GET(req) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });
 
     return NextResponse.json({ user });
-  } catch {
+  } catch (err) {
+    console.error("[auth/me/GET]", err.message, err.stack);
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
   }
 }

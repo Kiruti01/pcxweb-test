@@ -25,7 +25,8 @@ export async function GET(req) {
       page,
       pages: Math.ceil(total / limit),
     });
-  } catch {
+  } catch (err) {
+    console.error("[posts/GET]", err.message, err.stack);
     return NextResponse.json({ message: "Server error" }, { status: 500 });
   }
 }
@@ -42,6 +43,7 @@ export async function POST(req) {
     const post = await Post.create({ ...body, author: decoded.id });
     return NextResponse.json({ post }, { status: 201 });
   } catch (err) {
+    console.error("[posts/POST]", err.message, err.stack);
     return NextResponse.json({ message: err.message }, { status: 500 });
   }
 }

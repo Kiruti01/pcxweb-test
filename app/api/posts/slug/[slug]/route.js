@@ -13,7 +13,8 @@ export async function GET(req, { params }) {
     if (!post)
       return NextResponse.json({ message: "Not found" }, { status: 404 });
     return NextResponse.json({ post });
-  } catch {
+  } catch (err) {
+    console.error("[posts/slug/GET]", err.message, err.stack);
     return NextResponse.json({ message: "Server error" }, { status: 500 });
   }
 }
