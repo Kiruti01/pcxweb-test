@@ -945,12 +945,12 @@ html.dark section.bg-\[\#F8FAFF\] { background: #0a1020 !important; }
    ════════════════════════════════════════════ */
 
 html.dark .story-card {
-  background: rgba(15,24,41,0.85) !important;
-  border-color: rgba(255,255,255,0.06) !important;
+  background: #111827 !important;
+  border-color: rgba(255,255,255,0.08) !important;
 }
 html.dark .story-card:hover {
-  background: rgba(20,32,56,0.95) !important;
-  border-color: rgba(91,138,255,0.2) !important;
+  background: #162236 !important;
+  border-color: rgba(91,138,255,0.25) !important;
 }
 html.dark .story-card-title { color: #E2E8F0 !important; }
 html.dark .story-card:hover .story-card-title { color: #5B8AFF !important; }

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 
-const GRID_PER_PAGE = 10;
+const GRID_PER_PAGE = 6;
 
 const fmtDate = (d) =>
   new Date(d).toLocaleDateString("en-GB", {
@@ -194,69 +194,62 @@ const Pagination = ({ page, total, perPage, onChange }) => {
   const totalPages = Math.ceil(total / perPage);
   if (totalPages <= 1) return null;
 
-  const PgBtn = ({ value, active, disabled, children }) => (
-    <button
-      onClick={() => !disabled && onChange(value)}
-      disabled={disabled}
-      className="w-8 h-8 flex items-center justify-center rounded-full font-mono text-xs font-bold border-none transition-all duration-200"
-      style={{
-        background: active ? "#1D5EFF" : "transparent",
-        color: active ? "white" : disabled ? "#D0D5DD" : "#657688",
-        cursor: disabled ? "not-allowed" : "pointer",
-        boxShadow: active ? "0 4px 12px rgba(29,94,255,0.28)" : "none",
-      }}
-      onMouseEnter={(e) => {
-        if (!active && !disabled) {
-          e.currentTarget.style.background = "rgba(29,94,255,0.08)";
-          e.currentTarget.style.color = "#1D5EFF";
-        }
-      }}
-      onMouseLeave={(e) => {
-        if (!active && !disabled) {
-          e.currentTarget.style.background = "transparent";
-          e.currentTarget.style.color = "#657688";
-        }
-      }}
-    >
-      {children}
-    </button>
-  );
-
   return (
     <div
       className="flex items-center justify-between pt-6 mt-6"
       style={{ borderTop: "1px solid rgba(29,94,255,0.07)" }}
     >
-      <div className="flex items-center gap-0.5">
+      {/* Page numbers — left */}
+      <div className="flex items-center gap-1">
         {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
-          <PgBtn key={p} value={p} active={p === page}>
+          <button
+            key={p}
+            onClick={() => onChange(p)}
+            className="w-8 h-8 flex items-center justify-center rounded-full font-mono text-xs font-bold border-none transition-all duration-200"
+            style={{
+              background: p === page ? "#1D5EFF" : "transparent",
+              color: p === page ? "white" : "#657688",
+              cursor: "pointer",
+              boxShadow: p === page ? "0 4px 12px rgba(29,94,255,0.28)" : "none",
+            }}
+          >
             {p}
-          </PgBtn>
+          </button>
         ))}
       </div>
-      <div className="flex items-center gap-1">
-        <PgBtn value={page - 1} disabled={page === 1}>
+
+      {/* Prev / Next — right */}
+      <div className="flex items-center gap-2">
+        <button
+          onClick={() => page > 1 && onChange(page - 1)}
+          disabled={page === 1}
+          className="w-10 h-10 flex items-center justify-center rounded-full border-none transition-all duration-200"
+          style={{
+            background: "rgba(0,0,0,0.06)",
+            color: page === 1 ? "#C0C8D4" : "#657688",
+            cursor: page === 1 ? "not-allowed" : "pointer",
+          }}
+        >
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <path
-              d="M9 3L5 7l4 4"
-              stroke="currentColor"
-              strokeWidth="1.6"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
+            <path d="M9 3L5 7l4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-        </PgBtn>
-        <PgBtn value={page + 1} disabled={page === totalPages}>
+        </button>
+        <button
+          onClick={() => page < totalPages && onChange(page + 1)}
+          disabled={page === totalPages}
+          className="w-10 h-10 flex items-center justify-center rounded-full border-none transition-all duration-200"
+          style={{
+            background: "#1D5EFF",
+            color: "white",
+            cursor: page === totalPages ? "not-allowed" : "pointer",
+            opacity: page === totalPages ? 0.4 : 1,
+            boxShadow: page < totalPages ? "0 4px 14px rgba(29,94,255,0.35)" : "none",
+          }}
+        >
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <path
-              d="M5 3l4 4-4 4"
-              stroke="currentColor"
-              strokeWidth="1.6"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
+            <path d="M5 3l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-        </PgBtn>
+        </button>
       </div>
     </div>
   );
@@ -278,8 +271,6 @@ export default function BlogIndex({ posts = [] }) {
   );
   const firstRow = gridSlice.slice(0, 3);
   const secondRow = gridSlice.slice(3, 6);
-  const thirdRow = gridSlice.slice(6, 9);
-  const fourthRow = gridSlice.slice(9, 10);
 
   return (
     <>
@@ -351,22 +342,6 @@ export default function BlogIndex({ posts = [] }) {
             {secondRow.length > 0 && (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-8">
                 {secondRow.map((p) => (
-                  <GridCard key={p._id} post={p} />
-                ))}
-              </div>
-            )}
-
-            {thirdRow.length > 0 && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-8">
-                {thirdRow.map((p) => (
-                  <GridCard key={p._id} post={p} />
-                ))}
-              </div>
-            )}
-
-            {fourthRow.length > 0 && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                {fourthRow.map((p) => (
                   <GridCard key={p._id} post={p} />
                 ))}
               </div>
