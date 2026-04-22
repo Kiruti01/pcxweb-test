@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import EmbeddedFinance from "@/components/EmbeddedFinance";
+import HowItWorks from "@/components/Howitworks";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 
@@ -11,6 +12,7 @@ export default function EmbeddedFinancePage() {
       <Header />
       <main>
         <EmbeddedFinance />
+        <HowItWorks />
       </main>
       <CTASection />
       <Footer />

@@ -8,16 +8,16 @@ const Features = () => {
         <div className="text-center mb-20 max-md:mb-10">
           <h2 className="font-inter font-bold m-0 mb-8 max-md:mb-5 flex flex-col items-center gap-1">
             <span className="mt-12 max-md:mt-4 text-[32px] leading-[1.3] text-[#2A3239] font-bold max-lg:text-2xl max-md:text-lg max-[480px]:text-base">
-              A Fully Integrated Service Platform For
+              A Fully Integrated Platform for
             </span>
             <span className="text-[64px] leading-[1.2] bg-linear-to-r from-[#847AFF] to-[#086FFF] bg-clip-text text-transparent max-lg:text-5xl max-md:text-[28px] max-md:leading-[1.25] max-[480px]:text-2xl">
               Moving Money Globally
             </span>
           </h2>
           <p className="font-mono text-xl font-normal leading-8 text-[#3E4953] max-w-236.25 mx-auto max-md:text-sm max-md:leading-5.5">
-            Our Platform unifies stablecoins, and traditional rails into one
-            seamless infrastructure, so business can move money faster, cheaper
-            and more reliably.
+            Our platform unifies stablecoins and traditional rails into one
+            seamless infrastructure, so businesses can move money faster,
+            cheaper, and more reliably.
           </p>
         </div>
 
@@ -30,10 +30,10 @@ const Features = () => {
                   Cross-border Payments
                 </h3>
                 <p className="font-mono text-base font-normal leading-6 text-[#3E4953] m-0 max-md:text-sm max-md:leading-5.5">
-                  Stop losing money to correspondent banks. Our Stable coin
-                  rails and Lightning integration eliminates 3-5% fees while our
-                  optimisation engine makes even €0.50 micro-transactions
-                  profit.
+                  Stop losing money to correspondent banks. Our stablecoin
+                  rails and Lightning integration eliminate the 3–5%
+                  correspondent fees, while our optimisation engine makes even
+                  €0.50 micro-transactions profitable.
                 </p>
               </div>
             </div>
@@ -46,8 +46,8 @@ const Features = () => {
                   Embedded Finance
                 </h3>
                 <p className="font-mono text-base font-normal leading-6 text-[#3E4953] m-0 max-md:text-sm max-md:leading-5.5">
-                  Every platform needs to process payment. Not every platform
-                  should build the tech behind it. Embed global payment
+                  Every platform needs to process payments. Not every platform
+                  should build the infrastructure behind it. Embed global payment
                   capabilities with a single integration. We handle the
                   complexity — you keep your focus.
                 </p>
@@ -72,7 +72,7 @@ const Features = () => {
               Get Started
             </a>
             <a
-              href="https://apiaws.docs.apiary.io/#"
+              href="https://docs.pcxpay.com/"
               target="_blank"
               rel="noopener noreferrer"
               className="transition-all duration-200 hover:border-[rgba(29,94,255,0.35)] hover:bg-[rgba(29,94,255,0.14)] hover:-translate-y-0.5 hover:shadow-[0_4px_16px_rgba(29,94,255,0.1)] active:translate-y-0 flex py-5 px-10 justify-center items-center gap-2 rounded-lg border border-[rgba(29,94,255,0.16)] bg-[rgba(29,94,255,0.08)] text-[#1D5EFF] font-mono text-base font-medium whitespace-nowrap max-md:py-3.5 max-md:px-6 max-md:text-sm no-underline"

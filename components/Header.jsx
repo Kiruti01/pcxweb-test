@@ -45,7 +45,7 @@ const productLinks = [
 const navLinks = [
   { href: "#products", label: "Products", type: "dropdown" },
   {
-    href: "https://apiaws.docs.apiary.io/#",
+    href: "https://docs.pcxpay.com/",
     label: "API Docs",
     type: "external",
   },

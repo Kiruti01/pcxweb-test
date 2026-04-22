@@ -24,7 +24,7 @@ const APIText = () => {
           in financial services.
         </p>
         <a
-          href="https://apiaws.docs.apiary.io/#"
+          href="https://docs.pcxpay.com/"
           target="_blank"
           rel="noopener noreferrer"
           className="hiw-btn-primary inline-flex items-center gap-2 bg-[#1D5EFF] text-white font-mono text-sm font-semibold px-6 py-3 rounded-full border-none shadow-[0_4px_20px_rgba(29,94,255,0.32)] no-underline transition-all duration-200 hover:bg-[#1550e0] hover:-translate-y-0.5 hover:shadow-[0_8px_28px_rgba(29,94,255,0.44)]"

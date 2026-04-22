@@ -23,14 +23,14 @@ const ctaCards = [
   {
     title: "For Developers",
     label: "Check the API Docs",
-    href: "https://apiaws.docs.apiary.io/#",
+    href: "https://docs.pcxpay.com/",
     external: true,
   },
   {
     title: "For Platforms",
     label: "Start Embedding",
-    href: "https://platform.pcxpay.com/signup",
-    external: true,
+    href: "/embedded-finance",
+    external: false,
   },
   {
     title: "For Enterprises",
@@ -56,22 +56,18 @@ const CTASection = () => {
           </p>
 
           <div className="flex items-center gap-4 max-md:flex-col max-md:w-full max-md:gap-3">
-            <a
-              href="https://platform.pcxpay.com/signup"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/cross-border-payments"
               className="transition-all duration-200 hover:bg-white hover:-translate-y-0.5 hover:shadow-[0_6px_24px_rgba(254,242,203,0.45)] active:translate-y-0 flex py-5 px-10 max-md:py-3.5 max-md:px-6 justify-center items-center gap-2.5 rounded-lg border border-[#FEF2CB] bg-[#FEF2CB] text-[#001752] font-mono text-base max-md:text-sm font-medium whitespace-nowrap w-80 max-md:w-full no-underline"
             >
               Move Your Money
-            </a>
-            <a
-              href="https://platform.pcxpay.com/signup"
-              target="_blank"
-              rel="noopener noreferrer"
+            </Link>
+            <Link
+              href="/embedded-finance"
               className="transition-all duration-200 hover:border-[rgba(254,242,203,0.45)] hover:bg-[rgba(254,242,203,0.22)] hover:-translate-y-0.5 active:translate-y-0 flex py-5 px-10 max-md:py-3.5 max-md:px-6 justify-center items-center gap-2.5 rounded-lg border-2 border-[rgba(254,242,203,0.12)] bg-[rgba(254,242,203,0.16)] text-[#FEF2CB] font-mono text-base max-md:text-sm font-medium whitespace-nowrap max-md:w-full no-underline"
             >
               Move Money For Your Users
-            </a>
+            </Link>
           </div>
         </div>
 

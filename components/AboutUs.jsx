@@ -57,8 +57,20 @@ const AboutUs = () => {
           {storyCards.map((card) => (
             <div
               key={card.id}
-              className={`story-card group bg-white/80 rounded-2xl border p-8 max-md:p-5 flex gap-8 max-md:gap-5 items-center transition-all duration-280 hover:-translate-y-1 hover:shadow-[0_12px_48px_rgba(29,94,255,0.08)] hover:bg-white/95 active:-translate-y-0.5 max-md:flex-col max-[480px]:p-4 ${card.id === 1 ? "border-[rgba(200,200,220,0.4)] hover:border-[rgba(238,131,57,0.3)]" : "border-[rgba(200,200,220,0.4)] hover:border-[rgba(29,94,255,0.2)]"}`}
-              style={dark && card.id === 1 ? { background: "rgba(238,131,57,0.07)", borderColor: "rgba(238,131,57,0.1)" } : {}}
+              className={`story-card group rounded-2xl p-8 max-md:p-5 flex gap-8 max-md:gap-5 items-center transition-all duration-280 hover:-translate-y-1 active:-translate-y-0.5 max-md:flex-col max-[480px]:p-4 backdrop-blur-xl`}
+              style={
+                dark && card.id === 1
+                  ? {
+                      background: "rgba(238,131,57,0.07)",
+                      border: "1px solid rgba(238,131,57,0.25)",
+                      boxShadow: "inset 0 1px 0 rgba(255,255,255,0.15), 0 8px_32px rgba(238,131,57,0.08)",
+                    }
+                  : {
+                      background: "rgba(255,255,255,0.08)",
+                      border: "1px solid rgba(29,94,255,0.12)",
+                      boxShadow: "inset 0 1px 0 rgba(132,122,255,0.12), inset 0 -1px 0 rgba(8,111,255,0.06), 0 12px 40px rgba(29,94,255,0.05)",
+                    }
+              }
             >
               {/* Text */}
               <div
