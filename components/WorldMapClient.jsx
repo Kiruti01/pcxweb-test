@@ -6,17 +6,17 @@ import mapData from "../public/map-data.json";
 
 const W = 1000;
 const H = 500;
-const TOP_PAD = 0;
+const TOP_PAD = 5;
 
 const PINS = [
   { label: "European Union", lat: 72.0, lng: 15.0, primary: true }, // 0
-  { label: "Canada", lat: 58.0, lng: -100.0, primary: true, labelLeft: true }, // 1
+  { label: "Canada", lat: 58.0, lng: -100.0, primary: false, labelLeft: true }, // 1
   { label: "United States", lat: 25.5, lng: -105.0, primary: true }, // 2
-  { label: "Brazil", lat: -32.0, lng: -55.0, primary: true }, // 3
+  { label: "Brazil", lat: -32.0, lng: -55.0, primary: false }, // 3
   { label: "United Kingdom", lat: 42.5, lng: -2.0, primary: false }, // 4
-  { label: "China", lat: 20.0, lng: 125.0, primary: true }, // 5
-  { label: "Ghana", lat: -5.5, lng: -5.0, primary: true, labelTop: true }, // 6
-  { label: "Nigeria", lat: -10.0, lng: 15.0, primary: false }, // 7
+  { label: "China", lat: 20.0, lng: 125.0, primary: false }, // 5
+  { label: "Ghana", lat: -5.5, lng: -5.0, primary: false, labelTop: true }, // 6
+  { label: "Nigeria", lat: -10.0, lng: 15.0, primary: true }, // 7
 ];
 
 // [fromIndex, toIndex, invert?]  — invert curves downward instead of upward
@@ -302,7 +302,11 @@ export default function WorldMap() {
           const charW = fontSize * 0.65;
           const boxW = pin.label.length * charW + padX * 2;
           const boxH = fontSize + padY * 2;
-          const tx = pin.labelTop ? pin.x - boxW / 2 : pin.labelLeft ? pin.x - 8 - boxW : pin.x + 8;
+          const tx = pin.labelTop
+            ? pin.x - boxW / 2
+            : pin.labelLeft
+              ? pin.x - 8 - boxW
+              : pin.x + 8;
           const ty = pin.labelTop ? pin.y - boxH / 2 - 12 : pin.y;
           const isHovered = hovered === i;
           const glowFilter = isHovered
