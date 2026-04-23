@@ -96,7 +96,7 @@ const Header = () => {
 
   return (
     <header className="w-full sticky top-4 z-1000 px-6 max-lg:px-3 pointer-events-none">
-      <div className="w-full max-w-300 mx-auto h-17 max-lg:h-14 flex justify-between items-center gap-10 px-6 max-lg:px-5 pointer-events-auto bg-white/95 backdrop-blur-[20px] border border-[rgba(29,94,255,0.12)] rounded-full shadow-[0_4px_24px_rgba(29,94,255,0.08)]">
+      <div className="w-full max-w-300 mx-auto h-17 max-lg:h-14 flex justify-between items-center gap-10 px-6 max-lg:px-5 pointer-events-auto bg-white/40 backdrop-blur-[20px] border border-[rgba(29,94,255,0.12)] rounded-full shadow-[0_4px_24px_rgba(29,94,255,0.08)]">
         {/* Logo */}
         <div className="flex items-center shrink-0">
           <Link href="/">

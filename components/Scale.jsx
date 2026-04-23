@@ -67,8 +67,8 @@ const iconSvgs = {
 
 const Scale = () => {
   return (
-    <section className="scale-section py-30 px-5 max-md:px-3 relative max-md:py-20">
-      <div className="max-w-360 mx-auto px-10 max-lg:px-7.5 max-md:px-2">
+    <section className="scale-section py-30 relative max-md:py-20">
+      <div className="max-w-360 mx-auto px-6 max-md:px-4">
         <h2 className="font-inter text-[80px] font-bold leading-24.25 text-[#2A3239] text-center m-0 mb-20 max-lg:text-[60px] max-lg:leading-18 max-lg:mb-15 max-md:text-[40px] max-md:leading-12 max-md:mb-12 max-[480px]:text-[28px] max-[480px]:leading-9">
           Built For Every Scale
         </h2>

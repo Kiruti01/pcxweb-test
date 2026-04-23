@@ -45,7 +45,7 @@ const Hero = () => {
       <div className="absolute w-120 h-120 rounded-full blur-[60px] pointer-events-none z-0 bg-[linear-gradient(87deg,rgba(132,122,255,0.08)_0%,rgba(8,111,255,0.08)_100%)] -left-25 -top-39" />
 
       {/* Content */}
-      <div className="relative z-3 flex justify-center px-5">
+      <div className="relative z-3 flex justify-center px-6">
         <div className="flex flex-col items-center gap-6 max-w-229 w-full text-center">
           <h1 className="font-inter text-[80px] font-bold leading-23 text-[#13161A] m-0 whitespace-nowrap max-lg:text-[60px] max-lg:leading-18 max-md:text-[40px] max-md:leading-13 max-md:whitespace-normal max-[480px]:text-[32px] max-[480px]:leading-10.5">
             Move Money{" "}

@@ -35,7 +35,7 @@ const EmbeddedFinance = () => {
         }}
       >
         {/* Constrained text content */}
-        <div className="flex flex-col items-center text-center max-w-242 mx-auto pt-24 pb-10 max-md:pt-16 max-md:pb-8 px-5">
+        <div className="flex flex-col items-center text-center max-w-242 mx-auto pt-24 pb-10 max-md:pt-16 max-md:pb-8 px-6 max-md:px-4">
           <div className="text-[12px] sm:text-[14px] text-center rounded-full px-4 leading-10 max-md:leading-8 mx-auto bg-[linear-gradient(87deg,rgba(132,122,255,0.08)_0%,rgba(8,111,255,0.08)_100%)] text-[#1D5EFF] border border-transparent">
             EMBEDDED FINANCE
           </div>

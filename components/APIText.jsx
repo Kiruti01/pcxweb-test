@@ -4,7 +4,7 @@ const APIText = () => {
       className="api-text-section w-full py-14 px-6"
       style={{ backgroundColor: "#ffffff", backgroundImage: "none" }}
     >
-      <div className="max-w-300 mx-auto px-6">
+      <div className="max-w-300 mx-auto">
         <h2
           className="font-black leading-tight mb-4 text-[#13161A] max-w-2xl"
           style={{

@@ -6,8 +6,8 @@ const APISectionAndCTA = () => {
   return (
     <>
       {/* Nodes Section */}
-      <section className="bg-white py-15 px-5">
-        <div className="max-w-360 mx-auto px-20">
+      <section className="bg-white py-15">
+        <div className="max-w-360 mx-auto px-6 max-md:px-4">
           <img
             src={PCXNodes}
             alt="PCX Platform connections"
@@ -17,8 +17,8 @@ const APISectionAndCTA = () => {
       </section>
 
       {/* API Section */}
-      <section className="bg-[linear-gradient(179deg,#FAFAFF_-24.37%,#FFF_116.78%)] py-30 px-5 text-left max-md:py-20 max-md:px-5">
-        <div className="max-w-300 mx-auto max-lg:px-10 max-md:px-5">
+      <section className="bg-[linear-gradient(179deg,#FAFAFF_-24.37%,#FFF_116.78%)] py-30 text-left max-md:py-20">
+        <div className="max-w-300 mx-auto px-6 max-md:px-4">
           <div className="flex flex-col items-start gap-8 max-w-253">
             <h2 className="font-inter text-[48px] font-bold leading-15 text-[#13161A] m-0 max-lg:text-4xl max-lg:leading-12 max-md:text-[28px] max-md:leading-9">
               Finally, A <span className="gradient-text">Payment API</span> That

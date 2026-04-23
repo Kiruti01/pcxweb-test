@@ -2,8 +2,8 @@ import React from "react";
 
 const Features = () => {
   return (
-    <section className="features-section bg-white py-[80px_20px_120px] px-5 max-md:px-3 relative max-md:py-10">
-      <div className="max-w-360 mx-auto px-10 max-lg:px-7.5 max-md:px-2">
+    <section className="features-section bg-white py-[80px_20px_120px] relative max-md:py-10">
+      <div className="max-w-360 mx-auto px-6 max-md:px-4">
         {/* Header */}
         <div className="text-center mb-20 max-md:mb-10">
           <h2 className="font-inter font-bold m-0 mb-8 max-md:mb-5 flex flex-col items-center gap-1">

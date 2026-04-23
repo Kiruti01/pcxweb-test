@@ -42,7 +42,7 @@ const ctaCards = [
 
 const CTASection = () => {
   return (
-    <section className="px-20 pb-20 bg-transparent max-lg:px-10 max-lg:pb-15 max-md:px-3 max-md:pb-10">
+    <section className="px-6 pb-20 bg-transparent max-lg:pb-15 max-md:px-4 max-md:pb-10">
       <div className="relative overflow-hidden rounded-3xl bg-[#00237A] p-20 max-w-300 mx-auto max-lg:p-[60px_40px] max-md:p-8 max-md:px-5 max-md:rounded-2xl mt-25 bg-[radial-gradient(circle,rgba(255,255,255,0.15)_1px,transparent_1px)] bg-size-[24px_24px]">
         {/* Content */}
         <div className="flex flex-col items-center gap-10 max-md:gap-6 text-center mb-16 max-md:mb-10 max-[480px]:mb-8">

@@ -275,7 +275,7 @@ export default function BlogIndex({ posts = [] }) {
   return (
     <>
       {/* Hero */}
-      <section className="text-center pt-14 md:pt-28 pb-10 md:pb-20 px-5">
+      <section className="text-center pt-14 md:pt-28 pb-10 md:pb-20 px-6 max-md:px-4">
         {/* Badge — blue pill matching other pages */}
         <div className="inline-flex items-center px-5 py-2 md:px-5 md:py-2 rounded-full border border-[rgba(29,94,255,0.3)] bg-[rgba(29,94,255,0.06)] mb-5 md:mb-7 transition-all duration-220 hover:bg-[rgba(29,94,255,0.1)] hover:border-[rgba(29,94,255,0.5)] hover:-translate-y-0.5 hover:shadow-[0_4px_16px_rgba(29,94,255,0.1)]">
           <span className="font-mono text-[11px] sm:text-xs font-semibold text-[#1D5EFF] uppercase tracking-[0.12em]">
@@ -294,7 +294,7 @@ export default function BlogIndex({ posts = [] }) {
       </section>
 
       {/* Posts card */}
-      <div className="max-w-5xl mx-auto px-5 pb-28">
+      <div className="max-w-5xl mx-auto px-6 pb-28 max-md:px-4">
         {posts.length === 0 ? (
           <div
             className="text-center py-24 bg-white rounded-3xl"

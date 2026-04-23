@@ -129,7 +129,7 @@ const ContactUs = () => {
 
   return (
     <div className="min-h-screen">
-      <div className="max-w-6xl mx-auto px-5 py-16 max-md:py-10">
+      <div className="max-w-6xl mx-auto px-6 py-16 max-md:py-10 max-md:px-4">
         {/* Badge + Heading */}
         <div className="text-center mb-10 md:mb-16">
           <div className="inline-flex items-center px-5 py-2 rounded-full border border-[rgba(29,94,255,0.3)] bg-[rgba(29,94,255,0.06)] mb-6 font-mono text-[11px] font-semibold tracking-[0.12em] uppercase text-[#1D5EFF] transition-all duration-200 hover:bg-[rgba(29,94,255,0.1)] hover:border-[rgba(29,94,255,0.5)] hover:-translate-y-0.5 hover:shadow-[0_4px_16px_rgba(29,94,255,0.1)]">

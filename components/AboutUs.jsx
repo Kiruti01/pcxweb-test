@@ -38,8 +38,8 @@ const AboutUs = () => {
   return (
     <div className="w-full min-h-screen">
       {/* Hero */}
-      <section className="bg-transparent pt-32 max-md:pt-20 pb-20 max-md:pb-12 px-5 text-center">
-        <div className="max-w-360 mx-auto px-10 max-md:px-3">
+      <section className="bg-transparent pt-32 max-md:pt-20 pb-20 max-md:pb-12 text-center">
+        <div className="max-w-360 mx-auto px-6 max-md:px-4">
           <div className="inline-flex items-center px-5 py-2 max-md:px-3 max-md:py-1 rounded-full border border-[rgba(29,94,255,0.3)] dark:border-[rgba(29,94,255,0.4)] bg-[rgba(29,94,255,0.06)] dark:bg-[rgba(29,94,255,0.12)] mb-8 max-md:mb-5 transition-all duration-220 hover:bg-[rgba(29,94,255,0.1)] dark:hover:bg-[rgba(29,94,255,0.18)] hover:border-[rgba(29,94,255,0.5)] hover:-translate-y-0.5 hover:shadow-[0_4px_16px_rgba(29,94,255,0.1)]">
             <span className="font-mono text-[11px] sm:text-xs max-md:text-[10px] font-semibold text-[#1D5EFF] uppercase tracking-[0.12em]">
               Company
@@ -52,7 +52,7 @@ const AboutUs = () => {
       </section>
 
       {/* Story Cards */}
-      <section className="pb-20 max-md:pb-12 px-5 max-md:px-3">
+      <section className="pb-20 max-md:pb-12 px-6 max-md:px-4">
         <div className="max-w-220 mx-auto flex flex-col gap-6 max-md:gap-4">
           {storyCards.map((card) => (
             <div

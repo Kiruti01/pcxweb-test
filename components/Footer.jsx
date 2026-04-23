@@ -32,7 +32,7 @@ const Footer = () => {
       <div className="absolute inset-0 bg-[linear-gradient(174deg,rgba(255,255,255,0)_5.25%,rgba(255,255,255,0.5)_53.62%,rgba(255,255,255,0.75)_78.27%,#fff_102.91%)] pointer-events-none z-0" />
 
       {/* Main content */}
-      <div className="w-full relative z-1 max-w-360 mx-auto pt-30 pb-0 px-20 flex flex-col gap-10 max-lg:pt-20 max-lg:pb-0 max-lg:px-10 max-md:pt-15 max-md:pb-0 max-md:px-6 max-sm:pt-10 max-sm:pb-0 max-sm:px-4 max-sm:gap-8">
+      <div className="w-full relative z-1 max-w-360 mx-auto pt-30 pb-0 px-6 flex flex-col gap-10 max-lg:pt-20 max-lg:pb-0 max-md:pt-15 max-md:pb-0 max-md:px-4 max-sm:pt-10 max-sm:pb-0 max-sm:gap-8">
         {/* Top row */}
         <div className="flex gap-40.25 items-start max-lg:gap-10 max-md:flex-col-reverse max-md:gap-10">
           {/* Legal text */}

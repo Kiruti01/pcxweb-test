@@ -6,7 +6,7 @@ import Step4Card from "./how-it-works/Step4Card";
 
 const HowItWorks = () => {
   return (
-    <section className="w-full py-16 px-4 md:py-20 md:px-8 lg:px-15 bg-[#F8FAFF]">
+    <section className="w-full py-16 px-6 md:py-20 bg-[#F8FAFF]">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-10 md:mb-14">
