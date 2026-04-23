@@ -35,11 +35,14 @@ const businessLogos = [
   },
 ];
 
-const Hero = () => {
+const Hero = ({ map }) => {
   const { dark } = useTheme();
 
   return (
-    <section className="relative overflow-hidden pt-20 pb-0 max-md:pt-12 bg-[#EEF3FF]">
+    <section
+      className="relative overflow-hidden pt-20 pb-0 max-md:pt-12"
+      style={{ backgroundColor: dark ? "#0a1020" : "#EEF3FF" }}
+    >
       {/* Blobs */}
       <div className="absolute w-120 h-120 rounded-full blur-[60px] pointer-events-none z-0 bg-[linear-gradient(87deg,rgba(132,122,255,0.08)_0%,rgba(8,111,255,0.08)_100%)] -right-10 top-50" />
       <div className="absolute w-120 h-120 rounded-full blur-[60px] pointer-events-none z-0 bg-[linear-gradient(87deg,rgba(132,122,255,0.08)_0%,rgba(8,111,255,0.08)_100%)] -left-25 -top-39" />
@@ -90,21 +93,17 @@ const Hero = () => {
       </div>
 
       {/* Map */}
-      <div className="relative w-full mt-4 z-1">
-        <img
-          src="/world_map_countries.svg"
-          alt=""
-          aria-hidden="true"
-          className="w-full h-auto block pointer-events-none"
-        />
+      <div className="map-wrapper relative w-full mt-4 z-1">
+        {map}
       </div>
 
       {/* Partners */}
       <div
         className="relative z-3 pt-24 pb-12 text-center overflow-hidden max-md:pt-16 max-md:pb-10 max-md:px-6"
         style={{
-          background:
-            "linear-gradient(to bottom, #EEF3FF 0%, #f4f7ff 18%, #f9fbff 38%, #ffffff 62%)",
+          background: dark
+            ? "#0a1020"
+            : "linear-gradient(to bottom, #EEF3FF 0%, #f4f7ff 18%, #f9fbff 38%, #ffffff 62%)",
         }}
       >
         <p className="font-bold font-mono text-[13px] text-[#657688] uppercase tracking-[0.06em] mb-8 px-5">

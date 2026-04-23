@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
+import WorldMap from "@/components/WorldMap";
 import Features from "@/components/Features";
 import Scale from "@/components/Scale";
 import CTASection from "@/components/CTASection";
@@ -12,7 +13,7 @@ export default function HomePage() {
     <>
       <Header />
       <main>
-        <Hero />
+        <Hero map={<WorldMap />} />
         <Features />
         <Scale />
         <APIText />

@@ -843,16 +843,15 @@ html.dark .mobile-sub-link:hover { color: #5B8AFF !important; background: rgba(2
 
 html.dark .map-wrapper { filter: brightness(0.75) saturate(0.9); }
 
-html.dark .marquee-track::before { background: linear-gradient(to right, #070D1A, transparent) !important; }
-html.dark .marquee-track::after  { background: linear-gradient(to left,  #070D1A, transparent) !important; }
+html.dark .marquee-track::before { background: linear-gradient(to right, #0a1020, transparent) !important; }
+html.dark .marquee-track::after  { background: linear-gradient(to left,  #0a1020, transparent) !important; }
 
 html.dark .marquee-track img {
-  filter: grayscale(20%) brightness(0.75) !important;
-  opacity: 0.7 !important;
-  mix-blend-mode: luminosity;
+  filter: grayscale(0%) brightness(0.9) !important;
+  opacity: 0.85 !important;
 }
 html.dark .marquee-track img:hover {
-  filter: grayscale(0%) brightness(0.9) !important;
+  filter: brightness(1) !important;
   opacity: 1 !important;
 }
 

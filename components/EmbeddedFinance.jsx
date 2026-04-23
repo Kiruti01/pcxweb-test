@@ -31,7 +31,9 @@ const EmbeddedFinance = () => {
       <div
         className="w-full"
         style={{
-          background: "linear-gradient(to bottom, #EEF3FF 0%, #f4f7ff 30%, #f9fbff 60%, #ffffff 100%)",
+          background: dark
+            ? "linear-gradient(to bottom, #070D1A 0%, #08101f 30%, #0a1222 60%, #0a1020 100%)"
+            : "linear-gradient(to bottom, #EEF3FF 0%, #f4f7ff 30%, #f9fbff 60%, #ffffff 100%)",
         }}
       >
         {/* Constrained text content */}
