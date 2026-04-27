@@ -9,6 +9,7 @@ import {
   updatePost,
   slugify,
 } from "@/lib/blogApi";
+import { useAdminTheme } from "./adminTokens";
 
 // ─── Cloudinary upload ────────────────────────────────────────────────────────
 async function uploadToCloudinary(blob) {
@@ -64,6 +65,7 @@ function CropModal({ src, aspect, title, onConfirm, onCancel, uploading }) {
   const imgRef = useRef(null);
   const [crop, setCrop] = useState();
   const [completedCrop, setCompletedCrop] = useState();
+  const { t } = useAdminTheme();
 
   const onImageLoad = useCallback(
     (e) => {
@@ -98,8 +100,8 @@ function CropModal({ src, aspect, title, onConfirm, onCancel, uploading }) {
       <div
         className="flex flex-col rounded-2xl overflow-hidden"
         style={{
-          background: "#0D1117",
-          border: "1px solid rgba(255,255,255,0.1)",
+          background: t.modalBg,
+          border: `1px solid ${t.dropdownBorder}`,
           maxWidth: "90vw",
           maxHeight: "90vh",
           width: 680,
@@ -107,24 +109,20 @@ function CropModal({ src, aspect, title, onConfirm, onCancel, uploading }) {
       >
         <div
           className="flex items-center justify-between px-5 py-4 flex-shrink-0"
-          style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}
+          style={{ borderBottom: `1px solid ${t.border}` }}
         >
           <div>
-            <p className="font-mono text-xs font-bold uppercase tracking-widest text-[#657688]">
+            <p className="font-mono text-xs font-bold uppercase tracking-widest" style={{ color: t.textSecondary }}>
               {title || "Crop Image"}
             </p>
-            <p className="font-mono text-[10px] text-[#3E4953] mt-0.5">
+            <p className="font-mono text-[10px] mt-0.5" style={{ color: t.textMuted }}>
               Drag to reposition · Drag corners to resize
             </p>
           </div>
           <button
             onClick={onCancel}
             className="w-7 h-7 rounded-lg flex items-center justify-center border-none font-bold text-sm"
-            style={{
-              background: "rgba(255,255,255,0.06)",
-              color: "#9AA5B4",
-              cursor: "pointer",
-            }}
+            style={{ background: t.modalCloseBg, color: t.modalCloseColor, cursor: "pointer" }}
           >
             ×
           </button>
@@ -151,16 +149,12 @@ function CropModal({ src, aspect, title, onConfirm, onCancel, uploading }) {
         </div>
         <div
           className="flex items-center justify-end gap-3 px-5 py-4 flex-shrink-0"
-          style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
+          style={{ borderTop: `1px solid ${t.border}` }}
         >
           <button
             onClick={onCancel}
             className="px-4 py-2 rounded-xl font-mono text-sm border-none"
-            style={{
-              background: "rgba(255,255,255,0.06)",
-              color: "#fff",
-              cursor: "pointer",
-            }}
+            style={{ background: t.btnSecondaryBg, color: t.btnSecondaryColor, cursor: "pointer" }}
           >
             Cancel
           </button>
@@ -191,6 +185,7 @@ function CropModal({ src, aspect, title, onConfirm, onCancel, uploading }) {
 // Two independent upload slots. Each slot: pick file → crop → preview thumbnail.
 // Once both slots have a URL, "Insert Grid" becomes available.
 function GridPickerModal({ onInsert, onCancel }) {
+  const { t } = useAdminTheme();
   const [slots, setSlots] = useState([
     {
       src: null,
@@ -288,8 +283,8 @@ function GridPickerModal({ onInsert, onCancel }) {
         <div
           className="flex flex-col rounded-2xl overflow-hidden"
           style={{
-            background: "#0D1117",
-            border: "1px solid rgba(255,255,255,0.1)",
+            background: t.modalBg,
+            border: `1px solid ${t.dropdownBorder}`,
             maxWidth: "90vw",
             maxHeight: "90vh",
             width: 680,
@@ -297,13 +292,13 @@ function GridPickerModal({ onInsert, onCancel }) {
         >
           <div
             className="flex items-center justify-between px-5 py-4 flex-shrink-0"
-            style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}
+            style={{ borderBottom: `1px solid ${t.border}` }}
           >
             <div>
-              <p className="font-mono text-xs font-bold uppercase tracking-widest text-[#657688]">
+              <p className="font-mono text-xs font-bold uppercase tracking-widest" style={{ color: t.textSecondary }}>
                 Crop Image {idx + 1} of 2
               </p>
-              <p className="font-mono text-[10px] text-[#3E4953] mt-0.5">
+              <p className="font-mono text-[10px] mt-0.5" style={{ color: t.textMuted }}>
                 Drag to reposition · Drag corners to resize
               </p>
             </div>
@@ -315,11 +310,7 @@ function GridPickerModal({ onInsert, onCancel }) {
                 );
               }}
               className="w-7 h-7 rounded-lg flex items-center justify-center border-none font-bold text-sm"
-              style={{
-                background: "rgba(255,255,255,0.06)",
-                color: "#9AA5B4",
-                cursor: "pointer",
-              }}
+              style={{ background: t.modalCloseBg, color: t.modalCloseColor, cursor: "pointer" }}
             >
               ×
             </button>
@@ -360,7 +351,7 @@ function GridPickerModal({ onInsert, onCancel }) {
           </div>
           <div
             className="flex items-center justify-end gap-3 px-5 py-4 flex-shrink-0"
-            style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
+            style={{ borderTop: `1px solid ${t.border}` }}
           >
             <button
               onClick={() => {
@@ -370,11 +361,7 @@ function GridPickerModal({ onInsert, onCancel }) {
                 );
               }}
               className="px-4 py-2 rounded-xl font-mono text-sm border-none"
-              style={{
-                background: "rgba(255,255,255,0.06)",
-                color: "#fff",
-                cursor: "pointer",
-              }}
+              style={{ background: t.btnSecondaryBg, color: t.btnSecondaryColor, cursor: "pointer" }}
             >
               Back
             </button>
@@ -412,32 +399,28 @@ function GridPickerModal({ onInsert, onCancel }) {
       <div
         className="flex flex-col rounded-2xl overflow-hidden"
         style={{
-          background: "#0D1117",
-          border: "1px solid rgba(255,255,255,0.1)",
+          background: t.modalBg,
+          border: `1px solid ${t.dropdownBorder}`,
           maxWidth: "90vw",
           width: 620,
         }}
       >
         <div
           className="flex items-center justify-between px-5 py-4 flex-shrink-0"
-          style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}
+          style={{ borderBottom: `1px solid ${t.border}` }}
         >
           <div>
-            <p className="font-mono text-xs font-bold uppercase tracking-widest text-[#657688]">
+            <p className="font-mono text-xs font-bold uppercase tracking-widest" style={{ color: t.textSecondary }}>
               Insert 2-Column Grid
             </p>
-            <p className="font-mono text-[10px] text-[#3E4953] mt-0.5">
+            <p className="font-mono text-[10px] mt-0.5" style={{ color: t.textMuted }}>
               Upload and crop each image independently
             </p>
           </div>
           <button
             onClick={onCancel}
             className="w-7 h-7 rounded-lg flex items-center justify-center border-none font-bold text-sm"
-            style={{
-              background: "rgba(255,255,255,0.06)",
-              color: "#9AA5B4",
-              cursor: "pointer",
-            }}
+            style={{ background: t.modalCloseBg, color: t.modalCloseColor, cursor: "pointer" }}
           >
             ×
           </button>
@@ -463,7 +446,7 @@ function GridPickerModal({ onInsert, onCancel }) {
                   className="relative rounded-xl overflow-hidden"
                   style={{
                     aspectRatio: "1",
-                    background: "rgba(255,255,255,0.03)",
+                    background: t.inputBg,
                   }}
                 >
                   <img
@@ -550,7 +533,7 @@ function GridPickerModal({ onInsert, onCancel }) {
                     />
                   </svg>
                   <span>Click to upload</span>
-                  <span style={{ color: "#3E4953" }}>Crop will follow</span>
+                  <span style={{ color: "#94A3B8" }}>Crop will follow</span>
                 </button>
               )}
             </div>
@@ -585,14 +568,14 @@ function GridPickerModal({ onInsert, onCancel }) {
 
         <div
           className="flex items-center justify-end gap-3 px-5 py-4 flex-shrink-0"
-          style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
+          style={{ borderTop: `1px solid ${t.border}` }}
         >
           <button
             onClick={onCancel}
             className="px-4 py-2 rounded-xl font-mono text-sm border-none"
             style={{
-              background: "rgba(255,255,255,0.06)",
-              color: "#fff",
+              background: t.btnSecondaryBg,
+              color: t.btnSecondaryColor,
               cursor: "pointer",
             }}
           >
@@ -620,13 +603,15 @@ function GridPickerModal({ onInsert, onCancel }) {
 }
 
 // ─── Markdown renderer ────────────────────────────────────────────────────────
-const renderMarkdown = (md = "") =>
-  md
-    .replace(/^#{3} (.+)$/gm, "<h3>$1</h3>")
-    .replace(/^#{2} (.+)$/gm, "<h2>$1</h2>")
-    .replace(/^# (.+)$/gm, "<h1>$1</h1>")
-    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
-    .replace(/\*(.+?)\*/g, "<em>$1</em>")
+const renderMarkdown = (md = "", headingColor = "#13161A", textColor = "#2A3239") => {
+  const hStyle = `color:${headingColor};-webkit-text-fill-color:${headingColor};background:none`;
+  const tStyle = `color:${textColor}`;
+  return md
+    .replace(/^#{3} (.+)$/gm, `<h3 style="${hStyle}">$1</h3>`)
+    .replace(/^#{2} (.+)$/gm, `<h2 style="${hStyle}">$1</h2>`)
+    .replace(/^# (.+)$/gm, `<h1 style="${hStyle}">$1</h1>`)
+    .replace(/\*\*(.+?)\*\*/g, `<strong style="${hStyle}">$1</strong>`)
+    .replace(/\*(.+?)\*/g, `<em style="${tStyle}">$1</em>`)
     .replace(/`(.+?)`/g, "<code>$1</code>")
     .replace(/^> (.+)$/gm, "<blockquote>$1</blockquote>")
     .replace(/^---$/gm, "<hr/>")
@@ -644,31 +629,31 @@ const renderMarkdown = (md = "") =>
     .split("\n")
     .map((l) => (l.trim() && !l.startsWith("<") ? `<p>${l}</p>` : l))
     .join("\n");
+};
 
 // ─── Shared UI ────────────────────────────────────────────────────────────────
-const ToolbarBtn = ({ title, onClick, children }) => (
-  <button
-    type="button"
-    title={title}
-    onClick={onClick}
-    className="w-8 h-8 flex items-center justify-center rounded-lg border-none font-mono text-xs font-bold transition-all duration-150"
-    style={{
-      background: "rgba(255,255,255,0.04)",
-      color: "#9AA5B4",
-      cursor: "pointer",
-    }}
-    onMouseEnter={(e) => {
-      e.currentTarget.style.background = "rgba(29,94,255,0.15)";
-      e.currentTarget.style.color = "#1D5EFF";
-    }}
-    onMouseLeave={(e) => {
-      e.currentTarget.style.background = "rgba(255,255,255,0.04)";
-      e.currentTarget.style.color = "#9AA5B4";
-    }}
-  >
-    {children}
-  </button>
-);
+const ToolbarBtn = ({ title, onClick, children }) => {
+  const { t } = useAdminTheme();
+  return (
+    <button
+      type="button"
+      title={title}
+      onClick={onClick}
+      className="w-8 h-8 flex items-center justify-center rounded-lg border-none font-mono text-xs font-bold transition-all duration-150"
+      style={{ background: t.toolbarBtnBg, color: t.toolbarBtnColor, cursor: "pointer" }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.background = t.toolbarBtnHoverBg;
+        e.currentTarget.style.color = "#1D5EFF";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.background = t.toolbarBtnBg;
+        e.currentTarget.style.color = t.toolbarBtnColor;
+      }}
+    >
+      {children}
+    </button>
+  );
+};
 
 const FieldLabel = ({ children, required }) => (
   <label className="block font-mono text-[10px] font-bold tracking-[0.14em] uppercase text-[#657688] mb-1.5">
@@ -677,24 +662,28 @@ const FieldLabel = ({ children, required }) => (
   </label>
 );
 
-const Input = ({ value, onChange, placeholder, type = "text", ...props }) => (
-  <input
-    type={type}
-    value={value}
-    onChange={onChange}
-    placeholder={placeholder}
-    className="w-full font-mono text-sm text-white outline-none border-none rounded-lg px-3 py-2.5"
-    style={{
-      background: "rgba(255,255,255,0.05)",
-      border: "1px solid rgba(255,255,255,0.08)",
-      transition: "border-color 0.18s",
-      boxSizing: "border-box",
-    }}
-    onFocus={(e) => (e.target.style.borderColor = "#1D5EFF")}
-    onBlur={(e) => (e.target.style.borderColor = "rgba(255,255,255,0.08)")}
-    {...props}
-  />
-);
+const Input = ({ value, onChange, placeholder, type = "text", ...props }) => {
+  const { t } = useAdminTheme();
+  return (
+    <input
+      type={type}
+      value={value}
+      onChange={onChange}
+      placeholder={placeholder}
+      className="w-full font-mono text-sm outline-none border-none rounded-lg px-3 py-2.5"
+      style={{
+        background: t.inputBg,
+        border: `1px solid ${t.inputBorder}`,
+        color: t.textPrimary,
+        transition: "border-color 0.18s",
+        boxSizing: "border-box",
+      }}
+      onFocus={(e) => (e.target.style.borderColor = "#1D5EFF")}
+      onBlur={(e) => (e.target.style.borderColor = t.inputBorder)}
+      {...props}
+    />
+  );
+};
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 const EMPTY_POST = {
@@ -723,6 +712,7 @@ const CATEGORIES = [
 // ─── Main component ───────────────────────────────────────────────────────────
 const BlogEditor = ({ postId }) => {
   const router = useRouter();
+  const { t } = useAdminTheme();
   const isNew = !postId;
   const editorRef = useRef(null);
   const coverInputRef = useRef(null);
@@ -1001,8 +991,10 @@ const BlogEditor = ({ postId }) => {
           <div className="flex items-center gap-3">
             <button
               onClick={() => router.push("/admin/blog")}
-              className="flex items-center gap-1.5 font-mono text-sm text-[#657688] border-none bg-transparent hover:text-white"
-              style={{ cursor: "pointer" }}
+              className="flex items-center gap-1.5 font-mono text-sm border-none bg-transparent"
+              style={{ color: t.textSecondary, cursor: "pointer" }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = t.textPrimary)}
+              onMouseLeave={(e) => (e.currentTarget.style.color = t.textSecondary)}
             >
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                 <path
@@ -1015,8 +1007,8 @@ const BlogEditor = ({ postId }) => {
               </svg>
               Posts
             </button>
-            <span className="text-[#3E4953]">/</span>
-            <span className="font-inter font-semibold text-white text-sm">
+            <span style={{ color: t.breadcrumbSlash }}>/</span>
+            <span className="font-inter font-semibold text-sm" style={{ color: t.textPrimary }}>
               {isNew ? "New Post" : post.title || "Edit Post"}
             </span>
           </div>
@@ -1039,8 +1031,8 @@ const BlogEditor = ({ postId }) => {
             <div
               className="flex items-center gap-0.5 p-1 rounded-lg"
               style={{
-                background: "rgba(255,255,255,0.04)",
-                border: "1px solid rgba(255,255,255,0.06)",
+                background: t.tabBg,
+                border: `1px solid ${t.border}`,
               }}
             >
               {[
@@ -1053,9 +1045,8 @@ const BlogEditor = ({ postId }) => {
                   onClick={() => setMode(v)}
                   className="px-3 py-1 rounded-md font-mono text-xs font-medium border-none transition-all duration-200"
                   style={{
-                    background:
-                      mode === v ? "rgba(29,94,255,0.2)" : "transparent",
-                    color: mode === v ? "#fff" : "#657688",
+                    background: mode === v ? t.modeActiveBg : "transparent",
+                    color: mode === v ? t.modeActiveColor : t.textSecondary,
                     cursor: "pointer",
                   }}
                 >
@@ -1067,16 +1058,12 @@ const BlogEditor = ({ postId }) => {
               onClick={() => handleSave("draft")}
               className="px-4 py-2 rounded-xl font-mono text-sm font-semibold border-none"
               style={{
-                background: "rgba(255,255,255,0.06)",
-                color: "#fff",
+                background: t.btnSecondaryBg,
+                color: t.btnSecondaryColor,
                 cursor: "pointer",
               }}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.background = "rgba(255,255,255,0.1)")
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.background = "rgba(255,255,255,0.06)")
-              }
+              onMouseEnter={(e) => (e.currentTarget.style.background = t.btnSecondaryHoverBg)}
+              onMouseLeave={(e) => (e.currentTarget.style.background = t.btnSecondaryBg)}
             >
               Save Draft
             </button>
@@ -1110,8 +1097,8 @@ const BlogEditor = ({ postId }) => {
             <div
               className="flex items-center gap-2 p-3 rounded-xl"
               style={{
-                background: "rgba(255,255,255,0.03)",
-                border: "1px solid rgba(255,255,255,0.06)",
+                background: t.cardBg,
+                border: `1px solid ${t.border}`,
               }}
             >
               <div
@@ -1129,7 +1116,7 @@ const BlogEditor = ({ postId }) => {
               >
                 {post.status}
               </span>
-              <span className="font-mono text-xs text-[#3E4953] ml-auto">
+              <span className="font-mono text-xs ml-auto" style={{ color: t.textMuted }}>
                 {wordCount} words · {readingTime} min read
               </span>
             </div>
@@ -1138,12 +1125,10 @@ const BlogEditor = ({ postId }) => {
             <div
               className="flex items-center justify-between p-3 rounded-xl"
               style={{
-                background: post.featured
-                  ? "rgba(29,94,255,0.08)"
-                  : "rgba(255,255,255,0.03)",
+                background: post.featured ? "rgba(29,94,255,0.06)" : t.cardBg,
                 border: post.featured
                   ? "1px solid rgba(29,94,255,0.2)"
-                  : "1px solid rgba(255,255,255,0.06)",
+                  : `1px solid ${t.border}`,
                 transition: "all 0.2s",
               }}
             >
@@ -1176,7 +1161,7 @@ const BlogEditor = ({ postId }) => {
                   height: 20,
                   background: post.featured
                     ? "linear-gradient(87deg, #847AFF 0%, #086FFF 100%)"
-                    : "rgba(255,255,255,0.1)",
+                    : t.toggleOffBg,
                   cursor: "pointer",
                   transition: "background 0.2s",
                 }}
@@ -1211,7 +1196,7 @@ const BlogEditor = ({ postId }) => {
                   onClick={() => setAutoSlug((v) => !v)}
                   className="font-mono text-[9px] uppercase tracking-widest border-none bg-transparent"
                   style={{
-                    color: autoSlug ? "#1D5EFF" : "#3E4953",
+                    color: autoSlug ? "#1D5EFF" : t.textSecondary,
                     cursor: "pointer",
                   }}
                 >
@@ -1221,11 +1206,11 @@ const BlogEditor = ({ postId }) => {
               <div
                 className="flex items-center gap-1.5 rounded-lg px-3 py-2.5"
                 style={{
-                  background: "rgba(255,255,255,0.05)",
-                  border: "1px solid rgba(255,255,255,0.08)",
+                  background: t.inputBg,
+                  border: `1px solid ${t.inputBorder}`,
                 }}
               >
-                <span className="font-mono text-xs text-[#3E4953] shrink-0">
+                <span className="font-mono text-xs shrink-0" style={{ color: t.slugPrefixColor }}>
                   /blog/
                 </span>
                 <input
@@ -1235,7 +1220,8 @@ const BlogEditor = ({ postId }) => {
                     set("slug")(e);
                   }}
                   placeholder="post-slug"
-                  className="flex-1 border-none bg-transparent font-mono text-sm text-white outline-none"
+                  className="flex-1 border-none bg-transparent font-mono text-sm outline-none"
+                  style={{ color: t.textPrimary }}
                 />
               </div>
             </div>
@@ -1246,16 +1232,15 @@ const BlogEditor = ({ postId }) => {
                 onChange={set("excerpt")}
                 placeholder="Short description…"
                 rows={3}
-                className="w-full font-mono text-sm text-white outline-none rounded-lg px-3 py-2.5 resize-none"
+                className="w-full font-mono text-sm outline-none rounded-lg px-3 py-2.5 resize-none"
                 style={{
-                  background: "rgba(255,255,255,0.05)",
-                  border: "1px solid rgba(255,255,255,0.08)",
+                  background: t.inputBg,
+                  border: `1px solid ${t.inputBorder}`,
+                  color: t.textPrimary,
                   boxSizing: "border-box",
                 }}
                 onFocus={(e) => (e.target.style.borderColor = "#1D5EFF")}
-                onBlur={(e) =>
-                  (e.target.style.borderColor = "rgba(255,255,255,0.08)")
-                }
+                onBlur={(e) => (e.target.style.borderColor = t.inputBorder)}
               />
             </div>
             <div>
@@ -1333,9 +1318,9 @@ const BlogEditor = ({ postId }) => {
                 onChange={set("category")}
                 className="w-full font-mono text-sm outline-none rounded-lg px-3 py-2.5 border-none"
                 style={{
-                  background: "rgba(255,255,255,0.05)",
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  color: post.category ? "white" : "#657688",
+                  background: t.inputBg,
+                  border: `1px solid ${t.inputBorder}`,
+                  color: post.category ? t.textPrimary : t.textSecondary,
                   cursor: "pointer",
                   boxSizing: "border-box",
                 }}
@@ -1353,8 +1338,8 @@ const BlogEditor = ({ postId }) => {
               <div
                 className="rounded-lg px-3 py-2"
                 style={{
-                  background: "rgba(255,255,255,0.05)",
-                  border: "1px solid rgba(255,255,255,0.08)",
+                  background: t.inputBg,
+                  border: `1px solid ${t.inputBorder}`,
                 }}
               >
                 <div className="flex flex-wrap gap-1.5 mb-2">
@@ -1382,24 +1367,28 @@ const BlogEditor = ({ postId }) => {
                   onChange={(e) => setTagInput(e.target.value)}
                   onKeyDown={addTag}
                   placeholder="Add tag, press Enter…"
-                  className="w-full border-none bg-transparent font-mono text-xs text-white outline-none placeholder:text-[#3E4953]"
+                  className="w-full border-none bg-transparent font-mono text-xs outline-none placeholder:text-[#94A3B8]"
+                  style={{ color: t.textPrimary }}
                 />
               </div>
             </div>
             <div
               style={{
-                border: "1px solid rgba(255,255,255,0.06)",
+                border: `1px solid ${t.border}`,
                 borderRadius: 12,
                 overflow: "hidden",
               }}
             >
               <button
                 onClick={() => setSeoOpen((v) => !v)}
-                className="flex items-center justify-between w-full px-4 py-3 border-none font-mono text-xs font-bold uppercase tracking-widest text-[#657688] hover:text-white"
+                className="flex items-center justify-between w-full px-4 py-3 border-none font-mono text-xs font-bold uppercase tracking-widest"
                 style={{
-                  background: "rgba(255,255,255,0.02)",
+                  background: t.seoHeaderBg,
+                  color: t.textSecondary,
                   cursor: "pointer",
                 }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = t.textPrimary)}
+                onMouseLeave={(e) => (e.currentTarget.style.color = t.textSecondary)}
               >
                 SEO Settings
                 <svg
@@ -1424,7 +1413,7 @@ const BlogEditor = ({ postId }) => {
               {seoOpen && (
                 <div
                   className="flex flex-col gap-4 p-4"
-                  style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
+                  style={{ borderTop: `1px solid ${t.border}` }}
                 >
                   <div>
                     <FieldLabel>SEO Title</FieldLabel>
@@ -1433,7 +1422,7 @@ const BlogEditor = ({ postId }) => {
                       onChange={set("seoTitle")}
                       placeholder="Defaults to post title"
                     />
-                    <p className="font-mono text-[10px] text-[#3E4953] mt-1">
+                    <p className="font-mono text-[10px] mt-1" style={{ color: t.textMuted }}>
                       {(post.seoTitle || post.title).length}/60 chars
                     </p>
                   </div>
@@ -1444,18 +1433,17 @@ const BlogEditor = ({ postId }) => {
                       onChange={set("seoDesc")}
                       placeholder="Defaults to excerpt…"
                       rows={3}
-                      className="w-full font-mono text-sm text-white outline-none rounded-lg px-3 py-2.5 resize-none"
+                      className="w-full font-mono text-sm outline-none rounded-lg px-3 py-2.5 resize-none"
                       style={{
-                        background: "rgba(255,255,255,0.05)",
-                        border: "1px solid rgba(255,255,255,0.08)",
+                        background: t.inputBg,
+                        border: `1px solid ${t.inputBorder}`,
+                        color: t.textPrimary,
                         boxSizing: "border-box",
                       }}
                       onFocus={(e) => (e.target.style.borderColor = "#1D5EFF")}
-                      onBlur={(e) =>
-                        (e.target.style.borderColor = "rgba(255,255,255,0.08)")
-                      }
+                      onBlur={(e) => (e.target.style.borderColor = t.inputBorder)}
                     />
-                    <p className="font-mono text-[10px] text-[#3E4953] mt-1">
+                    <p className="font-mono text-[10px] mt-1" style={{ color: t.textMuted }}>
                       {(post.seoDesc || post.excerpt).length}/160 chars
                     </p>
                   </div>
@@ -1467,14 +1455,14 @@ const BlogEditor = ({ postId }) => {
           {/* RIGHT: editor + preview */}
           <div
             className="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden rounded-2xl"
-            style={{ border: "1px solid rgba(255,255,255,0.06)" }}
+            style={{ border: `1px solid ${t.editorOuterBorder}` }}
           >
             {mode !== "preview" && (
               <div
                 className="flex items-center gap-1 px-4 py-2 flex-shrink-0 flex-wrap"
                 style={{
-                  borderBottom: "1px solid rgba(255,255,255,0.06)",
-                  background: "rgba(255,255,255,0.02)",
+                  borderBottom: `1px solid ${t.border}`,
+                  background: t.toolbarBg,
                 }}
               >
                 <ToolbarBtn
@@ -1489,7 +1477,7 @@ const BlogEditor = ({ postId }) => {
                 >
                   H3
                 </ToolbarBtn>
-                <div className="w-px h-5 bg-[rgba(255,255,255,0.08)] mx-1" />
+                <div className="w-px h-5 mx-1" style={{ background: t.toolbarDivider }} />
                 <ToolbarBtn title="Bold" onClick={() => insertAt("**", "**")}>
                   <strong>B</strong>
                 </ToolbarBtn>
@@ -1499,7 +1487,7 @@ const BlogEditor = ({ postId }) => {
                 <ToolbarBtn title="Code" onClick={() => insertAt("`", "`")}>
                   {"<>"}
                 </ToolbarBtn>
-                <div className="w-px h-5 bg-[rgba(255,255,255,0.08)] mx-1" />
+                <div className="w-px h-5 mx-1" style={{ background: t.toolbarDivider }} />
                 <ToolbarBtn
                   title="Blockquote"
                   onClick={() => insertAt("\n> ", "\n")}
@@ -1531,7 +1519,7 @@ const BlogEditor = ({ postId }) => {
                 >
                   🔗
                 </ToolbarBtn>
-                <div className="w-px h-5 bg-[rgba(255,255,255,0.08)] mx-1" />
+                <div className="w-px h-5 mx-1" style={{ background: t.toolbarDivider }} />
 
                 {/* Image insert dropdown */}
                 <div className="relative" ref={insertMenuRef}>
@@ -1544,21 +1532,18 @@ const BlogEditor = ({ postId }) => {
                     }}
                     className="w-8 h-8 flex items-center justify-center rounded-lg border-none font-mono text-xs font-bold transition-all duration-150"
                     style={{
-                      background: showInsertMenu
-                        ? "rgba(29,94,255,0.2)"
-                        : "rgba(255,255,255,0.04)",
-                      color: showInsertMenu ? "#1D5EFF" : "#9AA5B4",
+                      background: showInsertMenu ? t.insertActiveBg : t.toolbarBtnBg,
+                      color: showInsertMenu ? t.insertActiveColor : t.toolbarBtnColor,
                       cursor: "pointer",
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.background = "rgba(29,94,255,0.15)";
+                      e.currentTarget.style.background = t.toolbarBtnHoverBg;
                       e.currentTarget.style.color = "#1D5EFF";
                     }}
                     onMouseLeave={(e) => {
                       if (!showInsertMenu) {
-                        e.currentTarget.style.background =
-                          "rgba(255,255,255,0.04)";
-                        e.currentTarget.style.color = "#9AA5B4";
+                        e.currentTarget.style.background = t.toolbarBtnBg;
+                        e.currentTarget.style.color = t.toolbarBtnColor;
                       }
                     }}
                   >
@@ -1589,9 +1574,9 @@ const BlogEditor = ({ postId }) => {
                       style={{
                         top: 36,
                         left: 0,
-                        background: "#0D1117",
-                        border: "1px solid rgba(255,255,255,0.1)",
-                        boxShadow: "0 8px 32px rgba(0,0,0,0.5)",
+                        background: t.dropdownBg,
+                        border: `1px solid ${t.dropdownBorder}`,
+                        boxShadow: t.dropdownShadow,
                         minWidth: 190,
                         zIndex: 50,
                       }}
@@ -1605,17 +1590,16 @@ const BlogEditor = ({ postId }) => {
                         className="flex items-center gap-3 px-4 py-3 border-none text-left font-mono text-xs font-semibold transition-all"
                         style={{
                           background: "transparent",
-                          color: "#9AA5B4",
+                          color: t.dropdownItemColor,
                           cursor: "pointer",
                         }}
                         onMouseEnter={(e) => {
-                          e.currentTarget.style.background =
-                            "rgba(29,94,255,0.12)";
-                          e.currentTarget.style.color = "#fff";
+                          e.currentTarget.style.background = t.dropdownItemHoverBg;
+                          e.currentTarget.style.color = t.dropdownItemHoverColor;
                         }}
                         onMouseLeave={(e) => {
                           e.currentTarget.style.background = "transparent";
-                          e.currentTarget.style.color = "#9AA5B4";
+                          e.currentTarget.style.color = t.dropdownItemColor;
                         }}
                       >
                         <svg
@@ -1647,7 +1631,7 @@ const BlogEditor = ({ postId }) => {
                       <div
                         style={{
                           height: 1,
-                          background: "rgba(255,255,255,0.06)",
+                          background: t.dropdownDivider,
                         }}
                       />
                       <button
@@ -1659,17 +1643,16 @@ const BlogEditor = ({ postId }) => {
                         className="flex items-center gap-3 px-4 py-3 border-none text-left font-mono text-xs font-semibold transition-all"
                         style={{
                           background: "transparent",
-                          color: "#9AA5B4",
+                          color: t.dropdownItemColor,
                           cursor: "pointer",
                         }}
                         onMouseEnter={(e) => {
-                          e.currentTarget.style.background =
-                            "rgba(29,94,255,0.12)";
-                          e.currentTarget.style.color = "#fff";
+                          e.currentTarget.style.background = t.dropdownItemHoverBg;
+                          e.currentTarget.style.color = t.dropdownItemHoverColor;
                         }}
                         onMouseLeave={(e) => {
                           e.currentTarget.style.background = "transparent";
-                          e.currentTarget.style.color = "#9AA5B4";
+                          e.currentTarget.style.color = t.dropdownItemColor;
                         }}
                       >
                         <svg
@@ -1734,14 +1717,12 @@ const BlogEditor = ({ postId }) => {
                   placeholder={
                     "Start writing in Markdown…\n\n# Heading\n\n**Bold** and *italic*\n\n> Blockquote\n\n- List item"
                   }
-                  className="flex-1 font-mono text-sm text-white outline-none resize-none p-6"
+                  className="flex-1 font-mono text-sm outline-none resize-none p-6"
                   style={{
                     background: "transparent",
+                    color: t.textPrimary,
                     lineHeight: 1.8,
-                    borderRight:
-                      mode === "split"
-                        ? "1px solid rgba(255,255,255,0.06)"
-                        : "none",
+                    borderRight: mode === "split" ? `1px solid ${t.editorSplitBorder}` : "none",
                     caretColor: "#1D5EFF",
                   }}
                 />
@@ -1750,10 +1731,7 @@ const BlogEditor = ({ postId }) => {
                 <div
                   className="flex-1 overflow-y-auto p-8"
                   style={{
-                    background:
-                      mode === "preview"
-                        ? "transparent"
-                        : "rgba(255,255,255,0.015)",
+                    background: mode === "preview" ? "transparent" : t.previewPanelBg,
                   }}
                 >
                   {post.coverImage && (
@@ -1778,30 +1756,29 @@ const BlogEditor = ({ postId }) => {
                   )}
                   <div
                     className="preview-body"
+                    style={{ color: t.textPrimary }}
                     dangerouslySetInnerHTML={{
                       __html: post.title
-                        ? `<h1 class="preview-h1">${post.title}</h1>${post.excerpt ? `<p class="preview-excerpt">${post.excerpt}</p>` : ""}${renderMarkdown(post.content)}`
-                        : renderMarkdown(post.content) ||
-                          '<p style="color:#3E4953;font-style:italic">Nothing to preview yet…</p>',
+                        ? `<h1 class="preview-h1" style="color:${t.textPrimary};-webkit-text-fill-color:${t.textPrimary};background:none">${post.title}</h1>${post.excerpt ? `<p class="preview-excerpt" style="color:${t.textSecondary}">${post.excerpt}</p>` : ""}${renderMarkdown(post.content, t.textPrimary, t.textPrimary)}`
+                        : renderMarkdown(post.content, t.textPrimary, t.textPrimary) ||
+                          `<p style="color:${t.textSecondary};font-style:italic">Nothing to preview yet…</p>`,
                     }}
                   />
                   {post.tags.length > 0 && (
                     <div
                       className="flex flex-wrap gap-2 mt-8 pt-6"
-                      style={{
-                        borderTop: "1px solid rgba(255,255,255,0.06)",
-                      }}
+                      style={{ borderTop: `1px solid ${t.border}` }}
                     >
-                      {post.tags.map((t) => (
+                      {post.tags.map((tag) => (
                         <span
-                          key={t}
+                          key={tag}
                           className="font-mono text-xs px-2.5 py-1 rounded-full"
                           style={{
-                            background: "rgba(255,255,255,0.06)",
-                            color: "#657688",
+                            background: t.tagChipBg,
+                            color: t.textSecondary,
                           }}
                         >
-                          #{t}
+                          #{tag}
                         </span>
                       ))}
                     </div>

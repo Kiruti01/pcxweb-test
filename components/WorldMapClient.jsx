@@ -349,7 +349,7 @@ export default function WorldMap() {
                 width={boxW}
                 height={boxH}
                 rx="5"
-                fill={pin.primary ? "#4f5ef7" : "#1a2035"}
+                fill={pin.primary ? "#7d79ff" : "#B1BBD2"}
               />
               <text
                 x={tx + boxW / 2}

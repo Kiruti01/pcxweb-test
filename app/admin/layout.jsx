@@ -24,7 +24,7 @@ export default function AdminRootLayout({ children }) {
     return (
       <div
         className="min-h-screen flex items-center justify-center"
-        style={{ background: "#060e1f" }}
+        style={{ background: "transparent" }}
       >
         <div className="font-mono text-sm text-[#657688]">Loading...</div>
       </div>
