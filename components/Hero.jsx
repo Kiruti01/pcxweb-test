@@ -1,6 +1,17 @@
 "use client";
+import { motion } from "framer-motion";
 import { useTheme } from "./ThemeContext";
-import React from "react";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+};
+const stagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.1 } },
+};
+
+const vp = { once: true, amount: 0.15 };
 
 const logos = [
   { light: "/Bridge.svg", dark: "/dark Bridge.svg", alt: "Bridge" },
@@ -15,11 +26,7 @@ const logos = [
   { light: "/Sarepay.svg", dark: "/dark sarepay.svg", alt: "Sarepay" },
   { light: "/thealtbank.svg", dark: "/dark alt bank.svg", alt: "The Alt Bank" },
   { light: "/Verto.svg", dark: "/dark verto.svg", alt: "Verto" },
-  {
-    light: "/dark wintermute.svg",
-    dark: "/dark wintermute.svg",
-    alt: "Wintermute",
-  },
+  { light: "/dark wintermute.svg", dark: "/dark wintermute.svg", alt: "Wintermute" },
   { light: "/Yellowcard.svg", dark: "/Yellowcard.svg", alt: "Yellowcard" },
   { light: "/Zuniq.svg", dark: "/Zuniq.svg", alt: "Zuniq" },
 ];
@@ -28,11 +35,7 @@ const businessLogos = [
   { light: "/ABinbev.svg", dark: "/dark abinbev.svg", alt: "AB InBev" },
   { light: "/Bedrock.svg", dark: "/dark bedrock.svg", alt: "Bedrock" },
   { light: "/Sycamore.svg", dark: "/dark sycamore.svg", alt: "Sycamore" },
-  {
-    light: "/Ventureforafrica.svg",
-    dark: "/dark venture.svg",
-    alt: "Venture for Africa",
-  },
+  { light: "/Ventureforafrica.svg", dark: "/dark venture.svg", alt: "Venture for Africa" },
 ];
 
 const Hero = ({ map }) => {
@@ -49,19 +52,33 @@ const Hero = ({ map }) => {
 
       {/* Content */}
       <div className="relative z-3 flex justify-center px-6">
-        <div className="flex flex-col items-center gap-6 max-w-229 w-full text-center">
-          <h1 className="font-inter text-[80px] font-bold leading-23 text-[#13161A] m-0 whitespace-nowrap max-lg:text-[60px] max-lg:leading-18 max-md:text-[40px] max-md:leading-13 max-md:whitespace-normal max-[480px]:text-[32px] max-[480px]:leading-10.5">
+        <motion.div
+          className="flex flex-col items-center gap-6 max-w-229 w-full text-center"
+          variants={stagger}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.h1
+            variants={fadeUp}
+            className="font-inter text-[80px] font-bold leading-23 text-[#13161A] m-0 whitespace-nowrap max-lg:text-[60px] max-lg:leading-18 max-md:text-[40px] max-md:leading-13 max-md:whitespace-normal max-[480px]:text-[32px] max-[480px]:leading-10.5"
+          >
             Move Money{" "}
             <span className="bg-linear-to-r from-[#847AFF] to-[#086FFF] bg-clip-text text-transparent">
               Anywhere
             </span>
-          </h1>
+          </motion.h1>
 
-          <p className="font-mono text-xl font-normal leading-8 text-[#3E4953] m-0 max-md:text-base max-md:leading-6.5">
+          <motion.p
+            variants={fadeUp}
+            className="font-mono text-xl font-normal leading-8 text-[#3E4953] m-0 max-md:text-base max-md:leading-6.5"
+          >
             Move money globally. One API, multiple countries, zero complexity.
-          </p>
+          </motion.p>
 
-          <div className="flex items-center gap-4 max-[480px]:flex-col max-[480px]:w-full">
+          <motion.div
+            variants={fadeUp}
+            className="flex items-center gap-4 max-[480px]:flex-col max-[480px]:w-full"
+          >
             <a
               href="https://platform.pcxpay.com/signup"
               target="_blank"
@@ -88,8 +105,8 @@ const Hero = ({ map }) => {
             >
               Read API Docs
             </a>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
 
       {/* Map */}
@@ -98,13 +115,17 @@ const Hero = ({ map }) => {
       </div>
 
       {/* Partners */}
-      <div
+      <motion.div
         className="relative z-3 pt-24 pb-12 text-center overflow-hidden max-md:pt-16 max-md:pb-10 max-md:px-6"
         style={{
           background: dark
             ? "#0a1020"
             : "linear-gradient(to bottom, #EEF3FF 0%, #f4f7ff 18%, #f9fbff 38%, #ffffff 62%)",
         }}
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={vp}
       >
         <p className="font-bold font-mono text-[13px] text-[#657688] uppercase tracking-[0.06em] mb-8 px-5">
           OUR PARTNERS
@@ -125,7 +146,7 @@ const Hero = ({ map }) => {
             )}
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };

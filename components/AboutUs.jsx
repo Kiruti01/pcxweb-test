@@ -1,6 +1,17 @@
 "use client";
-import React from "react";
+import { motion } from "framer-motion";
 import { useTheme } from "@/components/ThemeContext";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+};
+const stagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.1 } },
+};
+
+const vp = { once: true, amount: 0.15 };
 
 const storyCards = [
   {
@@ -39,31 +50,49 @@ const AboutUs = () => {
     <div className="w-full min-h-screen">
       {/* Hero */}
       <section className="bg-transparent pt-32 max-md:pt-20 pb-20 max-md:pb-12 text-center">
-        <div className="max-w-360 mx-auto px-6 max-md:px-4">
-          <div className="inline-flex items-center px-5 py-2 max-md:px-3 max-md:py-1 rounded-full border border-[rgba(29,94,255,0.3)] dark:border-[rgba(29,94,255,0.4)] bg-[rgba(29,94,255,0.06)] dark:bg-[rgba(29,94,255,0.12)] mb-8 max-md:mb-5 transition-all duration-220 hover:bg-[rgba(29,94,255,0.1)] dark:hover:bg-[rgba(29,94,255,0.18)] hover:border-[rgba(29,94,255,0.5)] hover:-translate-y-0.5 hover:shadow-[0_4px_16px_rgba(29,94,255,0.1)]">
+        <motion.div
+          className="max-w-360 mx-auto px-6 max-md:px-4"
+          variants={stagger}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.div
+            variants={fadeUp}
+            className="inline-flex items-center px-5 py-2 max-md:px-3 max-md:py-1 rounded-full border border-[rgba(29,94,255,0.3)] dark:border-[rgba(29,94,255,0.4)] bg-[rgba(29,94,255,0.06)] dark:bg-[rgba(29,94,255,0.12)] mb-8 max-md:mb-5 transition-[background-color,border-color,box-shadow,transform] duration-220 hover:bg-[rgba(29,94,255,0.1)] dark:hover:bg-[rgba(29,94,255,0.18)] hover:border-[rgba(29,94,255,0.5)] hover:-translate-y-0.5 hover:shadow-[0_4px_16px_rgba(29,94,255,0.1)]"
+          >
             <span className="font-mono text-[11px] sm:text-xs max-md:text-[10px] font-semibold text-[#1D5EFF] uppercase tracking-[0.12em]">
               Company
             </span>
-          </div>
-          <h1 className="font-inter text-[72px] font-bold leading-[1.1] bg-linear-to-r from-[#847AFF] to-[#086FFF] bg-clip-text text-transparent m-0 max-w-225 mx-auto max-lg:text-[56px] max-md:text-[28px] max-md:leading-[1.2] max-[480px]:text-[24px]">
+          </motion.div>
+          <motion.h1
+            variants={fadeUp}
+            className="font-inter text-[72px] font-bold leading-[1.1] bg-linear-to-r from-[#847AFF] to-[#086FFF] bg-clip-text text-transparent m-0 max-w-225 mx-auto max-lg:text-[56px] max-md:text-[28px] max-md:leading-[1.2] max-[480px]:text-[24px]"
+          >
             Built From Real Pain, Not Theoretical Problems
-          </h1>
-        </div>
+          </motion.h1>
+        </motion.div>
       </section>
 
       {/* Story Cards */}
       <section className="pb-20 max-md:pb-12 px-6 max-md:px-4">
-        <div className="max-w-220 mx-auto flex flex-col gap-6 max-md:gap-4">
+        <motion.div
+          className="max-w-220 mx-auto flex flex-col gap-6 max-md:gap-4"
+          variants={stagger}
+          initial="hidden"
+          whileInView="visible"
+          viewport={vp}
+        >
           {storyCards.map((card) => (
-            <div
+            <motion.div
               key={card.id}
+              variants={fadeUp}
               className={`story-card group rounded-2xl p-8 max-md:p-5 flex gap-8 max-md:gap-5 items-center transition-all duration-280 hover:-translate-y-1 active:-translate-y-0.5 max-md:flex-col max-[480px]:p-4 backdrop-blur-xl`}
               style={
                 dark && card.id === 1
                   ? {
                       background: "rgba(238,131,57,0.07)",
                       border: "1px solid rgba(238,131,57,0.25)",
-                      boxShadow: "inset 0 1px 0 rgba(255,255,255,0.15), 0 8px_32px rgba(238,131,57,0.08)",
+                      boxShadow: "inset 0 1px 0 rgba(255,255,255,0.15), 0 8px 32px rgba(238,131,57,0.08)",
                     }
                   : {
                       background: "rgba(255,255,255,0.08)",
@@ -111,9 +140,9 @@ const AboutUs = () => {
                   className="w-full h-auto object-contain"
                 />
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </section>
     </div>
   );

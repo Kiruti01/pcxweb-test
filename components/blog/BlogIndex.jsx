@@ -2,8 +2,20 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+};
+const stagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.1 } },
+};
 
 const GRID_PER_PAGE = 6;
+
+const vp = { once: true, amount: 0.1 };
 
 const fmtDate = (d) =>
   new Date(d).toLocaleDateString("en-GB", {
@@ -101,7 +113,6 @@ const FeaturedCard = ({ post }) => (
       className="flex flex-col md:flex-row gap-5 no-underline group"
       style={{ textDecoration: "none" }}
     >
-      {/* Image — 16:9 aspect ratio on mobile, fixed height on desktop */}
       <div
         className="md:w-[42%] flex-shrink-0 rounded-xl overflow-hidden"
         style={{ aspectRatio: "16/9" }}
@@ -114,14 +125,11 @@ const FeaturedCard = ({ post }) => (
         />
       </div>
 
-      {/* Text */}
       <div className="flex flex-col gap-2 flex-1 md:justify-center md:py-2">
-        {/* Title — smaller on mobile to match Figma */}
         <h2 className="font-inter text-[18px] md:text-[26px] font-bold leading-[1.3] text-[#13161A] m-0 transition-colors duration-200 group-hover:text-[#1D5EFF]">
           {post.title}
         </h2>
 
-        {/* Excerpt — hidden on mobile if too long, shown on desktop */}
         {post.excerpt && (
           <p
             className="font-mono text-xs md:text-sm text-[#657688] leading-relaxed m-0"
@@ -136,7 +144,6 @@ const FeaturedCard = ({ post }) => (
           </p>
         )}
 
-        {/* Date · read time */}
         <p className="font-mono text-[11px] text-[#9AA5B4] m-0">
           {fmtDate(post.publishedAt || post.createdAt)} ·{" "}
           {readingTime(post.body)} min read
@@ -199,7 +206,6 @@ const Pagination = ({ page, total, perPage, onChange }) => {
       className="flex items-center justify-between pt-6 mt-6"
       style={{ borderTop: "1px solid rgba(29,94,255,0.07)" }}
     >
-      {/* Page numbers — left */}
       <div className="flex items-center gap-1">
         {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
           <button
@@ -218,7 +224,6 @@ const Pagination = ({ page, total, perPage, onChange }) => {
         ))}
       </div>
 
-      {/* Prev / Next — right */}
       <div className="flex items-center gap-2">
         <button
           onClick={() => page > 1 && onChange(page - 1)}
@@ -261,7 +266,6 @@ const Pagination = ({ page, total, perPage, onChange }) => {
 export default function BlogIndex({ posts = [] }) {
   const [page, setPage] = useState(1);
 
-  // Pick the featured post: prefer one explicitly flagged, fall back to latest
   const featured = posts.find((p) => p.featured) || posts[0];
   const rest = featured ? posts.filter((p) => p._id !== featured._id) : [];
 
@@ -276,27 +280,46 @@ export default function BlogIndex({ posts = [] }) {
     <>
       {/* Hero */}
       <section className="text-center pt-14 md:pt-28 pb-10 md:pb-20 px-6 max-md:px-4">
-        {/* Badge — blue pill matching other pages */}
-        <div className="inline-flex items-center px-5 py-2 md:px-5 md:py-2 rounded-full border border-[rgba(29,94,255,0.3)] bg-[rgba(29,94,255,0.06)] mb-5 md:mb-7 transition-all duration-220 hover:bg-[rgba(29,94,255,0.1)] hover:border-[rgba(29,94,255,0.5)] hover:-translate-y-0.5 hover:shadow-[0_4px_16px_rgba(29,94,255,0.1)]">
-          <span className="font-mono text-[11px] sm:text-xs font-semibold text-[#1D5EFF] uppercase tracking-[0.12em]">
-            Blog
-          </span>
-        </div>
+        <motion.div
+          variants={stagger}
+          initial="hidden"
+          animate="visible"
+          className="flex flex-col items-center"
+        >
+          <motion.div
+            variants={fadeUp}
+            className="inline-flex items-center px-5 py-2 md:px-5 md:py-2 rounded-full border border-[rgba(29,94,255,0.3)] bg-[rgba(29,94,255,0.06)] mb-5 md:mb-7 transition-[background-color,border-color,box-shadow,transform] duration-220 hover:bg-[rgba(29,94,255,0.1)] hover:border-[rgba(29,94,255,0.5)] hover:-translate-y-0.5 hover:shadow-[0_4px_16px_rgba(29,94,255,0.1)]"
+          >
+            <span className="font-mono text-[11px] sm:text-xs font-semibold text-[#1D5EFF] uppercase tracking-[0.12em]">
+              Blog
+            </span>
+          </motion.div>
 
-        <h1 className="font-inter text-[32px] md:text-[64px] font-bold leading-[1.15] md:leading-[1.1] text-[#13161A] m-0 mb-4 md:mb-5 max-w-[280px] md:max-w-2xl mx-auto">
-          Stories & Insights on Global Finance
-        </h1>
+          <motion.h1
+            variants={fadeUp}
+            className="font-inter text-[32px] md:text-[64px] font-bold leading-[1.15] md:leading-[1.1] text-[#13161A] m-0 mb-4 md:mb-5 max-w-[280px] md:max-w-2xl mx-auto"
+          >
+            Stories & Insights on Global Finance
+          </motion.h1>
 
-        <p className="font-mono text-[13px] md:text-[15px] text-[#657688] max-w-[260px] md:max-w-[440px] mx-auto m-0 leading-relaxed">
-          Read the latest stories on cross-border payments, fintech innovation,
-          and the trends shaping how businesses move money around the world.
-        </p>
+          <motion.p
+            variants={fadeUp}
+            className="font-mono text-[13px] md:text-[15px] text-[#657688] max-w-[260px] md:max-w-[440px] mx-auto m-0 leading-relaxed"
+          >
+            Read the latest stories on cross-border payments, fintech innovation,
+            and the trends shaping how businesses move money around the world.
+          </motion.p>
+        </motion.div>
       </section>
 
       {/* Posts card */}
       <div className="max-w-5xl mx-auto px-6 pb-28 max-md:px-4">
         {posts.length === 0 ? (
-          <div
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={vp}
             className="text-center py-24 bg-white rounded-3xl"
             style={{ border: "1px solid rgba(29,94,255,0.08)" }}
           >
@@ -307,9 +330,13 @@ export default function BlogIndex({ posts = [] }) {
             <p className="font-mono text-sm text-[#657688]">
               Check back soon — content is coming.
             </p>
-          </div>
+          </motion.div>
         ) : (
-          <div
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={vp}
             className="bg-white rounded-3xl px-5 md:px-12 py-8 md:py-10"
             style={{
               boxShadow: "0 4px 48px rgba(29,94,255,0.06)",
@@ -356,7 +383,7 @@ export default function BlogIndex({ posts = [] }) {
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }}
             />
-          </div>
+          </motion.div>
         )}
       </div>
     </>

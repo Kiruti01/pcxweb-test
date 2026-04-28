@@ -7,7 +7,7 @@ import Step4Card from "./how-it-works/Step4Card";
 const HowItWorks = () => {
   return (
     <section className="w-full py-16 px-6 md:py-20 bg-[#F8FAFF]">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-10 md:mb-14">
           <span
@@ -25,7 +25,7 @@ const HowItWorks = () => {
         </div>
 
         {/* Cards grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 md:gap-6 mb-8 md:mb-10 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-12 mb-8 md:mb-10">
           <Step1Card />
           <Step2Card />
           <Step3Card />
@@ -50,12 +50,6 @@ const HowItWorks = () => {
             Contact Sales
           </a>
 
-          <a
-            href="mailto:info@pcxpay.com?subject=Book%20a%20Demo"
-            className="w-full sm:w-auto text-center no-underline transition-all duration-180 hover:border-[#1D5EFF] hover:text-[#1D5EFF] hover:bg-[rgba(29,94,255,0.05)] hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(29,94,255,0.12)] active:translate-y-0 active:scale-97 active:bg-[rgba(29,94,255,0.1)] active:shadow-[0_2px_8px_rgba(29,94,255,0.1)] font-semibold rounded-full px-5 sm:px-6 py-3 border text-[13px] sm:text-[14px] bg-white text-[#13161A] border-[#E5E9F2]"
-          >
-            Book a Demo
-          </a>
         </div>
       </div>
     </section>

@@ -34,8 +34,8 @@ const ctaCards = [
   },
   {
     title: "For Enterprises",
-    label: "Schedule Demo",
-    href: "/contact-us",
+    label: "Explore Embedded Finance",
+    href: "/embedded-finance",
     external: false,
   },
 ];

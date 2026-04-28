@@ -2,6 +2,18 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+};
+const stagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.1 } },
+};
+
+const vp = { once: true, amount: 0.1 };
 
 /* ── Markdown renderer ── */
 const renderMarkdown = (md = "") =>
@@ -152,12 +164,11 @@ export default function BlogPostView({ post, related = [] }) {
   }, []);
 
   const html = renderMarkdown(post.content);
-  const authorName = post.author?.name || "PCX Team";
 
   return (
     <div className="w-full min-h-screen">
       <div className="max-w-6xl mx-auto px-5 pt-16 pb-20">
-        {/* Breadcrumb — uses "/" separator, "Blogs" in blue, matches Figma */}
+        {/* Breadcrumb */}
         <nav className="flex items-center gap-1.5 font-mono text-xs text-[#9AA5B4] mb-6">
           <Link
             href="/blog"
@@ -176,45 +187,64 @@ export default function BlogPostView({ post, related = [] }) {
         <div className="flex gap-12 items-start">
           {/* ── MAIN ARTICLE ── */}
           <article className="flex-1 min-w-0">
-            {/* Title — tighter on mobile, matches Figma ~28px */}
-            <h1 className="font-inter text-[26px] md:text-[36px] font-bold leading-[1.2] text-[#13161A] m-0 mb-3">
-              {post.title}
-            </h1>
-
-            {/* Meta — pipe separator, "mins. read" to match Figma */}
-            <div className="flex items-center gap-2 font-mono text-xs text-[#9AA5B4] mb-7">
-              <span>{fmtDate(post.publishedAt || post.createdAt)}</span>
-              <span className="text-[#C8D0DA]">|</span>
-              <span>{readingTime(post.content)} mins. read</span>
-            </div>
-
-            {/* Cover image — constrained width, rounded, matches Figma */}
-            {post.coverImage && (
-              <div
-                className="mb-7 rounded-2xl overflow-hidden"
-                style={{ maxWidth: "100%" }}
+            {/* Above-fold: title, meta, cover */}
+            <motion.div
+              variants={stagger}
+              initial="hidden"
+              animate="visible"
+            >
+              <motion.h1
+                variants={fadeUp}
+                className="font-inter text-[26px] md:text-[36px] font-bold leading-[1.2] text-[#13161A] m-0 mb-3"
               >
-                <img
-                  src={post.coverImage}
-                  alt={post.title}
-                  className="w-full"
-                  style={{ display: "block", borderRadius: 16 }}
-                  onError={(e) =>
-                    (e.target.parentElement.style.display = "none")
-                  }
-                />
-              </div>
-            )}
+                {post.title}
+              </motion.h1>
+
+              <motion.div
+                variants={fadeUp}
+                className="flex items-center gap-2 font-mono text-xs text-[#9AA5B4] mb-7"
+              >
+                <span>{fmtDate(post.publishedAt || post.createdAt)}</span>
+                <span className="text-[#C8D0DA]">|</span>
+                <span>{readingTime(post.content)} mins. read</span>
+              </motion.div>
+
+              {post.coverImage && (
+                <motion.div
+                  variants={fadeUp}
+                  className="mb-7 rounded-2xl overflow-hidden"
+                  style={{ maxWidth: "100%" }}
+                >
+                  <img
+                    src={post.coverImage}
+                    alt={post.title}
+                    className="w-full"
+                    style={{ display: "block", borderRadius: 16 }}
+                    onError={(e) =>
+                      (e.target.parentElement.style.display = "none")
+                    }
+                  />
+                </motion.div>
+              )}
+            </motion.div>
 
             {/* Body */}
-            <div
+            <motion.div
               className="blog-body"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={vp}
               dangerouslySetInnerHTML={{ __html: html }}
             />
 
             {/* Tags */}
             {(post.tags || []).length > 0 && (
-              <div
+              <motion.div
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={vp}
                 className="flex flex-wrap gap-2 mt-10 pt-8"
                 style={{ borderTop: "1px solid rgba(29,94,255,0.08)" }}
               >
@@ -231,12 +261,16 @@ export default function BlogPostView({ post, related = [] }) {
                     #{t}
                   </span>
                 ))}
-              </div>
+              </motion.div>
             )}
 
             {/* Share row */}
             {pageUrl && (
-              <div
+              <motion.div
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={vp}
                 className="flex items-center gap-3 mt-8 pt-6 flex-wrap"
                 style={{ borderTop: "1px solid rgba(29,94,255,0.08)" }}
               >
@@ -248,12 +282,7 @@ export default function BlogPostView({ post, related = [] }) {
                     label: "Twitter / X",
                     href: `https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(pageUrl)}`,
                     icon: (
-                      <svg
-                        width="14"
-                        height="14"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                      >
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.74l7.73-8.835L1.254 2.25H8.08l4.259 5.63L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z" />
                       </svg>
                     ),
@@ -262,12 +291,7 @@ export default function BlogPostView({ post, related = [] }) {
                     label: "LinkedIn",
                     href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(pageUrl)}`,
                     icon: (
-                      <svg
-                        width="14"
-                        height="14"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                      >
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 6a2 2 0 100-4 2 2 0 000 4z" />
                       </svg>
                     ),
@@ -287,8 +311,7 @@ export default function BlogPostView({ post, related = [] }) {
                     onMouseEnter={(e) => {
                       e.currentTarget.style.background = "rgba(29,94,255,0.12)";
                       e.currentTarget.style.color = "#1D5EFF";
-                      e.currentTarget.style.borderColor =
-                        "rgba(29,94,255,0.25)";
+                      e.currentTarget.style.borderColor = "rgba(29,94,255,0.25)";
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.background = "rgba(29,94,255,0.06)";
@@ -300,15 +323,19 @@ export default function BlogPostView({ post, related = [] }) {
                     {s.label}
                   </a>
                 ))}
-              </div>
+              </motion.div>
             )}
           </article>
 
           {/* ── SIDEBAR (desktop only) ── */}
           {related.length > 0 && (
-            <aside
+            <motion.aside
               className="hidden lg:block flex-shrink-0"
               style={{ width: 300 }}
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              transition={{ delay: 0.35 }}
             >
               <div className="sticky top-24">
                 <h3 className="font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-[#9AA5B4] mb-6">
@@ -320,15 +347,19 @@ export default function BlogPostView({ post, related = [] }) {
                   ))}
                 </div>
               </div>
-            </aside>
+            </motion.aside>
           )}
         </div>
 
-        {/* ── OTHER STORIES (mobile only) — 2-col grid below article ── */}
+        {/* ── OTHER STORIES (mobile only) ── */}
         {related.length > 0 && (
-          <div
+          <motion.div
             className="lg:hidden mt-10 pt-8"
             style={{ borderTop: "1px solid rgba(29,94,255,0.08)" }}
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={vp}
           >
             <h3 className="font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-[#9AA5B4] mb-5">
               Other Stories
@@ -338,7 +369,7 @@ export default function BlogPostView({ post, related = [] }) {
                 <SidebarCard key={p._id} post={p} />
               ))}
             </div>
-          </div>
+          </motion.div>
         )}
       </div>
     </div>

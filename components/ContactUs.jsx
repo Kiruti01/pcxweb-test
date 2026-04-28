@@ -1,5 +1,17 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+};
+const stagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.1 } },
+};
+
+const vp = { once: true, amount: 0.1 };
 
 const inputClass =
   "w-full p-4 rounded-[10px] border border-[rgba(210,218,230,0.6)] dark:border-white/10 bg-[rgba(230,232,238,0.4)] dark:bg-white/[0.08] font-mono text-sm text-[#13161A] dark:text-white/90 outline-none transition-all duration-200 placeholder:text-[#B8C4D0] dark:placeholder:text-white/30 hover:border-[rgba(29,94,255,0.28)] focus:border-[#1D5EFF] focus:bg-white/85 dark:focus:bg-white/[0.12] focus:shadow-[0_0_0_3px_rgba(29,94,255,0.1)]";
@@ -131,14 +143,25 @@ const ContactUs = () => {
     <div className="min-h-screen">
       <div className="max-w-6xl mx-auto px-6 py-16 max-md:py-10 max-md:px-4">
         {/* Badge + Heading */}
-        <div className="text-center mb-10 md:mb-16">
-          <div className="inline-flex items-center px-5 py-2 rounded-full border border-[rgba(29,94,255,0.3)] bg-[rgba(29,94,255,0.06)] mb-6 font-mono text-[11px] font-semibold tracking-[0.12em] uppercase text-[#1D5EFF] transition-all duration-200 hover:bg-[rgba(29,94,255,0.1)] hover:border-[rgba(29,94,255,0.5)] hover:-translate-y-0.5 hover:shadow-[0_4px_16px_rgba(29,94,255,0.1)]">
+        <motion.div
+          className="text-center mb-10 md:mb-16"
+          variants={stagger}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.div
+            variants={fadeUp}
+            className="inline-flex items-center px-5 py-2 rounded-full border border-[rgba(29,94,255,0.3)] bg-[rgba(29,94,255,0.06)] mb-6 font-mono text-[11px] font-semibold tracking-[0.12em] uppercase text-[#1D5EFF] transition-[background-color,border-color,box-shadow,transform] duration-200 hover:bg-[rgba(29,94,255,0.1)] hover:border-[rgba(29,94,255,0.5)] hover:-translate-y-0.5 hover:shadow-[0_4px_16px_rgba(29,94,255,0.1)]"
+          >
             Contact Us
-          </div>
-          <h1 className="text-[clamp(40px,7vw,80px)] font-extrabold leading-[1.05] bg-gradient-to-r from-[#847AFF] to-[#086FFF] bg-clip-text text-transparent m-0">
+          </motion.div>
+          <motion.h1
+            variants={fadeUp}
+            className="text-[clamp(40px,7vw,80px)] font-extrabold leading-[1.05] bg-linear-to-r from-[#847AFF] to-[#086FFF] bg-clip-text text-transparent m-0"
+          >
             Get In Touch
-          </h1>
-        </div>
+          </motion.h1>
+        </motion.div>
 
         {submitted ? (
           <div className="text-center py-14 px-6">
@@ -167,7 +190,13 @@ const ContactUs = () => {
           <>
             {/* ── DESKTOP: glass card, two columns ── */}
             <div className="hidden md:block">
-              <div className="bg-white/22 backdrop-blur-md border border-white/35 rounded-3xl p-[80px_64px_120px] max-lg:p-[60px_40px_80px]">
+              <motion.div
+                className="bg-white/22 backdrop-blur-md border border-white/35 rounded-3xl p-[80px_64px_120px] max-lg:p-[60px_40px_80px]"
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={vp}
+              >
                 <div className="flex gap-16 items-start">
                   <div className="w-56 shrink-0 flex flex-col gap-9">
                     <InfoBlocks />
@@ -180,11 +209,17 @@ const ContactUs = () => {
                     {renderFormFields(8)}
                   </form>
                 </div>
-              </div>
+              </motion.div>
             </div>
 
             {/* ── MOBILE ── */}
-            <div className="md:hidden flex flex-col gap-6">
+            <motion.div
+              className="md:hidden flex flex-col gap-6"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={vp}
+            >
               <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                 {renderFormFields(6)}
               </form>
@@ -199,7 +234,7 @@ const ContactUs = () => {
               >
                 <InfoBlocks />
               </div>
-            </div>
+            </motion.div>
           </>
         )}
       </div>

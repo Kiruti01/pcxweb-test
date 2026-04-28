@@ -20,7 +20,7 @@ const Step4Card = () => {
     >
       {/* Visual area */}
       <div
-        className="hiw-visual relative flex items-center justify-center min-h-52 px-5 pt-7 pb-5 overflow-hidden"
+        className="hiw-visual relative flex flex-1 items-center justify-center min-h-52 px-5 pt-7 pb-5 overflow-hidden"
         style={{ background: "linear-gradient(145deg, #F5F3FF, #EDE9FE)" }}
       >
         {/* Virtual accounts mockup */}
