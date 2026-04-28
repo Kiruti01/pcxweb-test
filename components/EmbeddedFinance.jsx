@@ -113,6 +113,7 @@ const CAPABILITIES = [
 
 const VALUE_PROPS = [
   {
+    icon: <img src="/fordevs.svg" alt="Developer Icon" className="w-12 h-12" />,
     audience: "For developers",
     title: "Build Fintech features without complexity",
     points: [
@@ -122,6 +123,13 @@ const VALUE_PROPS = [
     ],
   },
   {
+    icon: (
+      <img
+        src="/forenterprises.svg"
+        alt="Enterprise Icon"
+        className="w-12 h-12"
+      />
+    ),
     audience: "For enterprises",
     title: "Modernize your global payment operations",
     points: [
@@ -131,6 +139,9 @@ const VALUE_PROPS = [
     ],
   },
   {
+    icon: (
+      <img src="/forplatforms.svg" alt="Platform Icon" className="w-12 h-12" />
+    ),
     audience: "For platforms & marketplaces",
     title: "Monetize and control your payment flows",
     points: [
@@ -310,7 +321,11 @@ const EmbeddedFinance = () => {
             }}
           >
             <img
-              src={dark ? "/Virtual Account redesign dark.svg" : "/Virtual Account redesign light.svg"}
+              src={
+                dark
+                  ? "/Virtual Account redesign dark.svg"
+                  : "/Virtual Account redesign light.svg"
+              }
               alt="PCX Virtual Account Dashboard"
               className="w-full h-auto block"
             />
