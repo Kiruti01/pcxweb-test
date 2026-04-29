@@ -110,9 +110,15 @@ const Hero = ({ map }) => {
       </div>
 
       {/* Map */}
-      <div className="map-wrapper relative w-full mt-4 z-1">
+      <motion.div
+        className="map-wrapper relative w-full mt-4 z-1"
+        variants={fadeUp}
+        initial="hidden"
+        animate="visible"
+        transition={{ delay: 0.5 }}
+      >
         {map}
-      </div>
+      </motion.div>
 
       {/* Partners */}
       <motion.div

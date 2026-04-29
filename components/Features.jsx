@@ -1,29 +1,62 @@
-import React from "react";
+"use client";
+import { motion } from "framer-motion";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+};
+const stagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.1 } },
+};
+
+const vp = { once: true, amount: 0.15 };
 
 const Features = () => {
   return (
     <section className="features-section bg-white py-[80px_20px_120px] relative max-md:py-10">
       <div className="max-w-360 mx-auto px-6 max-md:px-4">
         {/* Header */}
-        <div className="text-center mb-20 max-md:mb-10">
-          <h2 className="font-inter font-bold m-0 mb-8 max-md:mb-5 flex flex-col items-center gap-1">
+        <motion.div
+          className="text-center mb-20 max-md:mb-10"
+          variants={stagger}
+          initial="hidden"
+          whileInView="visible"
+          viewport={vp}
+        >
+          <motion.h2
+            variants={fadeUp}
+            className="font-inter font-bold m-0 mb-8 max-md:mb-5 flex flex-col items-center gap-1"
+          >
             <span className="mt-12 max-md:mt-4 text-[32px] leading-[1.3] text-[#2A3239] font-bold max-lg:text-2xl max-md:text-lg max-[480px]:text-base">
               A Fully Integrated Platform for
             </span>
             <span className="text-[64px] leading-[1.2] bg-linear-to-r from-[#847AFF] to-[#086FFF] bg-clip-text text-transparent max-lg:text-5xl max-md:text-[28px] max-md:leading-[1.25] max-[480px]:text-2xl">
               Moving Money Globally
             </span>
-          </h2>
-          <p className="font-mono text-xl font-normal leading-8 text-[#3E4953] max-w-236.25 mx-auto max-md:text-sm max-md:leading-5.5">
+          </motion.h2>
+          <motion.p
+            variants={fadeUp}
+            className="font-mono text-xl font-normal leading-8 text-[#3E4953] max-w-236.25 mx-auto max-md:text-sm max-md:leading-5.5"
+          >
             Our platform unifies stablecoins and traditional rails into one
             seamless infrastructure, so businesses can move money faster,
             cheaper, and more reliably.
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
         {/* Grid */}
-        <div className="grid grid-cols-2 gap-12 mb-20 max-w-290 mx-auto max-lg:grid-cols-1 max-lg:gap-8 max-md:mb-15 max-md:max-w-full">
-          <div className="group p-12 rounded-2xl border border-[rgba(200,200,220,0.6)] bg-[rgba(248,249,252,0.8)] relative transition-all duration-250 hover:-translate-y-1 hover:border-[rgba(29,94,255,0.25)] hover:bg-[rgba(240,245,255,0.9)] hover:shadow-[0_10px_48px_rgba(29,94,255,0.08)] active:-translate-y-0.5 max-md:p-6 max-[480px]:p-5">
+        <motion.div
+          className="grid grid-cols-2 gap-12 mb-20 max-w-290 mx-auto max-lg:grid-cols-1 max-lg:gap-8 max-md:mb-15 max-md:max-w-full"
+          variants={stagger}
+          initial="hidden"
+          whileInView="visible"
+          viewport={vp}
+        >
+          <motion.div
+            variants={fadeUp}
+            className="group p-12 rounded-2xl border border-[rgba(200,200,220,0.6)] bg-[rgba(248,249,252,0.8)] relative transition-all duration-250 hover:-translate-y-1 hover:border-[rgba(29,94,255,0.25)] hover:bg-[rgba(240,245,255,0.9)] hover:shadow-[0_10px_48px_rgba(29,94,255,0.08)] active:-translate-y-0.5 max-md:p-6 max-[480px]:p-5"
+          >
             <div className="flex flex-col gap-12">
               <div className="flex flex-col gap-4 max-w-100 max-md:max-w-full">
                 <h3 className="font-inter text-2xl font-bold leading-8 text-[#13161A] m-0 transition-colors duration-200 group-hover:text-[#1D5EFF] max-md:text-lg max-[480px]:text-base max-[480px]:leading-6">
@@ -37,9 +70,12 @@ const Features = () => {
                 </p>
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="group p-12 rounded-2xl border border-[rgba(200,200,220,0.6)] bg-[rgba(248,249,252,0.8)] relative transition-all duration-250 hover:-translate-y-1 hover:border-[rgba(29,94,255,0.25)] hover:bg-[rgba(240,245,255,0.9)] hover:shadow-[0_10px_48px_rgba(29,94,255,0.08)] active:-translate-y-0.5 max-md:p-6 max-[480px]:p-5">
+          <motion.div
+            variants={fadeUp}
+            className="group p-12 rounded-2xl border border-[rgba(200,200,220,0.6)] bg-[rgba(248,249,252,0.8)] relative transition-all duration-250 hover:-translate-y-1 hover:border-[rgba(29,94,255,0.25)] hover:bg-[rgba(240,245,255,0.9)] hover:shadow-[0_10px_48px_rgba(29,94,255,0.08)] active:-translate-y-0.5 max-md:p-6 max-[480px]:p-5"
+          >
             <div className="flex flex-col gap-12">
               <div className="flex flex-col gap-4 max-w-100 max-md:max-w-full">
                 <h3 className="font-inter text-2xl font-bold leading-8 text-[#13161A] m-0 transition-colors duration-200 group-hover:text-[#1D5EFF] max-md:text-lg max-[480px]:text-base max-[480px]:leading-6">
@@ -53,16 +89,25 @@ const Features = () => {
                 </p>
               </div>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* CTA */}
-        <div className="flex flex-col items-center gap-8 text-center max-w-199.75 mx-auto max-md:gap-6">
-          <h3 className="font-inter text-[32px] font-medium leading-10 text-[#13161A] m-0 max-md:text-2xl max-md:leading-8 max-[480px]:text-xl max-[480px]:leading-7">
+        <motion.div
+          className="flex flex-col items-center gap-8 text-center max-w-199.75 mx-auto max-md:gap-6"
+          variants={stagger}
+          initial="hidden"
+          whileInView="visible"
+          viewport={vp}
+        >
+          <motion.h3
+            variants={fadeUp}
+            className="font-inter text-[32px] font-medium leading-10 text-[#13161A] m-0 max-md:text-2xl max-md:leading-8 max-[480px]:text-xl max-[480px]:leading-7"
+          >
             One Platform to Accept Payments, Protect Revenue, and Control Your
             Finances
-          </h3>
-          <div className="flex items-center gap-4 max-[480px]:gap-3">
+          </motion.h3>
+          <motion.div variants={fadeUp} className="flex items-center gap-4 max-[480px]:gap-3">
             <a
               href="https://platform.pcxpay.com/signup"
               target="_blank"
@@ -79,12 +124,15 @@ const Features = () => {
             >
               Start Building →
             </a>
-          </div>
-          <p className="font-mono text-sm font-normal leading-5 text-[#657688] italic m-0 max-md:text-xs max-md:leading-4.5">
+          </motion.div>
+          <motion.p
+            variants={fadeUp}
+            className="font-mono text-sm font-normal leading-5 text-[#657688] italic m-0 max-md:text-xs max-md:leading-4.5"
+          >
             Explore the full platform with test data, no documents required to
             start
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
       </div>
     </section>
   );
