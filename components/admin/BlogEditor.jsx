@@ -919,8 +919,9 @@ const BlogEditor = ({ postId }) => {
 
   // ── Save ──────────────────────────────────────────────────────────────────────
   const handleSave = async (status) => {
-    if (!post.title.trim()) return showToast("Title is required");
-    if (!post.slug.trim()) return showToast("Slug is required");
+    if (!post.title.trim()) return showToast("Please add a title before saving");
+    if (!post.slug.trim()) return showToast("Please add a slug before saving");
+    if (!post.content.trim()) return showToast("Post content cannot be empty");
     setSaveState("saving");
 
     try {
@@ -934,7 +935,7 @@ const BlogEditor = ({ postId }) => {
       setSaveState("saved");
       setTimeout(() => router.push("/admin/blog"), 800);
     } catch (err) {
-      showToast(err.message);
+      showToast("Failed to save post. Please try again.");
       setSaveState(null);
     }
   };
