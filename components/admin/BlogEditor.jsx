@@ -727,7 +727,6 @@ const BlogEditor = ({ postId }) => {
   const [seoOpen, setSeoOpen] = useState(false);
   const [wordCount, setWordCount] = useState(0);
   const [loading, setLoading] = useState(!isNew);
-  const [error, setError] = useState(null);
   const [showInsertMenu, setShowInsertMenu] = useState(false);
   const [showGridModal, setShowGridModal] = useState(false);
 
@@ -833,7 +832,7 @@ const BlogEditor = ({ postId }) => {
         setPost((p) => ({ ...p, coverImage: url }));
         setCropModal(null);
       } catch (err) {
-        setError("Cover upload failed: " + err.message);
+        showToast("Cover upload failed: " + err.message);
       } finally {
         setCropUploading(false);
       }
@@ -856,7 +855,7 @@ const BlogEditor = ({ postId }) => {
         setCropModal(null);
         setTimeout(() => processSingleFiles(), 100);
       } catch (err) {
-        setError("Upload failed: " + err.message);
+        showToast("Upload failed: " + err.message);
         pendingFilesRef.current = [];
       } finally {
         setCropUploading(false);
@@ -923,7 +922,7 @@ const BlogEditor = ({ postId }) => {
     if (!post.title.trim()) return showToast("Title is required");
     if (!post.slug.trim()) return showToast("Slug is required");
     setSaveState("saving");
-    setError(null);
+
     try {
       const payload = {
         ...post,
@@ -935,7 +934,7 @@ const BlogEditor = ({ postId }) => {
       setSaveState("saved");
       setTimeout(() => router.push("/admin/blog"), 800);
     } catch (err) {
-      setError(err.message);
+      showToast(err.message);
       setSaveState(null);
     }
   };
@@ -1042,9 +1041,6 @@ const BlogEditor = ({ postId }) => {
                 <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] inline-block" />
                 Saved
               </span>
-            )}
-            {error && (
-              <span className="font-mono text-xs text-[#EE0E0E]">{error}</span>
             )}
             <div
               className="flex items-center gap-0.5 p-1 rounded-lg"
