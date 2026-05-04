@@ -7,9 +7,9 @@ const EXAMPLE = {
   fromCode: "USD",
   fromFlag: "us",
   fromAmount: "1,000.00",
-  toCode: "NGN",
-  toFlag: "ng",
-  toAmount: "1,542,250.00",
+  toCode: "USDC",
+  toFlag: "us",
+  toAmount: "1,000.00",
 };
 
 const StaticCurrencyBadge = ({ code, flagClass, isDark }) => (
@@ -36,13 +36,17 @@ const CurrencyConverter = () => {
   const labelColor = isDark ? "rgba(255,255,255,0.35)" : "#9AA5B4";
   const valueColor = isDark ? "rgba(255,255,255,0.9)" : "#13161A";
   const dividerColor = isDark ? "rgba(255,255,255,0.06)" : "#F0F2F5";
-  const outerGradFrom = isDark ? "rgba(132,122,255,0.35)" : "rgba(132,122,255,0.25)";
+  const outerGradFrom = isDark
+    ? "rgba(132,122,255,0.35)"
+    : "rgba(132,122,255,0.25)";
   const outerGradTo = isDark ? "rgba(29,94,255,0.28)" : "rgba(29,94,255,0.18)";
 
   return (
     <div
       className="p-1.5 rounded-[28px] max-md:rounded-[20px] shadow-[0_8px_40px_rgba(29,94,255,0.15)] max-w-115 w-full"
-      style={{ background: `linear-gradient(135deg, ${outerGradFrom}, ${outerGradTo})` }}
+      style={{
+        background: `linear-gradient(135deg, ${outerGradFrom}, ${outerGradTo})`,
+      }}
     >
       <div
         className="rounded-[22px] max-md:rounded-[16px] p-7 max-md:p-5 relative"
@@ -79,7 +83,9 @@ const CurrencyConverter = () => {
             className="w-9 h-9 max-md:w-8 max-md:h-8 rounded-full border-2 flex items-center justify-center shrink-0"
             style={{
               background: isDark ? "rgba(29,94,255,0.15)" : "white",
-              borderColor: isDark ? "rgba(29,94,255,0.4)" : "rgba(29,94,255,0.2)",
+              borderColor: isDark
+                ? "rgba(29,94,255,0.4)"
+                : "rgba(29,94,255,0.2)",
             }}
           >
             <svg width="17" height="17" viewBox="0 0 17 17" fill="none">
