@@ -8,10 +8,13 @@ frontend:
       commands:
         - env | grep -e MONGODB_URI -e JWT_SECRET -e NODE_ENV >> .env.production
         - npm run build
+        - cp -r public .next/standalone/public
+        - cp -r .next/static .next/standalone/.next/static
   artifacts:
-    baseDirectory: .next
+    baseDirectory: .next/standalone
     files:
       - '**/*'
   cache:
     paths:
+      - node_modules/**/*
       - .next/cache/**/*
