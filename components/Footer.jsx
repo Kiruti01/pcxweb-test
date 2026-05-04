@@ -10,7 +10,7 @@ const Footer = () => {
     { label: "About Us", href: "/about" },
     {
       label: "API Docs",
-      href: "https://docs.pcxpay.com/",
+      href: "https://apiaws.docs.apiary.io/#/",
       external: true,
     },
     { label: "Blog", href: "/blog" },

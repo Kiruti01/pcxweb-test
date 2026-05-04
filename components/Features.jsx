@@ -3,7 +3,11 @@ import { motion } from "framer-motion";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  },
 };
 const stagger = {
   hidden: {},
@@ -63,10 +67,10 @@ const Features = () => {
                   Cross-border Payments
                 </h3>
                 <p className="font-mono text-base font-normal leading-6 text-[#3E4953] m-0 max-md:text-sm max-md:leading-5.5">
-                  Stop losing money to correspondent banks. Our stablecoin
-                  rails and Lightning integration eliminate the 3–5%
-                  correspondent fees, while our optimisation engine makes even
-                  €0.50 micro-transactions profitable.
+                  Stop losing money to correspondent banks. Our stablecoin rails
+                  and Lightning integration eliminate the 3–5% correspondent
+                  fees, while our optimisation engine makes even €0.50
+                  micro-transactions profitable.
                 </p>
               </div>
             </div>
@@ -83,8 +87,8 @@ const Features = () => {
                 </h3>
                 <p className="font-mono text-base font-normal leading-6 text-[#3E4953] m-0 max-md:text-sm max-md:leading-5.5">
                   Every platform needs to process payments. Not every platform
-                  should build the infrastructure behind it. Embed global payment
-                  capabilities with a single integration. We handle the
+                  should build the infrastructure behind it. Embed global
+                  payment capabilities with a single integration. We handle the
                   complexity — you keep your focus.
                 </p>
               </div>
@@ -107,7 +111,10 @@ const Features = () => {
             One Platform to Accept Payments, Protect Revenue, and Control Your
             Finances
           </motion.h3>
-          <motion.div variants={fadeUp} className="flex items-center gap-4 max-[480px]:gap-3">
+          <motion.div
+            variants={fadeUp}
+            className="flex items-center gap-4 max-[480px]:gap-3"
+          >
             <a
               href="https://platform.pcxpay.com/signup"
               target="_blank"
@@ -117,7 +124,7 @@ const Features = () => {
               Get Started
             </a>
             <a
-              href="https://docs.pcxpay.com/"
+              href="https://apiaws.docs.apiary.io/#/"
               target="_blank"
               rel="noopener noreferrer"
               className="transition-all duration-200 hover:border-[rgba(29,94,255,0.35)] hover:bg-[rgba(29,94,255,0.14)] hover:-translate-y-0.5 hover:shadow-[0_4px_16px_rgba(29,94,255,0.1)] active:translate-y-0 flex py-5 px-10 justify-center items-center gap-2 rounded-lg border border-[rgba(29,94,255,0.16)] bg-[rgba(29,94,255,0.08)] text-[#1D5EFF] font-mono text-base font-medium whitespace-nowrap max-md:py-3.5 max-md:px-6 max-md:text-sm no-underline"

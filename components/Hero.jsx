@@ -4,7 +4,11 @@ import { useTheme } from "./ThemeContext";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  },
 };
 const stagger = {
   hidden: {},
@@ -26,7 +30,11 @@ const logos = [
   { light: "/Sarepay.svg", dark: "/dark sarepay.svg", alt: "Sarepay" },
   { light: "/thealtbank.svg", dark: "/dark alt bank.svg", alt: "The Alt Bank" },
   { light: "/Verto.svg", dark: "/dark verto.svg", alt: "Verto" },
-  { light: "/dark wintermute.svg", dark: "/dark wintermute.svg", alt: "Wintermute" },
+  {
+    light: "/dark wintermute.svg",
+    dark: "/dark wintermute.svg",
+    alt: "Wintermute",
+  },
   { light: "/Yellowcard.svg", dark: "/Yellowcard.svg", alt: "Yellowcard" },
   { light: "/Zuniq.svg", dark: "/Zuniq.svg", alt: "Zuniq" },
 ];
@@ -35,7 +43,11 @@ const businessLogos = [
   { light: "/ABinbev.svg", dark: "/dark abinbev.svg", alt: "AB InBev" },
   { light: "/Bedrock.svg", dark: "/dark bedrock.svg", alt: "Bedrock" },
   { light: "/Sycamore.svg", dark: "/dark sycamore.svg", alt: "Sycamore" },
-  { light: "/Ventureforafrica.svg", dark: "/dark venture.svg", alt: "Venture for Africa" },
+  {
+    light: "/Ventureforafrica.svg",
+    dark: "/dark venture.svg",
+    alt: "Venture for Africa",
+  },
 ];
 
 const Hero = ({ map }) => {
@@ -98,7 +110,7 @@ const Hero = ({ map }) => {
             </a>
 
             <a
-              href="https://docs.pcxpay.com/"
+              href="https://apiaws.docs.apiary.io/#/"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center py-4 px-6 bg-transparent border-none text-[#1D5EFF] font-mono text-base font-medium transition-all duration-200 hover:opacity-70 hover:translate-x-0.5 no-underline"
