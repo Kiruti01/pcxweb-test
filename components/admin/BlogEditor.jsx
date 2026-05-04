@@ -734,6 +734,12 @@ const BlogEditor = ({ postId }) => {
   // Single image crop modal
   const [cropModal, setCropModal] = useState(null);
   const [cropUploading, setCropUploading] = useState(false);
+  const [toast, setToast] = useState(null);
+
+  const showToast = (message, type = "error") => {
+    setToast({ message, type });
+    setTimeout(() => setToast(null), 3500);
+  };
   const pendingFilesRef = useRef([]);
   const savedCursorRef = useRef(0);
 
@@ -914,8 +920,8 @@ const BlogEditor = ({ postId }) => {
 
   // ── Save ──────────────────────────────────────────────────────────────────────
   const handleSave = async (status) => {
-    if (!post.title.trim()) return alert("Title is required");
-    if (!post.slug.trim()) return alert("Slug is required");
+    if (!post.title.trim()) return showToast("Title is required");
+    if (!post.slug.trim()) return showToast("Slug is required");
     setSaveState("saving");
     setError(null);
     try {
@@ -945,6 +951,18 @@ const BlogEditor = ({ postId }) => {
 
   return (
     <>
+      {toast && (
+        <div className="fixed top-5 left-1/2 -translate-x-1/2 z-9999 flex items-center gap-3 px-5 py-3 rounded-xl shadow-lg font-mono text-sm font-medium animate-fade-in"
+          style={{
+            background: toast.type === "error" ? "#2D1B1B" : "#1B2D1B",
+            border: `1px solid ${toast.type === "error" ? "rgba(239,68,68,0.4)" : "rgba(34,197,94,0.4)"}`,
+            color: toast.type === "error" ? "#F87171" : "#4ADE80",
+          }}
+        >
+          <span>{toast.type === "error" ? "✕" : "✓"}</span>
+          {toast.message}
+        </div>
+      )}
       {cropModal && (
         <CropModal
           src={cropModal.src}
