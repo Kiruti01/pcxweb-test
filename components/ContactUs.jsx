@@ -74,6 +74,8 @@ const InfoBlocks = () => (
 const ContactUs = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
@@ -87,9 +89,23 @@ const ContactUs = () => {
   const handleChange = (e) =>
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error();
+      setSubmitted(true);
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const renderFormFields = (rows = 8) => (
@@ -130,11 +146,15 @@ const ContactUs = () => {
           required
         />
       </div>
+      {error && (
+        <p className="font-mono text-sm text-red-500 text-center">{error}</p>
+      )}
       <button
         type="submit"
-        className="w-full py-4 rounded-xl border-none bg-[#1D5EFF] text-white font-mono text-[13px] font-bold tracking-[0.12em] uppercase cursor-pointer shadow-[0_4px_20px_rgba(29,94,255,0.32)] transition-all duration-200 hover:bg-[#1550e0] hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(29,94,255,0.44)] active:scale-95 mt-1"
+        disabled={loading}
+        className="w-full py-4 rounded-xl border-none bg-[#1D5EFF] text-white font-mono text-[13px] font-bold tracking-[0.12em] uppercase cursor-pointer shadow-[0_4px_20px_rgba(29,94,255,0.32)] transition-all duration-200 hover:bg-[#1550e0] hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(29,94,255,0.44)] active:scale-95 mt-1 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
       >
-        Submit
+        {loading ? "Sending..." : "Submit"}
       </button>
     </>
   );

@@ -104,7 +104,7 @@ const EmbeddedFinance = () => {
   const titleColor = dark ? "#ffffff" : "#13161A";
   const bodyColor = dark ? "rgba(255,255,255,0.55)" : "#6B7280";
   const sectionBg = dark ? "#0a1020" : "#ffffff";
-  const altSectionBg = dark ? "#07101e" : "#F8FAFF";
+
 
   return (
     <div className="w-full">
@@ -235,7 +235,7 @@ const EmbeddedFinance = () => {
       </section>
 
       {/* ── PCX Virtual Account ── */}
-      <section className="w-full py-24 max-md:py-14" style={{ background: altSectionBg }}>
+      <section className="w-full py-24 max-md:py-14" style={{ background: sectionBg }}>
         <motion.div
           className="max-w-6xl mx-auto px-6 max-md:px-4 flex flex-col items-center text-center"
           variants={stagger}
@@ -271,13 +271,18 @@ const EmbeddedFinance = () => {
           </motion.p>
           <motion.div
             variants={fadeUp}
-            className="w-full max-w-4xl rounded-2xl overflow-hidden shadow-[0_24px_80px_rgba(29,94,255,0.15)] border"
-            style={{ borderColor: cardBorder, background: dark ? "#07101e" : "#ffffff" }}
+            className="relative w-full max-w-4xl overflow-hidden"
           >
             <img
               src={dark ? "/Virtual Account redesign dark.svg" : "/Virtual Account redesign light.svg"}
               alt="PCX Virtual Account Dashboard"
-              className="w-full h-auto block"
+              className="w-full h-auto block rounded-2xl"
+            />
+            <div
+              className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none"
+              style={{
+                background: `linear-gradient(to bottom, transparent, ${sectionBg})`,
+              }}
             />
           </motion.div>
         </motion.div>
