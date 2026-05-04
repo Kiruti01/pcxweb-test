@@ -8,11 +8,19 @@ const EXAMPLE = {
   fromFlag: "us",
   fromAmount: "1,000.00",
   toCode: "USDC",
-  toFlag: "us",
+  toIcon: (
+    <svg width="16" height="16" viewBox="0 0 32 32" fill="none">
+      <circle cx="16" cy="16" r="16" fill="#2775CA" />
+      <path
+        d="M16 6C10.477 6 6 10.477 6 16s4.477 10 10 10 10-4.477 10-10S21.523 6 16 6zm1.2 15.8v1.4h-2.4v-1.4c-2.6-.5-4.4-2.1-4.6-4.4h2.5c.2 1.3 1.2 2.1 2.8 2.1 1.7 0 2.7-.8 2.7-2 0-1.1-.7-1.7-2.6-2.1-2.7-.6-4.3-1.7-4.3-3.8 0-1.9 1.5-3.4 3.5-3.8V8.8h2.4v1.4c2.3.5 3.8 2 4 4.1h-2.5c-.2-1.2-1-1.9-2.5-1.9-1.5 0-2.4.7-2.4 1.8 0 1 .7 1.6 2.7 2.1 2.7.6 4.2 1.7 4.2 3.9 0 2-1.5 3.5-3.5 3.9z"
+        fill="white"
+      />
+    </svg>
+  ),
   toAmount: "1,000.00",
 };
 
-const StaticCurrencyBadge = ({ code, flagClass, isDark }) => (
+const StaticCurrencyBadge = ({ code, flagClass, icon, isDark }) => (
   <div
     className="flex items-center gap-1.5 px-3 py-2 rounded-lg font-mono text-xs font-bold whitespace-nowrap"
     style={{
@@ -21,7 +29,10 @@ const StaticCurrencyBadge = ({ code, flagClass, isDark }) => (
       color: isDark ? "white" : "#13161A",
     }}
   >
-    <span className={`fi fi-${flagClass} fis w-4 h-4 rounded-full`} />
+    {icon
+      ? <span className="w-4 h-4 flex items-center justify-center shrink-0">{icon}</span>
+      : <span className={`fi fi-${flagClass} fis w-4 h-4 rounded-full`} />
+    }
     <span>{code}</span>
   </div>
 );
@@ -120,7 +131,7 @@ const CurrencyConverter = () => {
           </span>
           <StaticCurrencyBadge
             code={EXAMPLE.toCode}
-            flagClass={EXAMPLE.toFlag}
+            icon={EXAMPLE.toIcon}
             isDark={isDark}
           />
         </div>
