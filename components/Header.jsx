@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import ThemeToggle from "./ThemeToggle";
+// import ThemeToggle from "./ThemeToggle";
 
 const chevronDown = (isOpen) => (
   <svg
@@ -257,7 +257,7 @@ const Header = () => {
 
         {/* Actions */}
         <div className="flex items-center gap-2 shrink-0">
-          <ThemeToggle />
+          {/* <ThemeToggle /> */}
 
           <a
             href="https://platform.pcxpay.com/login"
