@@ -1,4 +1,3 @@
-import React from "react";
 import Step1Card from "./how-it-works/Step1Card";
 import Step2Card from "./how-it-works/Step2Card";
 import Step3Card from "./how-it-works/Step3Card";
@@ -6,7 +5,7 @@ import Step4Card from "./how-it-works/Step4Card";
 
 const HowItWorks = () => {
   return (
-    <section className="w-full py-16 px-6 md:py-20 bg-[#F8FAFF]">
+    <section className="w-full py-16 px-6 md:py-20 bg-white dot-grid-blue">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-10 md:mb-14">
@@ -16,7 +15,7 @@ const HowItWorks = () => {
           >
             How It Works
           </span>
-          <h2 className="font-black leading-tight text-[#13161A] text-[clamp(32px,5vw,56px)] tracking-[-2px] mb-0">
+          <h2 className="font-semibold leading-tight text-[#13161A] text-[clamp(32px,5vw,56px)] tracking-[-2px] mb-0">
             4 Easy Steps to Your <br className="hidden sm:block" />
             <span className="bg-linear-to-r from-[#847AFF] to-[#086FFF] bg-clip-text text-transparent">
               Virtual Account
