@@ -386,6 +386,7 @@ export default function BlogIndex({ posts = [] }) {
           </motion.div>
         )}
       </div>
+      <div className="h-24 pointer-events-none" style={{ background: "linear-gradient(to bottom, rgba(235,243,255,0), #ffffff)" }} />
     </>
   );
 }
