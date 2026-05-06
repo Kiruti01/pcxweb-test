@@ -166,7 +166,7 @@ export default function BlogPostView({ post, related = [] }) {
   const html = renderMarkdown(post.content);
 
   return (
-    <div className="w-full min-h-screen">
+    <div className="w-full min-h-screen" style={{ background: "linear-gradient(to bottom, rgba(235,243,255,0) 70%, #ffffff 100%)" }}>
       <div className="max-w-6xl mx-auto px-5 pt-16 pb-20">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-1.5 font-mono text-xs text-[#9AA5B4] mb-6">
