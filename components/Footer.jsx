@@ -131,39 +131,39 @@ const Footer = () => {
                   </li>
                 ))}
               </ul>
+
+              {/* Socials — mobile only, below PRODUCT */}
+              <div className="md:hidden flex flex-col gap-3 mt-5">
+                <h4 className="font-inter text-lg font-bold leading-5 text-[#13161A] m-0 max-sm:text-sm">
+                  SOCIALS
+                </h4>
+                <a
+                  href="https://www.linkedin.com/company/pcxpay-ltd/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block transition-opacity duration-200 hover:opacity-80"
+                  aria-label="LinkedIn"
+                >
+                  <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                    <circle cx="24" cy="24" r="24" fill="#131927" />
+                    <svg
+                      x="8"
+                      y="8"
+                      width="32"
+                      height="32"
+                      viewBox="0 0 32 32"
+                      fill="none"
+                    >
+                      <path
+                        d="M8.48169 6.40234C7.16969 6.40234 6.30469 7.29834 6.30469 8.48234C6.30469 9.63434 7.13719 10.5613 8.41719 10.5613C9.79319 10.5613 10.6572 9.63434 10.6252 8.48234C10.6252 7.29834 9.79369 6.40234 8.48169 6.40234ZM20.7687 11.9063C18.5607 11.9063 17.2172 13.1858 16.6732 14.0818H16.6097L16.4172 12.1943H12.8657C12.8977 13.4103 12.9612 14.8183 12.9612 16.4823V25.6013H17.0567V17.8893C17.0567 17.5053 17.0887 17.1218 17.1847 16.8338C17.5047 16.0658 18.1772 15.2653 19.2972 15.2653C20.8012 15.2653 21.3772 16.4498 21.3772 18.1778V25.6013H25.5052V17.6983C25.5052 13.7303 23.4567 11.9063 20.7687 11.9063ZM6.40169 12.1943V25.6013H10.4972V12.1943H6.40169Z"
+                        fill="white"
+                      />
+                    </svg>
+                  </svg>
+                </a>
+              </div>
             </div>
           </div>
-        </div>
-
-        {/* Socials — mobile */}
-        <div className="hidden max-md:flex flex-col gap-3 -mt-4">
-          <h4 className="font-inter text-lg font-bold leading-5 text-[#13161A] m-0 max-sm:text-sm">
-            SOCIALS
-          </h4>
-          <a
-            href="https://www.linkedin.com/company/pcxpay-ltd/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block transition-opacity duration-200 hover:opacity-80"
-            aria-label="LinkedIn"
-          >
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-              <circle cx="24" cy="24" r="24" fill="#131927" />
-              <svg
-                x="8"
-                y="8"
-                width="32"
-                height="32"
-                viewBox="0 0 32 32"
-                fill="none"
-              >
-                <path
-                  d="M8.48169 6.40234C7.16969 6.40234 6.30469 7.29834 6.30469 8.48234C6.30469 9.63434 7.13719 10.5613 8.41719 10.5613C9.79319 10.5613 10.6572 9.63434 10.6252 8.48234C10.6252 7.29834 9.79369 6.40234 8.48169 6.40234ZM20.7687 11.9063C18.5607 11.9063 17.2172 13.1858 16.6732 14.0818H16.6097L16.4172 12.1943H12.8657C12.8977 13.4103 12.9612 14.8183 12.9612 16.4823V25.6013H17.0567V17.8893C17.0567 17.5053 17.0887 17.1218 17.1847 16.8338C17.5047 16.0658 18.1772 15.2653 19.2972 15.2653C20.8012 15.2653 21.3772 16.4498 21.3772 18.1778V25.6013H25.5052V17.6983C25.5052 13.7303 23.4567 11.9063 20.7687 11.9063ZM6.40169 12.1943V25.6013H10.4972V12.1943H6.40169Z"
-                  fill="white"
-                />
-              </svg>
-            </svg>
-          </a>
         </div>
 
         {/* Divider */}
@@ -214,7 +214,7 @@ const Footer = () => {
           </div>
 
           {/* Policy links */}
-          <div className="flex items-center gap-8 flex-wrap max-md:grid max-md:grid-cols-2 max-md:gap-x-10 max-md:gap-y-3 max-md:order-1">
+          <div className="flex items-center gap-8 flex-wrap max-md:grid max-md:grid-cols-2 max-md:gap-x-4 max-md:gap-y-3 max-md:order-1">
             {policyLinks.map((item, i, arr) => (
               <React.Fragment key={item.href}>
                 <a
@@ -233,16 +233,18 @@ const Footer = () => {
       </div>
 
       {/* Watermark */}
-      <div
-        className="block w-full pointer-events-none overflow-hidden"
-        style={{ marginTop: "-80px" }}
-      >
+      <div className="block w-full pointer-events-none overflow-hidden -mt-20 max-lg:-mt-14 max-md:-mt-10 max-sm:-mt-6">
         <div className="max-w-300 mx-auto">
           <img
             src="/PCXLogo.svg"
             alt=""
             className="w-full h-auto block"
-            style={{ opacity: 0.15, filter: "brightness(1.2) saturate(0.8)" }}
+            style={{
+              opacity: 0.18,
+              filter: "brightness(1.2) saturate(0.8)",
+              WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,1) 100%)",
+              maskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,1) 100%)",
+            }}
           />
         </div>
       </div>
