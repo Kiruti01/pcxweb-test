@@ -74,7 +74,10 @@ const AboutUs = () => {
       </section>
 
       {/* Story Cards */}
-      <section className="pb-20 max-md:pb-12 px-6 max-md:px-4">
+      <section
+        className="pb-20 max-md:pb-12 px-6 max-md:px-4"
+        style={{ background: "linear-gradient(to bottom, rgba(235,243,255,0) 60%, #ffffff 100%)" }}
+      >
         <motion.div
           className="max-w-220 mx-auto flex flex-col gap-6 max-md:gap-4"
           variants={stagger}
