@@ -58,9 +58,9 @@ const ctaCards = [
 
 const CTASection = () => {
   return (
-    <section className="px-6 pb-20 bg-transparent max-lg:pb-15 max-md:px-4 max-md:pb-10">
+    <section className="px-6 pt-25 pb-20 bg-white dot-grid-blue max-lg:pt-15 max-lg:pb-15 max-md:pt-10 max-md:pb-10 max-md:px-4">
       <motion.div
-        className="relative overflow-hidden rounded-3xl bg-[#00237A] p-20 max-w-300 mx-auto max-lg:p-[60px_40px] max-md:p-8 max-md:px-5 max-md:rounded-2xl mt-25 bg-[radial-gradient(circle,rgba(255,255,255,0.15)_1px,transparent_1px)] bg-size-[24px_24px]"
+        className="relative overflow-hidden rounded-3xl bg-[#00237A] p-20 max-w-300 mx-auto max-lg:p-[60px_40px] max-md:p-8 max-md:px-5 max-md:rounded-2xl bg-[radial-gradient(circle,rgba(255,255,255,0.15)_1px,transparent_1px)] bg-size-[24px_24px]"
         variants={fadeUp}
         initial="hidden"
         whileInView="visible"
