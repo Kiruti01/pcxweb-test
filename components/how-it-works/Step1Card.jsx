@@ -136,7 +136,7 @@ const Step1Card = () => {
           Step 1
         </span>
         <h3
-          className="font-extrabold mb-2 leading-snug"
+          className="font-semibold mb-2 leading-snug"
           style={{
             fontSize: "16px",
             letterSpacing: "-0.3px",
