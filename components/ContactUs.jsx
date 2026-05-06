@@ -160,7 +160,7 @@ const ContactUs = () => {
   );
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen" style={{ background: "linear-gradient(to bottom, rgba(235,243,255,0) 60%, #ffffff 100%)" }}>
       <div className="max-w-6xl mx-auto px-6 py-16 max-md:py-10 max-md:px-4">
         {/* Badge + Heading */}
         <motion.div
