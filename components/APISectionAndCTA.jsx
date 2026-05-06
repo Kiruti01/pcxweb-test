@@ -20,7 +20,7 @@ const APISectionAndCTA = () => {
       <section className="bg-[linear-gradient(179deg,#FAFAFF_-24.37%,#FFF_116.78%)] py-30 text-left max-md:py-20">
         <div className="max-w-300 mx-auto px-6 max-md:px-4">
           <div className="flex flex-col items-start gap-8 max-w-253">
-            <h2 className="font-inter text-[48px] font-bold leading-15 text-[#13161A] m-0 max-lg:text-4xl max-lg:leading-12 max-md:text-[28px] max-md:leading-9">
+            <h2 className="font-inter text-[48px] font-semi-bold leading-15 text-[#13161A] m-0 max-lg:text-4xl max-lg:leading-12 max-md:text-[28px] max-md:leading-9">
               Finally, A <span className="gradient-text">Payment API</span> That
               Doesn't Make You Want to Quit Engineering
             </h2>
