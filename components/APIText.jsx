@@ -31,7 +31,7 @@ const APIText = () => {
       >
         <motion.h2
           variants={fadeUp}
-          className="font-black leading-tight mb-4 text-[#13161A] max-w-2xl"
+          className="font-bold leading-tight mb-4 text-[#13161A] max-w-2xl"
           style={{
             fontSize: "clamp(24px, 4vw, 40px)",
             letterSpacing: "-0.5px",
