@@ -162,11 +162,54 @@ const BlogList = () => {
 
       {/* Table */}
       {loading ? (
-        <div
-          className="text-center py-24"
-          style={{ border: `1px dashed ${t.border}`, borderRadius: 16, background: t.cardBg }}
-        >
-          <p className="font-mono text-sm" style={{ color: t.textSecondary }}>Loading posts…</p>
+        <div style={{ border: `1px solid ${t.border}`, borderRadius: 16, overflow: "hidden", background: t.cardBg }}>
+          {/* Skeleton header */}
+          <div
+            className="grid font-mono text-[10px] font-bold tracking-[0.12em] uppercase px-6 py-3"
+            style={{
+              gridTemplateColumns: "1fr 100px 120px 120px 100px",
+              borderBottom: `1px solid ${t.border}`,
+              background: t.tableHeadBg,
+              color: t.textMuted,
+            }}
+          >
+            <span>Title</span>
+            <span>Status</span>
+            <span>Tags</span>
+            <span>Updated</span>
+            <span className="text-right">Actions</span>
+          </div>
+          {/* Skeleton rows */}
+          {Array.from({ length: 5 }).map((_, i) => (
+            <div
+              key={i}
+              className="grid items-center px-6 py-4 animate-pulse"
+              style={{
+                gridTemplateColumns: "1fr 100px 120px 120px 100px",
+                borderBottom: i < 4 ? `1px solid ${t.borderLight}` : "none",
+              }}
+            >
+              {/* Title + excerpt */}
+              <div className="flex flex-col gap-2 pr-4">
+                <div className="h-3.5 rounded-md" style={{ background: t.skeletonBg, width: `${60 + (i % 3) * 15}%` }} />
+                <div className="h-2.5 rounded-md" style={{ background: t.skeletonBg2, width: `${35 + (i % 4) * 10}%` }} />
+              </div>
+              {/* Status pill */}
+              <div className="h-5 rounded-full" style={{ background: t.skeletonBg, width: 64 }} />
+              {/* Tags */}
+              <div className="flex gap-1.5">
+                <div className="h-5 rounded-md" style={{ background: t.skeletonBg, width: 44 }} />
+                <div className="h-5 rounded-md" style={{ background: t.skeletonBg2, width: 36 }} />
+              </div>
+              {/* Date */}
+              <div className="h-3 rounded-md" style={{ background: t.skeletonBg, width: 72 }} />
+              {/* Actions */}
+              <div className="flex justify-end gap-2">
+                <div className="h-7 w-7 rounded-lg" style={{ background: t.skeletonBg }} />
+                <div className="h-7 w-7 rounded-lg" style={{ background: t.skeletonBg2 }} />
+              </div>
+            </div>
+          ))}
         </div>
       ) : fetchError ? (
         <div
