@@ -80,6 +80,11 @@ const iconSvgs = {
 const Scale = () => {
   return (
     <section className="scale-section py-30 relative max-md:py-20">
+      {/* Blend into APIText section below */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-28 pointer-events-none z-10"
+        style={{ background: "linear-gradient(to bottom, transparent, #ffffff)" }}
+      />
       <div className="max-w-360 mx-auto px-6 max-md:px-4">
         <motion.h2
           className="font-inter text-[80px] font-bold leading-24.25 text-[#2A3239] text-center m-0 mb-20 max-lg:text-[60px] max-lg:leading-18 max-lg:mb-15 max-md:text-[40px] max-md:leading-12 max-md:mb-12 max-[480px]:text-[28px] max-[480px]:leading-9"
