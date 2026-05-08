@@ -59,6 +59,8 @@ const LIGHT = {
   insertActiveColor: "#1D5EFF",
   insertHoverBg: "rgba(29,94,255,0.1)",
   breadcrumbSlash: "#94A3B8",
+  skeletonBg: "rgba(0,0,0,0.07)",
+  skeletonBg2: "rgba(0,0,0,0.04)",
 };
 
 const DARK = {
@@ -119,6 +121,8 @@ const DARK = {
   insertActiveColor: "#1D5EFF",
   insertHoverBg: "rgba(29,94,255,0.15)",
   breadcrumbSlash: "#3E4953",
+  skeletonBg: "rgba(255,255,255,0.07)",
+  skeletonBg2: "rgba(255,255,255,0.04)",
 };
 
 export function useAdminTheme() {
