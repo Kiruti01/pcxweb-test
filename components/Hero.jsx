@@ -139,10 +139,13 @@ const Hero = ({ map }) => {
       {/* Partners */}
       <motion.div
         className="relative z-3 pt-24 pb-12 text-center overflow-hidden max-md:pt-16 max-md:pb-10 max-md:px-6"
-        style={{
-          background: dark
-            ? "#0a1020"
-            : "linear-gradient(to bottom, #EEF3FF 0%, #f4f7ff 18%, #f9fbff 38%, #ffffff 62%)",
+        style={dark ? {
+          backgroundColor: "#0a1020",
+          backgroundImage: "radial-gradient(circle, rgba(29,94,255,0.07) 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        } : {
+          backgroundImage: "radial-gradient(circle, rgba(8,111,255,0.12) 1px, transparent 1px), linear-gradient(to bottom, #EEF3FF 0%, #f4f7ff 18%, #f9fbff 38%, #ffffff 62%)",
+          backgroundSize: "24px 24px, 100% 100%",
         }}
         variants={fadeUp}
         initial="hidden"
