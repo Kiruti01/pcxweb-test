@@ -729,6 +729,8 @@ const BlogEditor = ({ postId }) => {
   const [loading, setLoading] = useState(!isNew);
   const [showInsertMenu, setShowInsertMenu] = useState(false);
   const [showGridModal, setShowGridModal] = useState(false);
+  const [isDirty, setIsDirty] = useState(false);
+  const [showLeaveModal, setShowLeaveModal] = useState(false);
 
   // Single image crop modal
   const [cropModal, setCropModal] = useState(null);
@@ -770,8 +772,16 @@ const BlogEditor = ({ postId }) => {
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
+  useEffect(() => {
+    if (!isDirty) return;
+    const handler = (e) => { e.preventDefault(); e.returnValue = ""; };
+    window.addEventListener("beforeunload", handler);
+    return () => window.removeEventListener("beforeunload", handler);
+  }, [isDirty]);
+
   const set = (field) => (e) => {
     const val = e.target ? e.target.value : e;
+    setIsDirty(true);
     setPost((prev) => {
       const next = { ...prev, [field]: val };
       if (field === "title" && autoSlug) next.slug = slugify(val);
@@ -785,6 +795,7 @@ const BlogEditor = ({ postId }) => {
   };
 
   const insertAtPos = (pos, text) => {
+    setIsDirty(true);
     setPost((p) => ({
       ...p,
       content: p.content.slice(0, pos) + text + p.content.slice(pos),
@@ -829,6 +840,7 @@ const BlogEditor = ({ postId }) => {
       setCropUploading(true);
       try {
         const url = await uploadToCloudinary(blob);
+        setIsDirty(true);
         setPost((p) => ({ ...p, coverImage: url }));
         setCropModal(null);
       } catch (err) {
@@ -909,13 +921,17 @@ const BlogEditor = ({ postId }) => {
     if ((e.key === "Enter" || e.key === ",") && tagInput.trim()) {
       e.preventDefault();
       const tag = tagInput.trim().toLowerCase().replace(/,/g, "");
-      if (!post.tags.includes(tag))
+      if (!post.tags.includes(tag)) {
+        setIsDirty(true);
         setPost((p) => ({ ...p, tags: [...p.tags, tag] }));
+      }
       setTagInput("");
     }
   };
-  const removeTag = (tag) =>
+  const removeTag = (tag) => {
+    setIsDirty(true);
     setPost((p) => ({ ...p, tags: p.tags.filter((t) => t !== tag) }));
+  };
 
   // ── Save ──────────────────────────────────────────────────────────────────────
   const handleSave = async (status) => {
@@ -933,6 +949,7 @@ const BlogEditor = ({ postId }) => {
       if (isNew) await createPost(payload);
       else await updatePost(postId, payload);
       setSaveState("saved");
+      setIsDirty(false);
       setTimeout(() => {
         router.push("/admin/blog?t=" + Date.now());
       }, 800);
@@ -965,6 +982,59 @@ const BlogEditor = ({ postId }) => {
           {toast.message}
         </div>
       )}
+      {showLeaveModal && (
+        <div
+          className="fixed inset-0 flex items-center justify-center z-[9999] px-4"
+          style={{ background: t.modalOverlay, backdropFilter: "blur(6px)" }}
+          onClick={() => setShowLeaveModal(false)}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              background: t.modalBg,
+              border: "1px solid rgba(245,158,11,0.2)",
+              borderRadius: 20,
+              padding: "32px",
+              maxWidth: 400,
+              width: "100%",
+              boxShadow: t.modalShadow,
+            }}
+          >
+            <div className="w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-4" style={{ background: "rgba(245,158,11,0.1)" }}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M12 9v4M12 17h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="#D97706" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
+            <h3 className="font-inter font-bold text-center text-lg mb-2" style={{ color: t.textPrimary }}>
+              Unsaved Changes
+            </h3>
+            <p className="font-mono text-sm text-center mb-6" style={{ color: t.textSecondary }}>
+              You have unsaved changes. Leave without saving?
+            </p>
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowLeaveModal(false)}
+                className="flex-1 py-2.5 rounded-xl font-mono text-sm font-semibold border-none transition-colors duration-200"
+                style={{ background: t.btnSecondaryBg, color: t.textSecondary, cursor: "pointer" }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = t.textPrimary)}
+                onMouseLeave={(e) => (e.currentTarget.style.color = t.textSecondary)}
+              >
+                Keep Editing
+              </button>
+              <button
+                onClick={() => { setIsDirty(false); setShowLeaveModal(false); router.push("/admin/blog"); }}
+                className="flex-1 py-2.5 rounded-xl font-mono text-sm font-bold text-white border-none"
+                style={{ background: "#D97706", cursor: "pointer", boxShadow: "0 4px 16px rgba(217,119,6,0.3)" }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = "#b45309")}
+                onMouseLeave={(e) => (e.currentTarget.style.background = "#D97706")}
+              >
+                Discard Changes
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {cropModal && (
         <CropModal
           src={cropModal.src}
@@ -1010,7 +1080,7 @@ const BlogEditor = ({ postId }) => {
         <div className="flex items-center justify-between gap-4 mb-6 flex-wrap flex-shrink-0">
           <div className="flex items-center gap-3">
             <button
-              onClick={() => router.push("/admin/blog")}
+              onClick={() => isDirty ? setShowLeaveModal(true) : router.push("/admin/blog")}
               className="flex items-center gap-1.5 font-mono text-sm border-none bg-transparent"
               style={{ color: t.textSecondary, cursor: "pointer" }}
               onMouseEnter={(e) => (e.currentTarget.style.color = t.textPrimary)}
@@ -1169,9 +1239,10 @@ const BlogEditor = ({ postId }) => {
               </div>
               <button
                 type="button"
-                onClick={() =>
-                  setPost((p) => ({ ...p, featured: !p.featured }))
-                }
+                onClick={() => {
+                  setIsDirty(true);
+                  setPost((p) => ({ ...p, featured: !p.featured }));
+                }}
                 className="relative border-none rounded-full"
                 style={{
                   width: 36,
