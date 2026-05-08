@@ -233,7 +233,7 @@ const Footer = () => {
       </div>
 
       {/* Watermark */}
-      <div className="block w-full pointer-events-none overflow-hidden -mt-20 max-lg:-mt-14 max-md:-mt-10 max-sm:-mt-6">
+      <div className="block w-full pointer-events-none overflow-hidden -mt-4 max-lg:-mt-2 max-md:mt-0 max-sm:mt-0 -mb-16 max-lg:-mb-12 max-md:-mb-8 max-sm:-mb-6">
         <div className="max-w-300 mx-auto">
           <img
             src="/PCXLogo.svg"
