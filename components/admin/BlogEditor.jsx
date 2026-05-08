@@ -934,8 +934,7 @@ const BlogEditor = ({ postId }) => {
       else await updatePost(postId, payload);
       setSaveState("saved");
       setTimeout(() => {
-        router.refresh();
-        router.push("/admin/blog");
+        router.push("/admin/blog?t=" + Date.now());
       }, 800);
     } catch (err) {
       showToast("Failed to save post. Please try again.");
