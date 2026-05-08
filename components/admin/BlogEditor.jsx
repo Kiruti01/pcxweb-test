@@ -963,8 +963,52 @@ const BlogEditor = ({ postId }) => {
 
   if (loading)
     return (
-      <div className="flex items-center justify-center h-64">
-        <span className="font-mono text-sm text-[#657688]">Loading post…</span>
+      <div className="flex flex-col gap-6 animate-pulse" style={{ maxHeight: "calc(100vh - 60px)" }}>
+        {/* Top bar skeleton */}
+        <div className="flex items-center justify-between gap-4 flex-wrap">
+          <div className="flex items-center gap-3">
+            <div className="h-4 w-12 rounded-md" style={{ background: t.skeletonBg }} />
+            <div className="h-3 w-3 rounded-sm" style={{ background: t.skeletonBg2 }} />
+            <div className="h-4 w-32 rounded-md" style={{ background: t.skeletonBg }} />
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="h-8 w-28 rounded-lg" style={{ background: t.skeletonBg2 }} />
+            <div className="h-8 w-24 rounded-xl" style={{ background: t.skeletonBg }} />
+            <div className="h-8 w-24 rounded-xl" style={{ background: t.skeletonBg }} />
+          </div>
+        </div>
+
+        {/* Two-column skeleton */}
+        <div className="flex gap-6 flex-1 min-h-0">
+          {/* Left sidebar */}
+          <div className="flex flex-col gap-5 flex-shrink-0" style={{ width: 280 }}>
+            <div className="h-10 rounded-xl" style={{ background: t.skeletonBg2 }} />
+            <div className="h-10 rounded-xl" style={{ background: t.skeletonBg2 }} />
+            {/* Field blocks */}
+            {[56, 48, 72, 80, 48, 64].map((h, i) => (
+              <div key={i} className="flex flex-col gap-1.5">
+                <div className="h-2.5 w-16 rounded-sm" style={{ background: t.skeletonBg2 }} />
+                <div className="rounded-lg" style={{ height: h, background: t.skeletonBg }} />
+              </div>
+            ))}
+          </div>
+
+          {/* Editor area */}
+          <div className="flex-1 rounded-2xl overflow-hidden" style={{ border: `1px solid ${t.border}` }}>
+            {/* Toolbar */}
+            <div className="flex items-center gap-2 px-4 py-2" style={{ borderBottom: `1px solid ${t.border}`, background: t.toolbarBg }}>
+              {Array.from({ length: 10 }).map((_, i) => (
+                <div key={i} className="h-7 w-7 rounded-lg" style={{ background: t.skeletonBg2 }} />
+              ))}
+            </div>
+            {/* Content area */}
+            <div className="flex flex-col gap-4 p-6">
+              {[80, 60, 90, 50, 75, 65, 85, 55].map((w, i) => (
+                <div key={i} className="h-3.5 rounded-md" style={{ background: i % 3 === 0 ? t.skeletonBg : t.skeletonBg2, width: `${w}%` }} />
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     );
 
