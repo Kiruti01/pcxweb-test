@@ -112,9 +112,10 @@ const EmbeddedFinance = () => {
       <div
         className="w-full"
         style={{
-          background: dark
-            ? "linear-gradient(to bottom, #070D1A 0%, #08101f 30%, #0a1222 60%, #0a1020 100%)"
-            : "linear-gradient(to bottom, #EEF3FF 0%, #f4f7ff 30%, #f9fbff 60%, #ffffff 100%)",
+          backgroundImage: dark
+            ? "radial-gradient(circle, rgba(29,94,255,0.07) 1px, transparent 1px), linear-gradient(to bottom, #070D1A 0%, #08101f 30%, #0a1222 60%, #0a1020 100%)"
+            : "radial-gradient(circle, rgba(8,111,255,0.12) 1px, transparent 1px), linear-gradient(to bottom, #EEF3FF 0%, #f4f7ff 30%, #f9fbff 60%, #ffffff 100%)",
+          backgroundSize: "24px 24px, 100% 100%",
         }}
       >
         <motion.div
