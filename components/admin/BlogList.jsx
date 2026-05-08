@@ -24,16 +24,19 @@ const BlogList = () => {
   const { t } = useAdminTheme();
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [fetchError, setFetchError] = useState(null);
   const [search, setSearch] = useState("");
   const [filterStatus, setFilterStatus] = useState("all");
   const [deleteId, setDeleteId] = useState(null);
   const [sortBy, setSortBy] = useState("updatedAt");
 
   useEffect(() => {
-    getAllPostsAdmin().then((data) => {
-      setPosts(data.posts);
-      setLoading(false);
-    });
+    setLoading(true);
+    setFetchError(null);
+    getAllPostsAdmin()
+      .then((data) => setPosts(data.posts ?? []))
+      .catch((err) => setFetchError(err.message || "Failed to load posts"))
+      .finally(() => setLoading(false));
   }, []);
 
   const handleDelete = async (id) => {
@@ -162,6 +165,22 @@ const BlogList = () => {
           style={{ border: `1px dashed ${t.border}`, borderRadius: 16, background: t.cardBg }}
         >
           <p className="font-mono text-sm" style={{ color: t.textSecondary }}>Loading posts…</p>
+        </div>
+      ) : fetchError ? (
+        <div
+          className="text-center py-24"
+          style={{ border: `1px dashed rgba(238,14,14,0.25)`, borderRadius: 16, background: t.cardBg }}
+        >
+          <div className="text-3xl mb-4">⚠️</div>
+          <p className="font-inter font-semibold mb-2" style={{ color: t.textPrimary }}>Failed to load posts</p>
+          <p className="font-mono text-sm mb-6" style={{ color: t.textSecondary }}>{fetchError}</p>
+          <button
+            onClick={() => { setLoading(true); setFetchError(null); getAllPostsAdmin().then((data) => setPosts(data.posts ?? [])).catch((err) => setFetchError(err.message || "Failed to load posts")).finally(() => setLoading(false)); }}
+            className="px-5 py-2.5 rounded-xl font-mono text-sm font-semibold text-white border-none"
+            style={{ background: "linear-gradient(87deg, #847AFF 0%, #086FFF 100%)", cursor: "pointer" }}
+          >
+            Retry
+          </button>
         </div>
       ) : filtered.length === 0 ? (
         <div
