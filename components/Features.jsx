@@ -18,7 +18,7 @@ const vp = { once: true, amount: 0.15 };
 
 const Features = () => {
   return (
-    <section className="features-section bg-white py-[80px_20px_120px] relative max-md:py-10">
+    <section className="features-section bg-white dot-grid-blue py-[80px_20px_120px] relative max-md:py-10">
       <div className="max-w-360 mx-auto px-6 max-md:px-4">
         {/* Header */}
         <motion.div
