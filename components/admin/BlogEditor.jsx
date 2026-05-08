@@ -61,7 +61,7 @@ function getCroppedBlob(image, crop) {
 }
 
 // ─── Single crop modal ────────────────────────────────────────────────────────
-function CropModal({ src, aspect, title, onConfirm, onCancel, uploading }) {
+function CropModal({ src, aspect, title, onConfirm, onCancel, onSkip, uploading }) {
   const imgRef = useRef(null);
   const [crop, setCrop] = useState();
   const [completedCrop, setCompletedCrop] = useState();
@@ -158,6 +158,16 @@ function CropModal({ src, aspect, title, onConfirm, onCancel, uploading }) {
           >
             Cancel
           </button>
+          {onSkip && (
+            <button
+              onClick={onSkip}
+              disabled={uploading}
+              className="px-4 py-2 rounded-xl font-mono text-sm border-none"
+              style={{ background: t.btnSecondaryBg, color: t.btnSecondaryColor, cursor: uploading ? "not-allowed" : "pointer" }}
+            >
+              Use Original
+            </button>
+          )}
           <button
             onClick={handleConfirm}
             disabled={uploading || !completedCrop?.width}
@@ -827,7 +837,7 @@ const BlogEditor = ({ postId }) => {
   const openCrop = (file, aspect, title, onConfirm) => {
     const reader = new FileReader();
     reader.onload = (e) =>
-      setCropModal({ src: e.target.result, aspect, title, onConfirm });
+      setCropModal({ src: e.target.result, aspect, title, onConfirm, file });
     reader.readAsDataURL(file);
   };
 
@@ -836,7 +846,7 @@ const BlogEditor = ({ postId }) => {
     const file = e.target.files?.[0];
     if (!file) return;
     e.target.value = "";
-    openCrop(file, 16 / 9, "Crop Cover Image", async (blob) => {
+    openCrop(file, undefined, "Crop Cover Image", async (blob) => {
       setCropUploading(true);
       try {
         const url = await uploadToCloudinary(blob);
@@ -1086,6 +1096,7 @@ const BlogEditor = ({ postId }) => {
           title={cropModal.title}
           uploading={cropUploading}
           onConfirm={cropModal.onConfirm}
+          onSkip={() => { cropModal.onConfirm(cropModal.file); setCropModal(null); }}
           onCancel={() => {
             setCropModal(null);
             pendingFilesRef.current = [];
@@ -1101,8 +1112,8 @@ const BlogEditor = ({ postId }) => {
       )}
 
       <div
-        className="flex flex-col h-full min-h-0"
-        style={{ maxHeight: "calc(100vh - 60px)" }}
+        className="flex flex-col min-h-0"
+        style={{ height: "calc(100vh - 124px)" }}
       >
         <input
           ref={coverInputRef}
