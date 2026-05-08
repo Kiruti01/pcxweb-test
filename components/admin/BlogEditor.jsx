@@ -1111,15 +1111,7 @@ const BlogEditor = ({ postId }) => {
         />
       )}
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateRows: "auto 1fr",
-          gap: 24,
-          height: "calc(100vh - 124px)",
-          overflow: "hidden",
-        }}
-      >
+      <div>
         <input
           ref={coverInputRef}
           type="file"
@@ -1137,7 +1129,7 @@ const BlogEditor = ({ postId }) => {
         />
 
         {/* Top bar */}
-        <div className="flex items-center justify-between gap-4 flex-wrap">
+        <div className="flex items-center justify-between gap-4 mb-6 flex-wrap">
           <div className="flex items-center gap-3">
             <button
               onClick={() => isDirty ? setShowLeaveModal(true) : router.push("/admin/blog")}
@@ -1235,12 +1227,9 @@ const BlogEditor = ({ postId }) => {
         </div>
 
         {/* Two-column layout */}
-        <div style={{ display: "grid", gridTemplateColumns: "280px 1fr", gridTemplateRows: "1fr", gap: 24, overflow: "hidden" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "280px 1fr", gap: 24 }}>
           {/* LEFT */}
-          <div
-            className="flex flex-col gap-3 overflow-y-auto min-h-0"
-            style={{ paddingRight: 4, paddingBottom: 16 }}
-          >
+          <div className="flex flex-col gap-3" style={{ paddingRight: 4 }}>
             <div
               className="flex items-center gap-2 p-3 rounded-xl"
               style={{
@@ -1602,7 +1591,7 @@ const BlogEditor = ({ postId }) => {
 
           {/* RIGHT: editor + preview */}
           <div
-            className="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden rounded-2xl"
+            className="flex flex-col rounded-2xl overflow-hidden"
             style={{ border: `1px solid ${t.editorOuterBorder}` }}
           >
             {mode !== "preview" && (
@@ -1665,7 +1654,10 @@ const BlogEditor = ({ postId }) => {
                   title="Link"
                   onClick={() => insertAt("[", "](url)")}
                 >
-                  🔗
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                    <path d="M5.5 8.5a3.5 3.5 0 005 0l2-2a3.5 3.5 0 00-5-5L6.5 2.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
+                    <path d="M8.5 5.5a3.5 3.5 0 00-5 0l-2 2a3.5 3.5 0 005 5l1-1" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
+                  </svg>
                 </ToolbarBtn>
                 <div className="w-px h-5 mx-1" style={{ background: t.toolbarDivider }} />
 
@@ -1854,7 +1846,7 @@ const BlogEditor = ({ postId }) => {
               </div>
             )}
 
-            <div className="flex flex-1 min-h-0 overflow-hidden">
+            <div className="flex" style={{ minHeight: 600 }}>
               {(mode === "write" || mode === "split") && (
                 <textarea
                   ref={editorRef}
@@ -1872,12 +1864,13 @@ const BlogEditor = ({ postId }) => {
                     lineHeight: 1.8,
                     borderRight: mode === "split" ? `1px solid ${t.editorSplitBorder}` : "none",
                     caretColor: "#1D5EFF",
+                    minHeight: 600,
                   }}
                 />
               )}
               {(mode === "preview" || mode === "split") && (
                 <div
-                  className="flex-1 overflow-y-auto p-8"
+                  className="flex-1 p-8"
                   style={{
                     background: mode === "preview" ? "transparent" : t.previewPanelBg,
                   }}
