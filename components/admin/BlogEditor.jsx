@@ -1112,8 +1112,13 @@ const BlogEditor = ({ postId }) => {
       )}
 
       <div
-        className="flex flex-col min-h-0"
-        style={{ height: "calc(100vh - 124px)" }}
+        style={{
+          display: "grid",
+          gridTemplateRows: "auto 1fr",
+          gap: 24,
+          height: "calc(100vh - 124px)",
+          overflow: "hidden",
+        }}
       >
         <input
           ref={coverInputRef}
@@ -1132,7 +1137,7 @@ const BlogEditor = ({ postId }) => {
         />
 
         {/* Top bar */}
-        <div className="flex items-center justify-between gap-4 mb-6 flex-wrap flex-shrink-0">
+        <div className="flex items-center justify-between gap-4 flex-wrap">
           <div className="flex items-center gap-3">
             <button
               onClick={() => isDirty ? setShowLeaveModal(true) : router.push("/admin/blog")}
@@ -1230,11 +1235,11 @@ const BlogEditor = ({ postId }) => {
         </div>
 
         {/* Two-column layout */}
-        <div className="flex gap-6 flex-1 min-h-0 overflow-hidden">
+        <div style={{ display: "grid", gridTemplateColumns: "280px 1fr", gridTemplateRows: "1fr", gap: 24, overflow: "hidden" }}>
           {/* LEFT */}
           <div
-            className="flex flex-col gap-5 overflow-y-auto flex-shrink-0"
-            style={{ width: 280, paddingRight: 4 }}
+            className="flex flex-col gap-3 overflow-y-auto min-h-0"
+            style={{ paddingRight: 4, paddingBottom: 16 }}
           >
             <div
               className="flex items-center gap-2 p-3 rounded-xl"
@@ -1431,12 +1436,12 @@ const BlogEditor = ({ postId }) => {
                 placeholder="…or paste image URL"
               />
               {post.coverImage && (
-                <div className="mt-2 rounded-lg overflow-hidden relative">
+                <div className="mt-2 rounded-lg overflow-hidden relative" style={{ maxHeight: 120 }}>
                   <img
                     src={post.coverImage}
                     alt="Cover"
                     className="w-full rounded-lg"
-                    style={{ display: "block" }}
+                    style={{ display: "block", height: 120, objectFit: "cover" }}
                     onError={(e) => (e.target.style.display = "none")}
                   />
                   <button
