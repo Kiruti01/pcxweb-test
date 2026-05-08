@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { getAllPostsAdmin, deletePost } from "@/lib/blogApi";
 import { useAdminTheme } from "./adminTokens";
 
@@ -21,6 +21,8 @@ const StatusBadge = ({ status }) => {
 
 const BlogList = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const refreshKey = searchParams.get("t");
   const { t } = useAdminTheme();
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -37,7 +39,7 @@ const BlogList = () => {
       .then((data) => setPosts(data.posts ?? []))
       .catch((err) => setFetchError(err.message || "Failed to load posts"))
       .finally(() => setLoading(false));
-  }, []);
+  }, [refreshKey]);
 
   const handleDelete = async (id) => {
     await deletePost(id);
