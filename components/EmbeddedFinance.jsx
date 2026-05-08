@@ -183,7 +183,7 @@ const EmbeddedFinance = () => {
       </div>
 
       {/* ── Core Capabilities ── */}
-      <section className="w-full py-24 max-md:py-14" style={{ background: sectionBg }}>
+      <section className="w-full py-24 max-md:py-14 dot-grid-blue" style={{ backgroundColor: sectionBg }}>
         <div className="max-w-6xl mx-auto px-6 max-md:px-4">
           <motion.div
             className="flex flex-col items-center text-center mb-14 max-md:mb-8"
@@ -236,7 +236,7 @@ const EmbeddedFinance = () => {
       </section>
 
       {/* ── PCX Virtual Account ── */}
-      <section className="w-full py-24 max-md:py-14" style={{ background: sectionBg }}>
+      <section className="w-full py-24 max-md:py-14 dot-grid-blue" style={{ backgroundColor: sectionBg }}>
         <motion.div
           className="max-w-6xl mx-auto px-6 max-md:px-4 flex flex-col items-center text-center"
           variants={stagger}
@@ -290,7 +290,7 @@ const EmbeddedFinance = () => {
       </section>
 
       {/* ── Value Propositions ── */}
-      <section className="w-full py-24 max-md:py-14" style={{ background: sectionBg }}>
+      <section className="w-full py-24 max-md:py-14 dot-grid-blue" style={{ backgroundColor: sectionBg }}>
         <div className="max-w-6xl mx-auto px-6 max-md:px-4">
           <motion.div
             className="flex flex-col items-center text-center mb-14 max-md:mb-8"
