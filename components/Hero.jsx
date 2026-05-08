@@ -144,8 +144,7 @@ const Hero = ({ map }) => {
           backgroundImage: "radial-gradient(circle, rgba(29,94,255,0.07) 1px, transparent 1px)",
           backgroundSize: "24px 24px",
         } : {
-          backgroundImage: "radial-gradient(circle, rgba(8,111,255,0.12) 1px, transparent 1px), linear-gradient(to bottom, #EEF3FF 0%, #f4f7ff 18%, #f9fbff 38%, #ffffff 62%)",
-          backgroundSize: "24px 24px, 100% 100%",
+          backgroundImage: "linear-gradient(to bottom, transparent 0%, transparent 20%, rgba(255,255,255,0.85) 50%, #ffffff 65%)",
         }}
         variants={fadeUp}
         initial="hidden"
@@ -157,7 +156,7 @@ const Hero = ({ map }) => {
         </p>
 
         {/* Marquee — all logos combined */}
-        <div className="marquee-track relative overflow-hidden w-full max-w-300 mx-auto before:absolute before:left-0 before:top-0 before:bottom-0 before:w-30 before:z-2 before:pointer-events-none before:bg-[linear-gradient(to_right,rgba(244,247,255,1),transparent)] after:absolute after:right-0 after:top-0 after:bottom-0 after:w-30 after:z-2 after:pointer-events-none after:bg-[linear-gradient(to_left,rgba(244,247,255,1),transparent)]">
+        <div className="marquee-track relative overflow-hidden w-full max-w-300 mx-auto before:absolute before:left-0 before:top-0 before:bottom-0 before:w-30 before:z-2 before:pointer-events-none before:bg-[linear-gradient(to_right,rgba(255,255,255,1),transparent)] after:absolute after:right-0 after:top-0 after:bottom-0 after:w-30 after:z-2 after:pointer-events-none after:bg-[linear-gradient(to_left,rgba(255,255,255,1),transparent)]">
           <div className="flex items-center gap-16 w-max animate-[marquee-scroll_40s_linear_infinite] hover:[animation-play-state:paused]">
             {[...logos, ...businessLogos, ...logos, ...businessLogos].map(
               (logo, i) => (
