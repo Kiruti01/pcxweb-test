@@ -99,7 +99,10 @@ const CrossBorder = () => {
       {/* Benefits */}
       <section
         className="benefit-section w-full py-24 max-md:py-10"
-        style={{ background: "linear-gradient(to bottom, #EBF3FF 0%, #ffffff 20%, #ffffff 100%)" }}
+        style={{
+          backgroundImage: "radial-gradient(circle, rgba(8,111,255,0.12) 1px, transparent 1px), linear-gradient(to bottom, #EBF3FF 0%, #ffffff 20%, #ffffff 100%)",
+          backgroundSize: "24px 24px, 100% 100%",
+        }}
       >
         <div className="max-w-7xl mx-auto px-6 max-md:px-4">
           <motion.div
