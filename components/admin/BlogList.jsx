@@ -23,13 +23,17 @@ const BlogList = () => {
   const router = useRouter();
   const { t } = useAdminTheme();
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [filterStatus, setFilterStatus] = useState("all");
   const [deleteId, setDeleteId] = useState(null);
   const [sortBy, setSortBy] = useState("updatedAt");
 
   useEffect(() => {
-    getAllPostsAdmin().then((data) => setPosts(data.posts));
+    getAllPostsAdmin().then((data) => {
+      setPosts(data.posts);
+      setLoading(false);
+    });
   }, []);
 
   const handleDelete = async (id) => {
@@ -152,7 +156,14 @@ const BlogList = () => {
       </div>
 
       {/* Table */}
-      {filtered.length === 0 ? (
+      {loading ? (
+        <div
+          className="text-center py-24"
+          style={{ border: `1px dashed ${t.border}`, borderRadius: 16, background: t.cardBg }}
+        >
+          <p className="font-mono text-sm" style={{ color: t.textSecondary }}>Loading posts…</p>
+        </div>
+      ) : filtered.length === 0 ? (
         <div
           className="text-center py-24"
           style={{ border: `1px dashed ${t.border}`, borderRadius: 16, background: t.cardBg }}
