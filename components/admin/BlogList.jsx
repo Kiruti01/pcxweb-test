@@ -31,6 +31,8 @@ const BlogList = () => {
   const [filterStatus, setFilterStatus] = useState("all");
   const [deleteId, setDeleteId] = useState(null);
   const [sortBy, setSortBy] = useState("updatedAt");
+  const [page, setPage] = useState(1);
+  const PAGE_SIZE = 10;
 
   useEffect(() => {
     setLoading(true);
@@ -40,6 +42,8 @@ const BlogList = () => {
       .catch((err) => setFetchError(err.message || "Failed to load posts"))
       .finally(() => setLoading(false));
   }, [refreshKey]);
+
+  useEffect(() => { setPage(1); }, [search, filterStatus, sortBy]);
 
   const handleDelete = async (id) => {
     await deletePost(id);
@@ -55,6 +59,10 @@ const BlogList = () => {
         (p.tags || []).some((t) => t.toLowerCase().includes(search.toLowerCase())),
     )
     .sort((a, b) => new Date(b[sortBy]) - new Date(a[sortBy]));
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const safePage = Math.min(page, totalPages);
+  const paginated = filtered.slice((safePage - 1) * PAGE_SIZE, safePage * PAGE_SIZE);
 
   const counts = {
     all: posts.length,
@@ -271,13 +279,13 @@ const BlogList = () => {
           </div>
 
           {/* Rows */}
-          {filtered.map((post, i) => (
+          {paginated.map((post, i) => (
             <div
               key={post._id}
               className="grid items-center px-6 py-4 transition-colors duration-150"
               style={{
                 gridTemplateColumns: "1fr 100px 120px 120px 100px",
-                borderBottom: i < filtered.length - 1 ? `1px solid ${t.borderLight}` : "none",
+                borderBottom: i < paginated.length - 1 ? `1px solid ${t.borderLight}` : "none",
                 background: "transparent",
               }}
               onMouseEnter={(e) => (e.currentTarget.style.background = t.rowHover)}
@@ -337,6 +345,47 @@ const BlogList = () => {
               </div>
             </div>
           ))}
+        </div>
+      )}
+
+      {/* Pagination */}
+      {!loading && !fetchError && totalPages > 1 && (
+        <div className="flex items-center justify-between mt-5">
+          <span className="font-mono text-xs" style={{ color: t.textSecondary }}>
+            {(safePage - 1) * PAGE_SIZE + 1}–{Math.min(safePage * PAGE_SIZE, filtered.length)} of {filtered.length} posts
+          </span>
+          <div className="flex items-center gap-1">
+            <button
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              disabled={safePage === 1}
+              className="w-8 h-8 flex items-center justify-center rounded-lg border-none font-mono text-sm transition-all duration-150"
+              style={{ background: t.btnSecondaryBg, color: safePage === 1 ? t.textMuted : t.textSecondary, cursor: safePage === 1 ? "not-allowed" : "pointer" }}
+            >
+              ‹
+            </button>
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => (
+              <button
+                key={n}
+                onClick={() => setPage(n)}
+                className="w-8 h-8 flex items-center justify-center rounded-lg border-none font-mono text-xs font-semibold transition-all duration-150"
+                style={{
+                  background: n === safePage ? "linear-gradient(87deg,#847AFF 0%,#086FFF 100%)" : t.btnSecondaryBg,
+                  color: n === safePage ? "#fff" : t.textSecondary,
+                  cursor: "pointer",
+                }}
+              >
+                {n}
+              </button>
+            ))}
+            <button
+              onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+              disabled={safePage === totalPages}
+              className="w-8 h-8 flex items-center justify-center rounded-lg border-none font-mono text-sm transition-all duration-150"
+              style={{ background: t.btnSecondaryBg, color: safePage === totalPages ? t.textMuted : t.textSecondary, cursor: safePage === totalPages ? "not-allowed" : "pointer" }}
+            >
+              ›
+            </button>
+          </div>
         </div>
       )}
 
