@@ -20,7 +20,6 @@ const APIText = () => {
   return (
     <section
       className="api-text-section w-full py-14 px-6"
-      style={{ backgroundColor: "#ffffff", backgroundImage: "none" }}
     >
       <motion.div
         className="max-w-300 mx-auto"
