@@ -377,7 +377,9 @@
 
 /* Light mode bg — controlled here so dark can override */
 .scale-section {
-  background: linear-gradient(179deg, #fff -24.37%, #FAFAFF 116.78%);
+  background-color: #fff;
+  background-image: radial-gradient(circle, rgba(8,111,255,0.12) 1px, transparent 1px), linear-gradient(179deg, #fff -24.37%, #FAFAFF 116.78%);
+  background-size: 24px 24px, 100% 100%;
 }
 
 .scale-card {
@@ -870,7 +872,7 @@ html.dark .business-logo-wrap:hover img {
    DARK — FEATURES SECTION
    ════════════════════════════════════════════ */
 
-html.dark .features-section { background: #0b0e17 !important; }
+html.dark .features-section { background-color: #0b0e17 !important; background-image: radial-gradient(circle, rgba(29,94,255,0.07) 1px, transparent 1px) !important; background-size: 24px 24px !important; }
 html.dark .features-section .group {
   background: rgba(255,255,255,0.03) !important;
   border-color: rgba(255,255,255,0.08) !important;
@@ -904,7 +906,8 @@ html.dark .feature-card:hover .feature-card-title { color: #5B8AFF !important; }
    DARK — SCALE SECTION
    ════════════════════════════════════════════ */
 
-html.dark .scale-section { background: #0b0e17 !important; }
+html.dark .scale-section { background-color: #0b0e17 !important; background-image: radial-gradient(circle, rgba(29,94,255,0.07) 1px, transparent 1px) !important; background-size: 24px 24px !important; }
+html.dark .scale-section > div:first-child { background: linear-gradient(to bottom, transparent, #0a1020) !important; }
 html.dark .scale-section h2 { color: #F0F4F8 !important; }
 
 html.dark .scale-card {
@@ -1069,7 +1072,7 @@ html.dark .blog-body a { color: #5B8AFF !important; }
    (CrossBorder & EmbeddedFinance pages)
    ════════════════════════════════════════════ */
 
-html.dark .benefit-section { background: #0b0e17 !important; }
+html.dark .benefit-section { background-color: #0b0e17 !important; background-image: radial-gradient(circle, rgba(29,94,255,0.07) 1px, transparent 1px) !important; background-size: 24px 24px !important; }
 
 html.dark .text-\[\#111827\] { color: #F0F4F8 !important; }
 
@@ -1135,11 +1138,12 @@ html.dark .hiw-step-card .hiw-info p  { color: #4A5568 !important; }
 
 .api-text-section {
   background-color: #ffffff !important;
-  background-image: none !important;
+  background-image: radial-gradient(circle, rgba(8,111,255,0.12) 1px, transparent 1px) !important;
+  background-size: 24px 24px !important;
 }
 
 html.dark .api-nodes-section { background-color: #070D1A !important; }
-html.dark .api-text-section  { background-color: #0a1020 !important; }
+html.dark .api-text-section  { background-color: #0a1020 !important; background-image: radial-gradient(circle, rgba(29,94,255,0.07) 1px, transparent 1px) !important; background-size: 24px 24px !important; }
 
 html {
   scroll-behavior: smooth;
