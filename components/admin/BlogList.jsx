@@ -197,10 +197,13 @@ const BlogList = () => {
                 borderBottom: i < 4 ? `1px solid ${t.borderLight}` : "none",
               }}
             >
-              {/* Title + excerpt */}
-              <div className="flex flex-col gap-2 pr-4">
-                <div className="h-3.5 rounded-md" style={{ background: t.skeletonBg, width: `${60 + (i % 3) * 15}%` }} />
-                <div className="h-2.5 rounded-md" style={{ background: t.skeletonBg2, width: `${35 + (i % 4) * 10}%` }} />
+              {/* Title + thumbnail */}
+              <div className="flex items-center gap-3 pr-4">
+                <div className="flex-shrink-0 rounded-lg" style={{ width: 44, height: 44, background: t.skeletonBg }} />
+                <div className="flex flex-col gap-2 min-w-0 flex-1">
+                  <div className="h-3.5 rounded-md" style={{ background: t.skeletonBg, width: `${60 + (i % 3) * 15}%` }} />
+                  <div className="h-2.5 rounded-md" style={{ background: t.skeletonBg2, width: `${35 + (i % 4) * 10}%` }} />
+                </div>
               </div>
               {/* Status pill */}
               <div className="h-5 rounded-full" style={{ background: t.skeletonBg, width: 64 }} />
@@ -224,7 +227,13 @@ const BlogList = () => {
           className="text-center py-24"
           style={{ border: `1px dashed rgba(238,14,14,0.25)`, borderRadius: 16, background: t.cardBg }}
         >
-          <div className="text-3xl mb-4">⚠️</div>
+          <div className="mb-4 flex justify-center">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+              <path d="M18 4L33 30H3L18 4Z" stroke="rgba(238,14,14,0.6)" strokeWidth="1.8" strokeLinejoin="round"/>
+              <path d="M18 14v7" stroke="rgba(238,14,14,0.6)" strokeWidth="1.8" strokeLinecap="round"/>
+              <circle cx="18" cy="25" r="1.2" fill="rgba(238,14,14,0.6)"/>
+            </svg>
+          </div>
           <p className="font-inter font-semibold mb-2" style={{ color: t.textPrimary }}>Failed to load posts</p>
           <p className="font-mono text-sm mb-6" style={{ color: t.textSecondary }}>{fetchError}</p>
           <button
@@ -240,7 +249,14 @@ const BlogList = () => {
           className="text-center py-24"
           style={{ border: `1px dashed ${t.border}`, borderRadius: 16, background: t.cardBg }}
         >
-          <div className="text-4xl mb-4">📝</div>
+          <div className="mb-4 flex justify-center">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="6" y="4" width="22" height="28" rx="3" stroke={t.textMuted} strokeWidth="1.8"/>
+              <path d="M12 13h10M12 18h10M12 23h6" stroke={t.textMuted} strokeWidth="1.8" strokeLinecap="round"/>
+              <circle cx="31" cy="31" r="6" fill={t.inputBg} stroke={t.textMuted} strokeWidth="1.8"/>
+              <path d="M29 31h4M31 29v4" stroke={t.textMuted} strokeWidth="1.8" strokeLinecap="round"/>
+            </svg>
+          </div>
           <p className="font-inter font-semibold mb-2" style={{ color: t.textPrimary }}>
             {search || filterStatus !== "all" ? "No posts match your filters" : "No posts yet"}
           </p>
@@ -291,13 +307,38 @@ const BlogList = () => {
               onMouseEnter={(e) => (e.currentTarget.style.background = t.rowHover)}
               onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
             >
-              <div className="min-w-0 pr-4">
-                <p className="font-inter font-semibold text-sm m-0 truncate" style={{ color: t.textPrimary }}>
-                  {post.title || "Untitled"}
-                </p>
-                <p className="font-mono text-[11px] m-0 truncate mt-0.5" style={{ color: t.textMuted }}>
-                  /{post.slug || "no-slug"}
-                </p>
+              <div className="min-w-0 pr-4 flex items-center gap-3">
+                <div
+                  className="flex-shrink-0 rounded-lg overflow-hidden flex items-center justify-center"
+                  style={{ width: 44, height: 44, background: t.inputBg, border: `1px solid ${t.borderLight}` }}
+                >
+                  {post.coverImage ? (
+                    <img
+                      src={post.coverImage}
+                      alt=""
+                      style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                      onError={(e) => { e.target.style.display = "none"; e.target.nextSibling.style.display = "flex"; }}
+                    />
+                  ) : null}
+                  <div
+                    className="w-full h-full items-center justify-center"
+                    style={{ display: post.coverImage ? "none" : "flex" }}
+                  >
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <rect x="1" y="2" width="14" height="12" rx="2" stroke={t.textMuted} strokeWidth="1.3"/>
+                      <circle cx="5" cy="6.5" r="1.5" stroke={t.textMuted} strokeWidth="1.3"/>
+                      <path d="M1 11l4-4 3 3 2-2 5 5" stroke={t.textMuted} strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </div>
+                </div>
+                <div className="min-w-0">
+                  <p className="font-inter font-semibold text-sm m-0 truncate" style={{ color: t.textPrimary }}>
+                    {post.title || "Untitled"}
+                  </p>
+                  <p className="font-mono text-[11px] m-0 truncate mt-0.5" style={{ color: t.textMuted }}>
+                    /{post.slug || "no-slug"}
+                  </p>
+                </div>
               </div>
               <div><StatusBadge status={post.status} /></div>
               <div className="flex flex-wrap gap-1">
