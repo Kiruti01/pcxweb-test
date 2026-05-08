@@ -47,12 +47,15 @@ const mdComponents = {
 
 const LegalPage = ({ title, mdFile, version, sidebarLinks }) => {
   const [content, setContent] = useState("");
+  const [tocOpen, setTocOpen] = useState(false);
 
   useEffect(() => {
     fetch(mdFile)
       .then((res) => res.text())
       .then((text) => setContent(text));
   }, [mdFile]);
+
+  const handleTocLink = () => setTocOpen(false);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -76,7 +79,7 @@ const LegalPage = ({ title, mdFile, version, sidebarLinks }) => {
           </div>
         </div>
 
-        {/* Sidebar */}
+        {/* Desktop sidebar */}
         {sidebarLinks?.length > 0 && (
           <div className="hidden lg:flex w-[296px] shrink-0 h-fit p-10 bg-[#FFFFFFA3] dark:bg-[#ffffff0d] rounded-md flex-col gap-5 sticky top-40">
             <h2 className="font-mono font-[700] text-[#13161A] dark:text-white text-[24px]">
@@ -99,6 +102,84 @@ const LegalPage = ({ title, mdFile, version, sidebarLinks }) => {
           </div>
         )}
       </main>
+
+      {/* Mobile floating TOC — only when there are sidebar links */}
+      {sidebarLinks?.length > 0 && (
+        <div className="lg:hidden">
+          {/* Backdrop */}
+          {tocOpen && (
+            <div
+              className="fixed inset-0 z-40 bg-black/30 backdrop-blur-[2px]"
+              onClick={() => setTocOpen(false)}
+            />
+          )}
+
+          {/* Slide-in panel */}
+          <div
+            className={`fixed top-0 right-0 h-full w-[260px] z-50 flex flex-col bg-white dark:bg-[#0d1829] shadow-[−8px_0_40px_rgba(0,0,0,0.15)] transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${tocOpen ? "translate-x-0" : "translate-x-full"}`}
+          >
+            {/* Panel header */}
+            <div className="flex items-center justify-between px-6 pt-8 pb-5 border-b border-[#E5E9F2] dark:border-white/10">
+              <span className="font-mono font-[700] text-[#13161A] dark:text-white text-[18px]">Contents</span>
+              <button
+                onClick={() => setTocOpen(false)}
+                className="w-8 h-8 flex items-center justify-center rounded-full bg-[rgba(29,94,255,0.07)] text-[#1D5EFF] hover:bg-[rgba(29,94,255,0.14)] transition-colors"
+                aria-label="Close contents"
+              >
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+                </svg>
+              </button>
+            </div>
+
+            {/* Links */}
+            <ul className="flex flex-col gap-1 px-4 py-5 overflow-y-auto flex-1">
+              {sidebarLinks.map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    onClick={handleTocLink}
+                    className="block px-3 py-2.5 rounded-lg font-mono text-[14px] text-[#3E4953] dark:text-[#9CA3AF] hover:bg-[rgba(29,94,255,0.06)] hover:text-[#1D5EFF] transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+
+            {/* Other legal pages */}
+            <div className="px-4 py-5 border-t border-[#E5E9F2] dark:border-white/10 flex flex-col gap-1">
+              <a href="/terms_and_conditions" onClick={handleTocLink} className="block px-3 py-2 rounded-lg font-mono text-[13px] text-[#9AA5B4] hover:text-[#1D5EFF] hover:bg-[rgba(29,94,255,0.05)] transition-colors">Terms & Conditions</a>
+              <a href="/privacy-policy" onClick={handleTocLink} className="block px-3 py-2 rounded-lg font-mono text-[13px] text-[#9AA5B4] hover:text-[#1D5EFF] hover:bg-[rgba(29,94,255,0.05)] transition-colors">Privacy Policy</a>
+              <a href="/security-policy" onClick={handleTocLink} className="block px-3 py-2 rounded-lg font-mono text-[13px] text-[#9AA5B4] hover:text-[#1D5EFF] hover:bg-[rgba(29,94,255,0.05)] transition-colors">Security Policy</a>
+            </div>
+          </div>
+
+          {/* Floating toggle tab */}
+          <button
+            onClick={() => setTocOpen((v) => !v)}
+            aria-label="Toggle table of contents"
+            className={`fixed top-1/2 -translate-y-1/2 z-50 flex items-center justify-center transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${tocOpen ? "right-[260px]" : "right-0"}`}
+            style={{
+              background: "linear-gradient(135deg, #847AFF 0%, #1D5EFF 100%)",
+              borderRadius: tocOpen ? "0 8px 8px 0" : "8px 0 0 8px",
+              padding: "14px 10px",
+              boxShadow: "-4px 0 20px rgba(29,94,255,0.25)",
+            }}
+          >
+            {tocOpen ? (
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M6 3l5 5-5 5" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            ) : (
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M10 3L5 8l5 5" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            )}
+          </button>
+        </div>
+      )}
+
       <CTASection />
       <Footer />
     </div>
