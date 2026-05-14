@@ -31,15 +31,15 @@ const mdComponents = {
     <h6 {...props} className="text-[16px] text-[#B0BBC5] dark:text-[#6B7280] font-[600] font-inter" />
   ),
   p: ({ ...props }) => (
-    <p {...props} className="text-[16px] md:text-[18px] font-mono font-[400] text-[#3E4953] dark:text-[#9CA3AF] pb-5" />
+    <p {...props} className="text-[16px] md:text-[18px] font-mono font-[400] text-[#3E4953] dark:text-[#9CA3AF] pb-5 break-words" />
   ),
   ul: ({ ...props }) => (
-    <ul {...props} className="ml-6 mb-6 space-y-2 text-[16px] text-[#3E4953] dark:text-[#9CA3AF] font-[400] font-mono list-disc" />
+    <ul {...props} className="ml-6 mb-6 space-y-2 text-[16px] text-[#3E4953] dark:text-[#9CA3AF] font-[400] font-mono list-disc break-words" />
   ),
   ol: ({ ...props }) => (
-    <ol {...props} className="ml-6 mb-6 space-y-2 text-[16px] text-[#3E4953] dark:text-[#9CA3AF] font-[400] font-mono list-decimal" />
+    <ol {...props} className="ml-6 mb-6 space-y-2 text-[16px] text-[#3E4953] dark:text-[#9CA3AF] font-[400] font-mono list-decimal break-words" />
   ),
-  li: ({ ...props }) => <li {...props} className="pl-2 mb-5" />,
+  li: ({ ...props }) => <li {...props} className="pl-2 mb-5 break-words" />,
   a: ({ ...props }) => (
     <a {...props} className="text-blue-600 dark:text-blue-400 hover:underline" />
   ),
@@ -60,9 +60,9 @@ const LegalPage = ({ title, mdFile, version, sidebarLinks }) => {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <main className="flex flex-col lg:flex-row gap-10 w-full max-w-[1280px] mx-auto mt-10 md:mt-16 px-4 md:px-8">
+      <main className="flex flex-col lg:flex-row gap-10 w-full max-w-[1280px] mx-auto mt-10 md:mt-16 px-4 md:px-8 overflow-x-hidden">
         {/* Main content */}
-        <div className="w-full lg:max-w-[920px] p-6 md:p-10 bg-[#FFFFFFA3] dark:bg-[#ffffff0d] rounded-md">
+        <div className="w-full lg:max-w-[920px] p-6 md:p-10 bg-[#FFFFFFA3] dark:bg-[#ffffff0d] rounded-md min-w-0 overflow-hidden">
           <div className="my-7">
             <h1 className="text-[32px] md:text-[48px] font-[600] text-[#13161A] dark:text-white">
               {title}
@@ -109,14 +109,14 @@ const LegalPage = ({ title, mdFile, version, sidebarLinks }) => {
           {/* Backdrop */}
           {tocOpen && (
             <div
-              className="fixed inset-0 z-40 bg-black/30 backdrop-blur-[2px]"
+              className="fixed inset-0 z-[1001] bg-black/30 backdrop-blur-[2px]"
               onClick={() => setTocOpen(false)}
             />
           )}
 
           {/* Slide-in panel */}
           <div
-            className={`fixed top-0 right-0 h-full w-[260px] z-50 flex flex-col bg-white dark:bg-[#0d1829] shadow-[−8px_0_40px_rgba(0,0,0,0.15)] transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${tocOpen ? "translate-x-0" : "translate-x-full"}`}
+            className={`fixed top-0 right-0 h-full w-[260px] z-[1002] flex flex-col bg-white dark:bg-[#0d1829] shadow-[−8px_0_40px_rgba(0,0,0,0.15)] transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${tocOpen ? "translate-x-0" : "translate-x-full"}`}
           >
             {/* Panel header */}
             <div className="flex items-center justify-between px-6 pt-8 pb-5 border-b border-[#E5E9F2] dark:border-white/10">
@@ -159,7 +159,7 @@ const LegalPage = ({ title, mdFile, version, sidebarLinks }) => {
           <button
             onClick={() => setTocOpen((v) => !v)}
             aria-label="Toggle table of contents"
-            className={`fixed top-1/2 -translate-y-1/2 z-50 flex items-center justify-center transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${tocOpen ? "right-[260px]" : "right-0"}`}
+            className={`fixed top-1/2 -translate-y-1/2 z-[1003] flex items-center justify-center transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${tocOpen ? "right-[260px]" : "right-0"}`}
             style={{
               background: "linear-gradient(135deg, #847AFF 0%, #1D5EFF 100%)",
               borderRadius: tocOpen ? "0 8px 8px 0" : "8px 0 0 8px",
