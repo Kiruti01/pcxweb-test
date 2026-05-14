@@ -45,14 +45,62 @@ const mdComponents = {
   ),
 };
 
+const SkeletonBar = ({ w = "100%", h = 16, mt = 0 }) => (
+  <div
+    className="rounded bg-[#E5E9F2] dark:bg-white/10 animate-pulse"
+    style={{ width: w, height: h, marginTop: mt }}
+  />
+);
+
+const LegalPageSkeleton = ({ title, version, sidebarLinks }) => (
+  <div className="flex flex-col lg:flex-row gap-10 w-full max-w-[1280px] mx-auto mt-10 md:mt-16 px-4 md:px-8 overflow-x-hidden">
+    <div className="w-full lg:max-w-[920px] p-6 md:p-10 bg-[#FFFFFFA3] dark:bg-[#ffffff0d] rounded-md min-w-0 overflow-hidden">
+      <div className="my-7 space-y-4">
+        <h1 className="text-[32px] md:text-[48px] font-[600] text-[#13161A] dark:text-white">{title}</h1>
+        {version && (
+          <div className="flex justify-between pt-2">
+            <SkeletonBar w={144} h={14} />
+            <SkeletonBar w={96} h={14} />
+          </div>
+        )}
+      </div>
+      <div className="flex flex-col gap-4">
+        {[1, 0.9, 1, 0.75].map((w, i) => <SkeletonBar key={i} w={`${w * 100}%`} h={14} />)}
+        <SkeletonBar w="48%" h={28} mt={12} />
+        {[1, 0.95, 0.8, 1, 0.7].map((w, i) => <SkeletonBar key={i} w={`${w * 100}%`} h={14} />)}
+        <SkeletonBar w="36%" h={28} mt={12} />
+        {[1, 0.88, 1, 0.65, 0.92].map((w, i) => <SkeletonBar key={i} w={`${w * 100}%`} h={14} />)}
+        <SkeletonBar w="55%" h={28} mt={12} />
+        {[1, 0.78, 0.9, 1].map((w, i) => <SkeletonBar key={i} w={`${w * 100}%`} h={14} />)}
+      </div>
+    </div>
+
+    {sidebarLinks?.length > 0 && (
+      <div className="hidden lg:flex w-[296px] shrink-0 h-fit p-10 bg-[#FFFFFFA3] dark:bg-[#ffffff0d] rounded-md flex-col gap-5 sticky top-40">
+        <SkeletonBar w={96} h={20} />
+        <div className="flex flex-col gap-6 pl-6">
+          {[0.8, 0.65, 0.9, 0.7, 0.75, 0.6, 0.85].map((w, i) => (
+            <SkeletonBar key={i} w={`${w * 100}%`} h={13} />
+          ))}
+        </div>
+      </div>
+    )}
+  </div>
+);
+
 const LegalPage = ({ title, mdFile, version, sidebarLinks }) => {
   const [content, setContent] = useState("");
+  const [loading, setLoading] = useState(true);
   const [tocOpen, setTocOpen] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     fetch(mdFile)
       .then((res) => res.text())
-      .then((text) => setContent(text));
+      .then((text) => {
+        setContent(text);
+        setLoading(false);
+      });
   }, [mdFile]);
 
   const handleTocLink = () => setTocOpen(false);
@@ -60,48 +108,53 @@ const LegalPage = ({ title, mdFile, version, sidebarLinks }) => {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <main className="flex flex-col lg:flex-row gap-10 w-full max-w-[1280px] mx-auto mt-10 md:mt-16 px-4 md:px-8 overflow-x-hidden">
-        {/* Main content */}
-        <div className="w-full lg:max-w-[920px] p-6 md:p-10 bg-[#FFFFFFA3] dark:bg-[#ffffff0d] rounded-md min-w-0 overflow-hidden">
-          <div className="my-7">
-            <h1 className="text-[32px] md:text-[48px] font-[600] text-[#13161A] dark:text-white">
-              {title}
-            </h1>
-            {version && (
-              <div className="flex justify-between pt-5 text-[#657688] dark:text-[#6B7280] text-[14px] md:text-[16px] font-[400] font-mono">
-                <span>Current as of {version.date}</span>
-                <span>{version.label}</span>
-              </div>
-            )}
-          </div>
-          <div className="w-full gap-5 flex flex-col">
-            <ReactMarkdown components={mdComponents}>{content}</ReactMarkdown>
-          </div>
-        </div>
 
-        {/* Desktop sidebar */}
-        {sidebarLinks?.length > 0 && (
-          <div className="hidden lg:flex w-[296px] shrink-0 h-fit p-10 bg-[#FFFFFFA3] dark:bg-[#ffffff0d] rounded-md flex-col gap-5 sticky top-40">
-            <h2 className="font-mono font-[700] text-[#13161A] dark:text-white text-[24px]">
-              Contents
-            </h2>
-            <ul className="flex flex-col gap-[24px] text-[16px] font-mono font-[400] text-[#3E4953] dark:text-[#9CA3AF] pl-[24px]">
-              {sidebarLinks.map((link) => (
-                <li key={link.href}>
-                  <a href={link.href} className="hover:underline">
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-4 pt-4 border-t border-[#E5E9F2] dark:border-white/10 flex flex-col gap-3 text-[14px] font-mono text-[#9AA5B4]">
-              <a href="/terms_and_conditions" className="hover:text-[#1D5EFF] hover:underline transition-colors">Terms & Conditions</a>
-              <a href="/privacy-policy" className="hover:text-[#1D5EFF] hover:underline transition-colors">Privacy Policy</a>
-              <a href="/security-policy" className="hover:text-[#1D5EFF] hover:underline transition-colors">Security Policy</a>
+      {loading ? (
+        <LegalPageSkeleton title={title} version={version} sidebarLinks={sidebarLinks} />
+      ) : (
+        <main className="flex flex-col lg:flex-row gap-10 w-full max-w-[1280px] mx-auto mt-10 md:mt-16 px-4 md:px-8 overflow-x-hidden">
+          {/* Main content */}
+          <div className="w-full lg:max-w-[920px] p-6 md:p-10 bg-[#FFFFFFA3] dark:bg-[#ffffff0d] rounded-md min-w-0 overflow-hidden">
+            <div className="my-7">
+              <h1 className="text-[32px] md:text-[48px] font-[600] text-[#13161A] dark:text-white">
+                {title}
+              </h1>
+              {version && (
+                <div className="flex justify-between pt-5 text-[#657688] dark:text-[#6B7280] text-[14px] md:text-[16px] font-[400] font-mono">
+                  <span>Current as of {version.date}</span>
+                  <span>{version.label}</span>
+                </div>
+              )}
+            </div>
+            <div className="w-full gap-5 flex flex-col">
+              <ReactMarkdown components={mdComponents}>{content}</ReactMarkdown>
             </div>
           </div>
-        )}
-      </main>
+
+          {/* Desktop sidebar */}
+          {sidebarLinks?.length > 0 && (
+            <div className="hidden lg:flex w-[296px] shrink-0 h-fit p-10 bg-[#FFFFFFA3] dark:bg-[#ffffff0d] rounded-md flex-col gap-5 sticky top-40">
+              <h2 className="font-mono font-[700] text-[#13161A] dark:text-white text-[24px]">
+                Contents
+              </h2>
+              <ul className="flex flex-col gap-[24px] text-[16px] font-mono font-[400] text-[#3E4953] dark:text-[#9CA3AF] pl-[24px]">
+                {sidebarLinks.map((link) => (
+                  <li key={link.href}>
+                    <a href={link.href} className="hover:underline">
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-4 pt-4 border-t border-[#E5E9F2] dark:border-white/10 flex flex-col gap-3 text-[14px] font-mono text-[#9AA5B4]">
+                <a href="/terms_and_conditions" className="hover:text-[#1D5EFF] hover:underline transition-colors">Terms & Conditions</a>
+                <a href="/privacy-policy" className="hover:text-[#1D5EFF] hover:underline transition-colors">Privacy Policy</a>
+                <a href="/security-policy" className="hover:text-[#1D5EFF] hover:underline transition-colors">Security Policy</a>
+              </div>
+            </div>
+          )}
+        </main>
+      )}
 
       {/* Mobile floating TOC — only when there are sidebar links */}
       {sidebarLinks?.length > 0 && (
