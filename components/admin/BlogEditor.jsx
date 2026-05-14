@@ -741,6 +741,8 @@ const BlogEditor = ({ postId }) => {
   const [showGridModal, setShowGridModal] = useState(false);
   const [isDirty, setIsDirty] = useState(false);
   const [showLeaveModal, setShowLeaveModal] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Single image crop modal
   const [cropModal, setCropModal] = useState(null);
@@ -753,6 +755,13 @@ const BlogEditor = ({ postId }) => {
   };
   const pendingFilesRef = useRef([]);
   const savedCursorRef = useRef(0);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   useEffect(() => {
     if (!isNew) {
@@ -970,6 +979,7 @@ const BlogEditor = ({ postId }) => {
   };
 
   const readingTime = Math.max(1, Math.round(wordCount / 200));
+  const effectiveMode = isMobile && mode === "split" ? "write" : mode;
 
   if (loading)
     return (
@@ -989,9 +999,9 @@ const BlogEditor = ({ postId }) => {
         </div>
 
         {/* Two-column skeleton */}
-        <div className="flex gap-6 flex-1 min-h-0">
+        <div className="flex flex-col md:flex-row gap-6">
           {/* Left sidebar */}
-          <div className="flex flex-col gap-5 flex-shrink-0" style={{ width: 280 }}>
+          <div className="flex flex-col gap-5 md:flex-shrink-0" style={{ width: isMobile ? "100%" : 280 }}>
             <div className="h-10 rounded-xl" style={{ background: t.skeletonBg2 }} />
             <div className="h-10 rounded-xl" style={{ background: t.skeletonBg2 }} />
             {/* Field blocks */}
@@ -1129,32 +1139,26 @@ const BlogEditor = ({ postId }) => {
         />
 
         {/* Top bar */}
-        <div className="flex items-center justify-between gap-4 mb-6 flex-wrap">
-          <div className="flex items-center gap-3">
+        <div className="flex items-center justify-between gap-3 mb-5 flex-wrap">
+          <div className="flex items-center gap-3 min-w-0">
             <button
               onClick={() => isDirty ? setShowLeaveModal(true) : router.push("/admin/blog")}
-              className="flex items-center gap-1.5 font-mono text-sm border-none bg-transparent"
+              className="flex items-center gap-1.5 font-mono text-sm border-none bg-transparent flex-shrink-0"
               style={{ color: t.textSecondary, cursor: "pointer" }}
               onMouseEnter={(e) => (e.currentTarget.style.color = t.textPrimary)}
               onMouseLeave={(e) => (e.currentTarget.style.color = t.textSecondary)}
             >
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path
-                  d="M10 3L5 8l5 5"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
+                <path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
               Posts
             </button>
             <span style={{ color: t.breadcrumbSlash }}>/</span>
-            <span className="font-inter font-semibold text-sm" style={{ color: t.textPrimary }}>
+            <span className="font-inter font-semibold text-sm truncate" style={{ color: t.textPrimary }}>
               {isNew ? "New Post" : post.title || "Edit Post"}
             </span>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             {saveState === "saving" && (
               <span className="font-mono text-xs text-[#657688] flex items-center gap-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#F59E0B] animate-pulse inline-block" />
@@ -1167,40 +1171,53 @@ const BlogEditor = ({ postId }) => {
                 Saved
               </span>
             )}
+            {/* Settings toggle — mobile only */}
+            {isMobile && (
+              <button
+                onClick={() => setSidebarOpen((v) => !v)}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-mono text-xs font-semibold border-none"
+                style={{
+                  background: sidebarOpen ? "rgba(29,94,255,0.12)" : t.btnSecondaryBg,
+                  color: sidebarOpen ? "#1D5EFF" : t.btnSecondaryColor,
+                  cursor: "pointer",
+                }}
+              >
+                <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+                  <rect x="1" y="1" width="4.5" height="11" rx="1" stroke="currentColor" strokeWidth="1.3"/>
+                  <path d="M8 4h4M8 6.5h4M8 9h3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
+                </svg>
+                Settings
+              </button>
+            )}
             <div
               className="flex items-center gap-0.5 p-1 rounded-lg"
-              style={{
-                background: t.tabBg,
-                border: `1px solid ${t.border}`,
-              }}
+              style={{ background: t.tabBg, border: `1px solid ${t.border}` }}
             >
               {[
                 { v: "write", label: "Write" },
-                { v: "split", label: "Split" },
+                { v: "split", label: "Split", hideMobile: true },
                 { v: "preview", label: "Preview" },
-              ].map(({ v, label }) => (
-                <button
-                  key={v}
-                  onClick={() => setMode(v)}
-                  className="px-3 py-1 rounded-md font-mono text-xs font-medium border-none transition-all duration-200"
-                  style={{
-                    background: mode === v ? t.modeActiveBg : "transparent",
-                    color: mode === v ? t.modeActiveColor : t.textSecondary,
-                    cursor: "pointer",
-                  }}
-                >
-                  {label}
-                </button>
+              ].map(({ v, label, hideMobile }) => (
+                !hideMobile || !isMobile ? (
+                  <button
+                    key={v}
+                    onClick={() => setMode(v)}
+                    className="px-2.5 md:px-3 py-1 rounded-md font-mono text-xs font-medium border-none transition-all duration-200"
+                    style={{
+                      background: mode === v ? t.modeActiveBg : "transparent",
+                      color: mode === v ? t.modeActiveColor : t.textSecondary,
+                      cursor: "pointer",
+                    }}
+                  >
+                    {label}
+                  </button>
+                ) : null
               ))}
             </div>
             <button
               onClick={() => handleSave("draft")}
-              className="px-4 py-2 rounded-xl font-mono text-sm font-semibold border-none"
-              style={{
-                background: t.btnSecondaryBg,
-                color: t.btnSecondaryColor,
-                cursor: "pointer",
-              }}
+              className="px-3 md:px-4 py-2 rounded-xl font-mono text-sm font-semibold border-none"
+              style={{ background: t.btnSecondaryBg, color: t.btnSecondaryColor, cursor: "pointer" }}
               onMouseEnter={(e) => (e.currentTarget.style.background = t.btnSecondaryHoverBg)}
               onMouseLeave={(e) => (e.currentTarget.style.background = t.btnSecondaryBg)}
             >
@@ -1208,18 +1225,14 @@ const BlogEditor = ({ postId }) => {
             </button>
             <button
               onClick={() => handleSave("published")}
-              className="px-4 py-2 rounded-xl font-mono text-sm font-bold text-white border-none"
+              className="px-3 md:px-4 py-2 rounded-xl font-mono text-sm font-bold text-white border-none"
               style={{
                 background: "linear-gradient(87deg, #847AFF 0%, #086FFF 100%)",
                 boxShadow: "0 4px 14px rgba(29,94,255,0.3)",
                 cursor: "pointer",
               }}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.transform = "translateY(-1px)")
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.transform = "translateY(0)")
-              }
+              onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-1px)")}
+              onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
             >
               {post.status === "published" ? "Update" : "Publish"} →
             </button>
@@ -1227,9 +1240,12 @@ const BlogEditor = ({ postId }) => {
         </div>
 
         {/* Two-column layout */}
-        <div style={{ display: "grid", gridTemplateColumns: "280px 1fr", gap: 24 }}>
-          {/* LEFT */}
-          <div className="flex flex-col gap-3" style={{ paddingRight: 4 }}>
+        <div className="grid grid-cols-1 md:grid-cols-[280px_1fr] gap-6">
+          {/* LEFT — hidden on mobile unless sidebarOpen */}
+          <div
+            className="flex flex-col gap-3"
+            style={{ paddingRight: 4, display: isMobile && !sidebarOpen ? "none" : "flex" }}
+          >
             <div
               className="flex items-center gap-2 p-3 rounded-xl"
               style={{
@@ -1589,12 +1605,12 @@ const BlogEditor = ({ postId }) => {
             </div>
           </div>
 
-          {/* RIGHT: editor + preview */}
+          {/* RIGHT: editor + preview — always show on mobile (sidebar collapses instead) */}
           <div
             className="flex flex-col rounded-2xl overflow-hidden"
             style={{ border: `1px solid ${t.editorOuterBorder}` }}
           >
-            {mode !== "preview" && (
+            {effectiveMode !== "preview" && (
               <div
                 className="flex items-center gap-1 px-4 py-2 flex-shrink-0 flex-wrap"
                 style={{
@@ -1847,7 +1863,7 @@ const BlogEditor = ({ postId }) => {
             )}
 
             <div className="flex" style={{ minHeight: 600 }}>
-              {(mode === "write" || mode === "split") && (
+              {(effectiveMode === "write" || effectiveMode === "split") && (
                 <textarea
                   ref={editorRef}
                   value={post.content}
@@ -1862,17 +1878,17 @@ const BlogEditor = ({ postId }) => {
                     background: "transparent",
                     color: t.textPrimary,
                     lineHeight: 1.8,
-                    borderRight: mode === "split" ? `1px solid ${t.editorSplitBorder}` : "none",
+                    borderRight: effectiveMode === "split" ? `1px solid ${t.editorSplitBorder}` : "none",
                     caretColor: "#1D5EFF",
                     minHeight: 600,
                   }}
                 />
               )}
-              {(mode === "preview" || mode === "split") && (
+              {(effectiveMode === "preview" || effectiveMode === "split") && (
                 <div
                   className="flex-1 p-8"
                   style={{
-                    background: mode === "preview" ? "transparent" : t.previewPanelBg,
+                    background: effectiveMode === "preview" ? "transparent" : t.previewPanelBg,
                   }}
                 >
                   {post.coverImage && (
