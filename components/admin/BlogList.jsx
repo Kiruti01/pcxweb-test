@@ -56,7 +56,7 @@ const BlogList = () => {
     .filter(
       (p) =>
         p.title.toLowerCase().includes(search.toLowerCase()) ||
-        (p.tags || []).some((t) => t.toLowerCase().includes(search.toLowerCase())),
+        (p.tags || []).some((tag) => tag.toLowerCase().includes(search.toLowerCase())),
     )
     .sort((a, b) => new Date(b[sortBy]) - new Date(a[sortBy]));
 
@@ -73,12 +73,67 @@ const BlogList = () => {
   const fmtDate = (d) =>
     new Date(d).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
 
+  const Thumbnail = ({ post, size = 44 }) => (
+    <div
+      className="flex-shrink-0 rounded-lg overflow-hidden flex items-center justify-center"
+      style={{ width: size, height: size, background: t.inputBg, border: `1px solid ${t.borderLight}` }}
+    >
+      {post.coverImage ? (
+        <img
+          src={post.coverImage}
+          alt=""
+          style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+          onError={(e) => { e.target.style.display = "none"; e.target.nextSibling.style.display = "flex"; }}
+        />
+      ) : null}
+      <div
+        className="w-full h-full items-center justify-center"
+        style={{ display: post.coverImage ? "none" : "flex" }}
+      >
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <rect x="1" y="2" width="14" height="12" rx="2" stroke={t.textMuted} strokeWidth="1.3"/>
+          <circle cx="5" cy="6.5" r="1.5" stroke={t.textMuted} strokeWidth="1.3"/>
+          <path d="M1 11l4-4 3 3 2-2 5 5" stroke={t.textMuted} strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </div>
+    </div>
+  );
+
+  const ActionButtons = ({ post }) => (
+    <div className="flex items-center gap-2">
+      <button
+        onClick={() => router.push(`/admin/blog/edit/${post._id}`)}
+        className="w-8 h-8 flex items-center justify-center rounded-lg border-none transition-all duration-200"
+        style={{ background: t.actionBtnBg, color: t.textSecondary, cursor: "pointer" }}
+        onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(29,94,255,0.1)"; e.currentTarget.style.color = "#1D5EFF"; }}
+        onMouseLeave={(e) => { e.currentTarget.style.background = t.actionBtnBg; e.currentTarget.style.color = t.textSecondary; }}
+        title="Edit"
+      >
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M2 10l7.5-7.5 2 2L4 12H2v-2zM9.5 2.5l2 2" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
+      <button
+        onClick={() => setDeleteId(post._id)}
+        className="w-8 h-8 flex items-center justify-center rounded-lg border-none transition-all duration-200"
+        style={{ background: t.actionBtnBg, color: t.textSecondary, cursor: "pointer" }}
+        onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(238,14,14,0.08)"; e.currentTarget.style.color = "#EE0E0E"; }}
+        onMouseLeave={(e) => { e.currentTarget.style.background = t.actionBtnBg; e.currentTarget.style.color = t.textSecondary; }}
+        title="Delete"
+      >
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M2 3.5h10M5 3.5V2h4v1.5M5.5 6v4.5M8.5 6v4.5M3 3.5l.7 8h6.6l.7-8" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
+    </div>
+  );
+
   return (
     <div>
       {/* Page header */}
-      <div className="flex items-center justify-between mb-8 gap-4 flex-wrap">
+      <div className="flex items-center justify-between mb-6 gap-4 flex-wrap">
         <div>
-          <h1 className="font-inter font-bold text-2xl m-0 mb-1" style={{ color: t.textPrimary }}>
+          <h1 className="font-inter font-bold text-xl md:text-2xl m-0 mb-1" style={{ color: t.textPrimary }}>
             Blog Posts
           </h1>
           <p className="font-mono text-sm m-0" style={{ color: t.textSecondary }}>
@@ -87,7 +142,7 @@ const BlogList = () => {
         </div>
         <button
           onClick={() => router.push("/admin/blog/new")}
-          className="flex items-center gap-2 px-5 py-2.5 rounded-xl font-mono text-sm font-semibold text-white border-none transition-all duration-200"
+          className="flex items-center gap-2 px-4 md:px-5 py-2.5 rounded-xl font-mono text-sm font-semibold text-white border-none transition-all duration-200"
           style={{
             background: "linear-gradient(87deg, #847AFF 0%, #086FFF 100%)",
             boxShadow: "0 4px 16px rgba(29,94,255,0.25)",
@@ -114,7 +169,7 @@ const BlogList = () => {
             <button
               key={s}
               onClick={() => setFilterStatus(s)}
-              className="px-3 py-1.5 rounded-lg font-mono text-xs font-semibold capitalize transition-all duration-200 border-none"
+              className="px-2.5 md:px-3 py-1.5 rounded-lg font-mono text-xs font-semibold capitalize transition-all duration-200 border-none"
               style={{
                 background: filterStatus === s ? t.tabActiveBg : "transparent",
                 color: filterStatus === s ? t.tabActiveColor : t.textSecondary,
@@ -128,24 +183,24 @@ const BlogList = () => {
 
         {/* Search */}
         <div
-          className="flex items-center gap-2 px-3 py-2 rounded-xl flex-1 min-w-50"
-          style={{ background: t.tabBg, border: `1px solid ${t.border}` }}
+          className="flex items-center gap-2 px-3 py-2 rounded-xl flex-1 min-w-0"
+          style={{ background: t.tabBg, border: `1px solid ${t.border}`, minWidth: 140 }}
         >
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="flex-shrink-0">
             <path d="M6 11A5 5 0 1 0 6 1a5 5 0 0 0 0 10zM13 13l-2.5-2.5" stroke="#657688" strokeWidth="1.4" strokeLinecap="round" />
           </svg>
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search posts or tags..."
-            className="flex-1 border-none outline-none font-mono text-sm"
+            placeholder="Search posts…"
+            className="flex-1 border-none outline-none font-mono text-sm min-w-0"
             style={{ background: "transparent", color: t.textPrimary }}
           />
           {search && (
             <button
               onClick={() => setSearch("")}
-              className="border-none bg-transparent cursor-pointer transition-colors"
+              className="border-none bg-transparent cursor-pointer transition-colors flex-shrink-0"
               style={{ color: t.textSecondary }}
               onMouseEnter={(e) => (e.currentTarget.style.color = t.textPrimary)}
               onMouseLeave={(e) => (e.currentTarget.style.color = t.textSecondary)}
@@ -168,63 +223,80 @@ const BlogList = () => {
         </select>
       </div>
 
-      {/* Table */}
+      {/* Loading skeleton */}
       {loading ? (
-        <div style={{ border: `1px solid ${t.border}`, borderRadius: 16, overflow: "hidden", background: t.cardBg }}>
-          {/* Skeleton header */}
-          <div
-            className="grid font-mono text-[10px] font-bold tracking-[0.12em] uppercase px-6 py-3"
-            style={{
-              gridTemplateColumns: "1fr 100px 120px 120px 100px",
-              borderBottom: `1px solid ${t.border}`,
-              background: t.tableHeadBg,
-              color: t.textMuted,
-            }}
-          >
-            <span>Title</span>
-            <span>Status</span>
-            <span>Tags</span>
-            <span>Updated</span>
-            <span className="text-right">Actions</span>
-          </div>
-          {/* Skeleton rows */}
-          {Array.from({ length: 5 }).map((_, i) => (
-            <div
-              key={i}
-              className="grid items-center px-6 py-4 animate-pulse"
-              style={{
-                gridTemplateColumns: "1fr 100px 120px 120px 100px",
-                borderBottom: i < 4 ? `1px solid ${t.borderLight}` : "none",
-              }}
-            >
-              {/* Title + thumbnail */}
-              <div className="flex items-center gap-3 pr-4">
+        <>
+          {/* Mobile skeleton cards */}
+          <div className="flex flex-col gap-3 sm:hidden">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div
+                key={i}
+                className="animate-pulse rounded-2xl p-4 flex gap-3"
+                style={{ background: t.cardBg, border: `1px solid ${t.border}` }}
+              >
                 <div className="flex-shrink-0 rounded-lg" style={{ width: 44, height: 44, background: t.skeletonBg }} />
-                <div className="flex flex-col gap-2 min-w-0 flex-1">
-                  <div className="h-3.5 rounded-md" style={{ background: t.skeletonBg, width: `${60 + (i % 3) * 15}%` }} />
-                  <div className="h-2.5 rounded-md" style={{ background: t.skeletonBg2, width: `${35 + (i % 4) * 10}%` }} />
+                <div className="flex-1 flex flex-col gap-2 min-w-0">
+                  <div className="h-3.5 rounded-md" style={{ background: t.skeletonBg, width: "65%" }} />
+                  <div className="h-2.5 rounded-md" style={{ background: t.skeletonBg2, width: "40%" }} />
+                  <div className="flex gap-2 mt-1">
+                    <div className="h-5 rounded-full" style={{ background: t.skeletonBg, width: 64 }} />
+                    <div className="h-5 rounded-md" style={{ background: t.skeletonBg2, width: 50 }} />
+                  </div>
                 </div>
               </div>
-              {/* Status pill */}
-              <div className="h-5 rounded-full" style={{ background: t.skeletonBg, width: 64 }} />
-              {/* Tags */}
-              <div className="flex gap-1.5">
-                <div className="h-5 rounded-md" style={{ background: t.skeletonBg, width: 44 }} />
-                <div className="h-5 rounded-md" style={{ background: t.skeletonBg2, width: 36 }} />
-              </div>
-              {/* Date */}
-              <div className="h-3 rounded-md" style={{ background: t.skeletonBg, width: 72 }} />
-              {/* Actions */}
-              <div className="flex justify-end gap-2">
-                <div className="h-7 w-7 rounded-lg" style={{ background: t.skeletonBg }} />
-                <div className="h-7 w-7 rounded-lg" style={{ background: t.skeletonBg2 }} />
-              </div>
+            ))}
+          </div>
+
+          {/* Desktop skeleton table */}
+          <div className="hidden sm:block" style={{ border: `1px solid ${t.border}`, borderRadius: 16, overflow: "hidden", background: t.cardBg }}>
+            <div
+              className="grid font-mono text-[10px] font-bold tracking-[0.12em] uppercase px-6 py-3"
+              style={{
+                gridTemplateColumns: "1fr 100px 120px 120px 100px",
+                borderBottom: `1px solid ${t.border}`,
+                background: t.tableHeadBg,
+                color: t.textMuted,
+              }}
+            >
+              <span>Title</span>
+              <span>Status</span>
+              <span className="hidden lg:block">Tags</span>
+              <span>Updated</span>
+              <span className="text-right">Actions</span>
             </div>
-          ))}
-        </div>
+            {Array.from({ length: 5 }).map((_, i) => (
+              <div
+                key={i}
+                className="grid items-center px-6 py-4 animate-pulse"
+                style={{
+                  gridTemplateColumns: "1fr 100px 120px 120px 100px",
+                  borderBottom: i < 4 ? `1px solid ${t.borderLight}` : "none",
+                }}
+              >
+                <div className="flex items-center gap-3 pr-4">
+                  <div className="flex-shrink-0 rounded-lg" style={{ width: 44, height: 44, background: t.skeletonBg }} />
+                  <div className="flex flex-col gap-2 min-w-0 flex-1">
+                    <div className="h-3.5 rounded-md" style={{ background: t.skeletonBg, width: `${60 + (i % 3) * 15}%` }} />
+                    <div className="h-2.5 rounded-md" style={{ background: t.skeletonBg2, width: `${35 + (i % 4) * 10}%` }} />
+                  </div>
+                </div>
+                <div className="h-5 rounded-full" style={{ background: t.skeletonBg, width: 64 }} />
+                <div className="hidden lg:flex gap-1.5">
+                  <div className="h-5 rounded-md" style={{ background: t.skeletonBg, width: 44 }} />
+                  <div className="h-5 rounded-md" style={{ background: t.skeletonBg2, width: 36 }} />
+                </div>
+                <div className="h-3 rounded-md" style={{ background: t.skeletonBg, width: 72 }} />
+                <div className="flex justify-end gap-2">
+                  <div className="h-7 w-7 rounded-lg" style={{ background: t.skeletonBg }} />
+                  <div className="h-7 w-7 rounded-lg" style={{ background: t.skeletonBg2 }} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
       ) : fetchError ? (
         <div
-          className="text-center py-24"
+          className="text-center py-16 md:py-24"
           style={{ border: `1px dashed rgba(238,14,14,0.25)`, borderRadius: 16, background: t.cardBg }}
         >
           <div className="mb-4 flex justify-center">
@@ -235,7 +307,7 @@ const BlogList = () => {
             </svg>
           </div>
           <p className="font-inter font-semibold mb-2" style={{ color: t.textPrimary }}>Failed to load posts</p>
-          <p className="font-mono text-sm mb-6" style={{ color: t.textSecondary }}>{fetchError}</p>
+          <p className="font-mono text-sm mb-6 px-4" style={{ color: t.textSecondary }}>{fetchError}</p>
           <button
             onClick={() => { setLoading(true); setFetchError(null); getAllPostsAdmin().then((data) => setPosts(data.posts ?? [])).catch((err) => setFetchError(err.message || "Failed to load posts")).finally(() => setLoading(false)); }}
             className="px-5 py-2.5 rounded-xl font-mono text-sm font-semibold text-white border-none"
@@ -246,7 +318,7 @@ const BlogList = () => {
         </div>
       ) : filtered.length === 0 ? (
         <div
-          className="text-center py-24"
+          className="text-center py-16 md:py-24"
           style={{ border: `1px dashed ${t.border}`, borderRadius: 16, background: t.cardBg }}
         >
           <div className="mb-4 flex justify-center">
@@ -260,7 +332,7 @@ const BlogList = () => {
           <p className="font-inter font-semibold mb-2" style={{ color: t.textPrimary }}>
             {search || filterStatus !== "all" ? "No posts match your filters" : "No posts yet"}
           </p>
-          <p className="font-mono text-sm mb-6" style={{ color: t.textSecondary }}>
+          <p className="font-mono text-sm mb-6 px-4" style={{ color: t.textSecondary }}>
             {search || filterStatus !== "all"
               ? "Try adjusting your search or filters"
               : "Create your first blog post to get started"}
@@ -276,122 +348,123 @@ const BlogList = () => {
           )}
         </div>
       ) : (
-        <div style={{ border: `1px solid ${t.border}`, borderRadius: 16, overflow: "hidden", background: t.cardBg }}>
-          {/* Table head */}
-          <div
-            className="grid font-mono text-[10px] font-bold tracking-[0.12em] uppercase px-6 py-3"
-            style={{
-              gridTemplateColumns: "1fr 100px 120px 120px 100px",
-              borderBottom: `1px solid ${t.border}`,
-              background: t.tableHeadBg,
-              color: t.textMuted,
-            }}
-          >
-            <span>Title</span>
-            <span>Status</span>
-            <span>Tags</span>
-            <span>Updated</span>
-            <span className="text-right">Actions</span>
+        <>
+          {/* Mobile card list */}
+          <div className="flex flex-col gap-3 sm:hidden">
+            {paginated.map((post) => (
+              <div
+                key={post._id}
+                className="rounded-2xl p-4"
+                style={{ background: t.cardBg, border: `1px solid ${t.border}` }}
+              >
+                <div className="flex items-start gap-3">
+                  <Thumbnail post={post} size={44} />
+                  <div className="flex-1 min-w-0">
+                    <p className="font-inter font-semibold text-sm m-0 truncate" style={{ color: t.textPrimary }}>
+                      {post.title || "Untitled"}
+                    </p>
+                    <p className="font-mono text-[11px] m-0 truncate mt-0.5 mb-2" style={{ color: t.textMuted }}>
+                      /{post.slug || "no-slug"}
+                    </p>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <StatusBadge status={post.status} />
+                      {(post.tags || []).slice(0, 2).map((tag) => (
+                        <span
+                          key={tag}
+                          className="font-mono text-[10px] px-1.5 py-0.5 rounded"
+                          style={{ background: "rgba(29,94,255,0.08)", color: "#1D5EFF" }}
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <ActionButtons post={post} />
+                </div>
+                <div className="mt-2 pt-2 flex items-center justify-between" style={{ borderTop: `1px solid ${t.borderLight}` }}>
+                  <span className="font-mono text-[11px]" style={{ color: t.textSecondary }}>
+                    Updated {fmtDate(post.updatedAt)}
+                  </span>
+                </div>
+              </div>
+            ))}
           </div>
 
-          {/* Rows */}
-          {paginated.map((post, i) => (
-            <div
-              key={post._id}
-              className="grid items-center px-6 py-4 transition-colors duration-150"
-              style={{
-                gridTemplateColumns: "1fr 100px 120px 120px 100px",
-                borderBottom: i < paginated.length - 1 ? `1px solid ${t.borderLight}` : "none",
-                background: "transparent",
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.background = t.rowHover)}
-              onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
-            >
-              <div className="min-w-0 pr-4 flex items-center gap-3">
+          {/* Desktop/tablet table */}
+          <div className="hidden sm:block overflow-x-auto" style={{ border: `1px solid ${t.border}`, borderRadius: 16, background: t.cardBg }}>
+            <div style={{ minWidth: 600 }}>
+              {/* Table head */}
+              <div
+                className="grid font-mono text-[10px] font-bold tracking-[0.12em] uppercase px-6 py-3"
+                style={{
+                  gridTemplateColumns: "1fr 100px 120px 120px 100px",
+                  borderBottom: `1px solid ${t.border}`,
+                  background: t.tableHeadBg,
+                  color: t.textMuted,
+                }}
+              >
+                <span>Title</span>
+                <span>Status</span>
+                <span className="hidden lg:block">Tags</span>
+                <span>Updated</span>
+                <span className="text-right">Actions</span>
+              </div>
+
+              {/* Rows */}
+              {paginated.map((post, i) => (
                 <div
-                  className="flex-shrink-0 rounded-lg overflow-hidden flex items-center justify-center"
-                  style={{ width: 44, height: 44, background: t.inputBg, border: `1px solid ${t.borderLight}` }}
+                  key={post._id}
+                  className="grid items-center px-6 py-4 transition-colors duration-150"
+                  style={{
+                    gridTemplateColumns: "1fr 100px 120px 120px 100px",
+                    borderBottom: i < paginated.length - 1 ? `1px solid ${t.borderLight}` : "none",
+                    background: "transparent",
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = t.rowHover)}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
                 >
-                  {post.coverImage ? (
-                    <img
-                      src={post.coverImage}
-                      alt=""
-                      style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-                      onError={(e) => { e.target.style.display = "none"; e.target.nextSibling.style.display = "flex"; }}
-                    />
-                  ) : null}
-                  <div
-                    className="w-full h-full items-center justify-center"
-                    style={{ display: post.coverImage ? "none" : "flex" }}
-                  >
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                      <rect x="1" y="2" width="14" height="12" rx="2" stroke={t.textMuted} strokeWidth="1.3"/>
-                      <circle cx="5" cy="6.5" r="1.5" stroke={t.textMuted} strokeWidth="1.3"/>
-                      <path d="M1 11l4-4 3 3 2-2 5 5" stroke={t.textMuted} strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
+                  <div className="min-w-0 pr-4 flex items-center gap-3">
+                    <Thumbnail post={post} size={44} />
+                    <div className="min-w-0">
+                      <p className="font-inter font-semibold text-sm m-0 truncate" style={{ color: t.textPrimary }}>
+                        {post.title || "Untitled"}
+                      </p>
+                      <p className="font-mono text-[11px] m-0 truncate mt-0.5" style={{ color: t.textMuted }}>
+                        /{post.slug || "no-slug"}
+                      </p>
+                    </div>
+                  </div>
+                  <div><StatusBadge status={post.status} /></div>
+                  <div className="hidden lg:flex flex-wrap gap-1">
+                    {(post.tags || []).slice(0, 2).map((tag) => (
+                      <span
+                        key={tag}
+                        className="font-mono text-[10px] px-1.5 py-0.5 rounded"
+                        style={{ background: "rgba(29,94,255,0.08)", color: "#1D5EFF" }}
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                    {(post.tags || []).length > 2 && (
+                      <span className="font-mono text-[10px]" style={{ color: t.textMuted }}>
+                        +{post.tags.length - 2}
+                      </span>
+                    )}
+                  </div>
+                  <span className="font-mono text-xs" style={{ color: t.textSecondary }}>{fmtDate(post.updatedAt)}</span>
+                  <div className="flex items-center justify-end gap-2">
+                    <ActionButtons post={post} />
                   </div>
                 </div>
-                <div className="min-w-0">
-                  <p className="font-inter font-semibold text-sm m-0 truncate" style={{ color: t.textPrimary }}>
-                    {post.title || "Untitled"}
-                  </p>
-                  <p className="font-mono text-[11px] m-0 truncate mt-0.5" style={{ color: t.textMuted }}>
-                    /{post.slug || "no-slug"}
-                  </p>
-                </div>
-              </div>
-              <div><StatusBadge status={post.status} /></div>
-              <div className="flex flex-wrap gap-1">
-                {(post.tags || []).slice(0, 2).map((tag) => (
-                  <span
-                    key={tag}
-                    className="font-mono text-[10px] px-1.5 py-0.5 rounded"
-                    style={{ background: "rgba(29,94,255,0.08)", color: "#1D5EFF" }}
-                  >
-                    {tag}
-                  </span>
-                ))}
-                {(post.tags || []).length > 2 && (
-                  <span className="font-mono text-[10px]" style={{ color: t.textMuted }}>
-                    +{post.tags.length - 2}
-                  </span>
-                )}
-              </div>
-              <span className="font-mono text-xs" style={{ color: t.textSecondary }}>{fmtDate(post.updatedAt)}</span>
-              <div className="flex items-center justify-end gap-2">
-                <button
-                  onClick={() => router.push(`/admin/blog/edit/${post._id}`)}
-                  className="w-8 h-8 flex items-center justify-center rounded-lg border-none transition-all duration-200"
-                  style={{ background: t.actionBtnBg, color: t.textSecondary, cursor: "pointer" }}
-                  onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(29,94,255,0.1)"; e.currentTarget.style.color = "#1D5EFF"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.background = t.actionBtnBg; e.currentTarget.style.color = t.textSecondary; }}
-                  title="Edit"
-                >
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                    <path d="M2 10l7.5-7.5 2 2L4 12H2v-2zM9.5 2.5l2 2" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </button>
-                <button
-                  onClick={() => setDeleteId(post._id)}
-                  className="w-8 h-8 flex items-center justify-center rounded-lg border-none transition-all duration-200"
-                  style={{ background: t.actionBtnBg, color: t.textSecondary, cursor: "pointer" }}
-                  onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(238,14,14,0.08)"; e.currentTarget.style.color = "#EE0E0E"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.background = t.actionBtnBg; e.currentTarget.style.color = t.textSecondary; }}
-                  title="Delete"
-                >
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                    <path d="M2 3.5h10M5 3.5V2h4v1.5M5.5 6v4.5M8.5 6v4.5M3 3.5l.7 8h6.6l.7-8" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </button>
-              </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </div>
+        </>
       )}
 
       {/* Pagination */}
       {!loading && !fetchError && totalPages > 1 && (
-        <div className="flex items-center justify-between mt-5">
+        <div className="flex items-center justify-between mt-5 flex-wrap gap-3">
           <span className="font-mono text-xs" style={{ color: t.textSecondary }}>
             {(safePage - 1) * PAGE_SIZE + 1}–{Math.min(safePage * PAGE_SIZE, filtered.length)} of {filtered.length} posts
           </span>
