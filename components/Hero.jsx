@@ -55,17 +55,13 @@ const Hero = ({ map }) => {
 
   return (
     <section
-      className="relative overflow-hidden pt-20 pb-0 max-md:pt-12"
+      className="relative pt-20 pb-0 max-md:pt-12"
       style={dark ? {
         backgroundColor: "#0a1020",
         backgroundImage: "radial-gradient(circle, rgba(29,94,255,0.07) 1px, transparent 1px)",
         backgroundSize: "24px 24px",
       } : undefined}
     >
-      {/* Blobs */}
-      <div className="absolute w-120 h-120 rounded-full blur-[60px] pointer-events-none z-0 bg-[linear-gradient(87deg,rgba(132,122,255,0.08)_0%,rgba(8,111,255,0.08)_100%)] -right-10 top-50" />
-      <div className="absolute w-120 h-120 rounded-full blur-[60px] pointer-events-none z-0 bg-[linear-gradient(87deg,rgba(132,122,255,0.08)_0%,rgba(8,111,255,0.08)_100%)] -left-25 -top-39" />
-
       {/* Content */}
       <div className="relative z-3 flex justify-center px-6">
         <motion.div
